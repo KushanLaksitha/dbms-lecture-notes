@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ER Diagram Scenarios</title>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        padding: 20px;
+        color: #333;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        padding: 40px;
+    }
+
+    header {
+        text-align: center;
+        margin-bottom: 40px;
+        border-bottom: 3px solid #667eea;
+        padding-bottom: 20px;
+    }
+
+    .page-title {
+        color: #667eea;
+        font-size: 2.5em;
+        margin-bottom: 10px;
+    }
+
+    .page-subtitle {
+        font-size: 1.2em;
+        color: #666;
+    }
+
+    .scenario {
+        margin-bottom: 50px;
+        padding: 30px;
+        background: linear-gradient(to right, #f8f9ff, #ffffff);
+        border-radius: 12px;
+        border-left: 5px solid #764ba2;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    }
+
+    .scenario-number {
+        display: inline-block;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 8px 20px;
+        border-radius: 20px;
+        font-weight: bold;
+        margin-bottom: 15px;
+        font-size: 0.9em;
+    }
+
+    .scenario-title {
+        color: #764ba2;
+        font-size: 1.8em;
+        margin-bottom: 15px;
+    }
+
+    .scenario-description {
+        line-height: 1.8;
+        margin-bottom: 20px;
+        color: #555;
+        font-size: 1.05em;
+    }
+
+    .requirements {
+        background: #fff9e6;
+        padding: 20px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        border-left: 4px solid #ffd700;
+    }
+
+    .requirements h4 {
+        color: #e68a00;
+        margin-bottom: 10px;
+        font-size: 1.1em;
+    }
+
+    .requirements ul {
+        margin-left: 20px;
+        color: #666;
+    }
+
+    .requirements li {
+        margin-bottom: 8px;
+    }
+
+    .er-diagram {
+        background: white;
+        padding: 30px;
+        border-radius: 10px;
+        border: 2px solid #e0e0e0;
+        overflow-x: auto;
+    }
+
+    .er-diagram h4 {
+        color: #667eea;
+        margin-bottom: 20px;
+        text-align: center;
+        font-size: 1.3em;
+    }
+
+    .diagram-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 300px;
+    }
+
+    .entity {
+        border: 2px solid #667eea;
+        background: #f0f4ff;
+        padding: 15px;
+        margin: 10px;
+        border-radius: 8px;
+        min-width: 150px;
+        text-align: center;
+    }
+
+    .entity-name {
+        font-weight: bold;
+        color: #667eea;
+        font-size: 1.1em;
+        margin-bottom: 10px;
+        padding-bottom: 8px;
+        border-bottom: 2px solid #667eea;
+    }
+
+    .attribute {
+        color: #555;
+        font-size: 0.9em;
+        padding: 4px;
+    }
+
+    .primary-key {
+        font-weight: bold;
+        color: #764ba2;
+    }
+
+    .relationship {
+        display: inline-block;
+        background: #ffe6f0;
+        color: #c41e3a;
+        padding: 8px 15px;
+        border-radius: 20px;
+        margin: 0 10px;
+        font-size: 0.9em;
+        border: 2px solid #ff69b4;
+    }
+
+    .cardinality {
+        font-size: 0.85em;
+        color: #666;
+        font-style: italic;
+        margin-top: 10px;
+    }
+
+    .back-link {
+        text-align: center;
+        margin-top: 40px;
+    }
+
+    .btn {
+        display: inline-block;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 15px 40px;
+        border-radius: 30px;
+        text-decoration: none;
+        font-size: 1.1em;
+        transition: all 0.3s ease;
+    }
+
+    .btn:hover {
+        transform: scale(1.05);
+        box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+    }
+
+    svg {
+        max-width: 100%;
+        height: auto;
+    }
+
+    .notes {
+        background: #e8f4f8;
+        padding: 15px;
+        border-radius: 8px;
+        margin-top: 20px;
+        border-left: 4px solid #4a90e2;
+    }
+
+    .notes h5 {
+        color: #4a90e2;
+        margin-bottom: 8px;
+    }
+
+    .notes p {
+        color: #555;
+        font-size: 0.95em;
+        line-height: 1.6;
+    }
+</style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1 class="page-title">📊 Database Scenarios & ER Diagrams</h1>
+            <p class="page-subtitle">Real-world examples with Entity-Relationship models</p>
+        </header>
+
+        <!-- Scenario 1: University System -->
+        <div class="scenario">
+            <span class="scenario-number">Scenario 01</span>
+            <h2 class="scenario-title">University Course Management System</h2>
+            <p class="scenario-description">
+                A university needs to manage students, courses, and enrollments. Students can enroll in multiple courses, 
+                and each course can have multiple students. Each course is taught by one instructor, but an instructor 
+                can teach multiple courses.
+            </p>
+            
+            <div class="requirements">
+                <h4>📋 Requirements:</h4>
+                <ul>
+                    <li>Track student information (ID, name, email, major)</li>
+                    <li>Manage course details (code, name, credits)</li>
+                    <li>Record enrollments with grades</li>
+                    <li>Store instructor information (ID, name, department)</li>
+                </ul>
+            </div>
+
+            <div class="er-diagram">
+                <h4>ER Diagram</h4>
+                <svg viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Student Entity -->
+                    <rect x="50" y="150" width="150" height="120" fill="#f0f4ff" stroke="#667eea" stroke-width="2" rx="8"/>
+                    <text x="125" y="175" text-anchor="middle" font-weight="bold" fill="#667eea" font-size="16">STUDENT</text>
+                    <line x1="50" y1="185" x2="200" y2="185" stroke="#667eea" stroke-width="2"/>
+                    <text x="125" y="205" text-anchor="middle" font-size="13" fill="#764ba2" font-weight="bold">StudentID (PK)</text>
+                    <text x="125" y="225" text-anchor="middle" font-size="13" fill="#555">Name</text>
+                    <text x="125" y="245" text-anchor="middle" font-size="13" fill="#555">Email</text>
+                    <text x="125" y="265" text-anchor="middle" font-size="13" fill="#555">Major</text>
+
+                    <!-- Course Entity -->
+                    <rect x="325" y="150" width="150" height="120" fill="#f0f4ff" stroke="#667eea" stroke-width="2" rx="8"/>
+                    <text x="400" y="175" text-anchor="middle" font-weight="bold" fill="#667eea" font-size="16">COURSE</text>
+                    <line x1="325" y1="185" x2="475" y2="185" stroke="#667eea" stroke-width="2"/>
+                    <text x="400" y="205" text-anchor="middle" font-size="13" fill="#764ba2" font-weight="bold">CourseID (PK)</text>
+                    <text x="400" y="225" text-anchor="middle" font-size="13" fill="#555">CourseName</text>
+                    <text x="400" y="245" text-anchor="middle" font-size="13" fill="#555">Credits</text>
+                    <text x="400" y="265" text-anchor="middle" font-size="13" fill="#555">InstructorID (FK)</text>
+
+                    <!-- Instructor Entity -->
+                    <rect x="600" y="150" width="150" height="120" fill="#f0f4ff" stroke="#667eea" stroke-width="2" rx="8"/>
+                    <text x="675" y="175" text-anchor="middle" font-weight="bold" fill="#667eea" font-size="16">INSTRUCTOR</text>
+                    <line x1="600" y1="185" x2="750" y2="185" stroke="#667eea" stroke-width="2"/>
+                    <text x="675" y="205" text-anchor="middle" font-size="13" fill="#764ba2" font-weight="bold">InstructorID (PK)</text>
+                    <text x="675" y="225" text-anchor="middle" font-size="13" fill="#555">Name</text>
+                    <text x="675" y="245" text-anchor="middle" font-size="13" fill="#555">Department</text>
+
+                    <!-- Enrollment Relationship -->
+                    <polygon points="260,210 280,200 280,220" fill="#ffe6f0" stroke="#ff69b4" stroke-width="2"/>
+                    <line x1="200" y1="210" x2="325" y2="210" stroke="#ff69b4" stroke-width="2"/>
+                    <text x="262" y="190" text-anchor="middle" font-size="12" fill="#c41e3a" font-weight="bold">Enrolls</text>
+                    <text x="220" y="235" font-size="11" fill="#666">M</text>
+                    <text x="305" y="235" font-size="11" fill="#666">N</text>
+
+                    <!-- Teaches Relationship -->
+                    <polygon points="540,210 560,200 560,220" fill="#ffe6f0" stroke="#ff69b4" stroke-width="2"/>
+                    <line x1="475" y1="210" x2="600" y2="210" stroke="#ff69b4" stroke-width="2"/>
+                    <text x="537" y="190" text-anchor="middle" font-size="12" fill="#c41e3a" font-weight="bold">Teaches</text>
+                    <text x="495" y="235" font-size="11" fill="#666">N</text>
+                    <text x="580" y="235" font-size="11" fill="#666">1</text>
+
+                    <!-- Enrollment Bridge Table Note -->
+                    <rect x="225" y="300" width="150" height="80" fill="#fff9e6" stroke="#ffd700" stroke-width="2" rx="8" stroke-dasharray="5,5"/>
+                    <text x="300" y="320" text-anchor="middle" font-size="13" fill="#e68a00" font-weight="bold">ENROLLMENT</text>
+                    <text x="300" y="340" text-anchor="middle" font-size="11" fill="#666">StudentID (FK)</text>
+                    <text x="300" y="355" text-anchor="middle" font-size="11" fill="#666">CourseID (FK)</text>
+                    <text x="300" y="370" text-anchor="middle" font-size="11" fill="#666">Grade</text>
+                </svg>
+            </div>
+
+            <div class="notes">
+                <h5>📝 Key Points:</h5>
+                <p>This is a Many-to-Many (M:N) relationship between Students and Courses, requiring a bridge table (ENROLLMENT). 
+                The relationship between Course and Instructor is One-to-Many (1:N).</p>
+            </div>
+        </div>
+
+        <!-- Scenario 2: Library System -->
+        <div class="scenario">
+            <span class="scenario-number">Scenario 02</span>
+            <h2 class="scenario-title">Library Management System</h2>
+            <p class="scenario-description">
+                A library manages books, members, and book loans. Members can borrow multiple books at different times. 
+                Each book can be borrowed by different members over time, but only one member can have a specific book 
+                copy at any given time. The system tracks when books are borrowed and returned.
+            </p>
+            
+            <div class="requirements">
+                <h4>📋 Requirements:</h4>
+                <ul>
+                    <li>Store book information (ISBN, title, author, available copies)</li>
+                    <li>Manage member details (ID, name, contact, membership date)</li>
+                    <li>Track loan records (loan date, return date, status)</li>
+                    <li>Monitor overdue books</li>
+                </ul>
+            </div>
+
+            <div class="er-diagram">
+                <h4>ER Diagram</h4>
+                <svg viewBox="0 0 700 400" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Member Entity -->
+                    <rect x="50" y="150" width="150" height="140" fill="#f0f4ff" stroke="#667eea" stroke-width="2" rx="8"/>
+                    <text x="125" y="175" text-anchor="middle" font-weight="bold" fill="#667eea" font-size="16">MEMBER</text>
+                    <line x1="50" y1="185" x2="200" y2="185" stroke="#667eea" stroke-width="2"/>
+                    <text x="125" y="205" text-anchor="middle" font-size="13" fill="#764ba2" font-weight="bold">MemberID (PK)</text>
+                    <text x="125" y="225" text-anchor="middle" font-size="13" fill="#555">Name</text>
+                    <text x="125" y="245" text-anchor="middle" font-size="13" fill="#555">Contact</text>
+                    <text x="125" y="265" text-anchor="middle" font-size="13" fill="#555">Email</text>
+                    <text x="125" y="285" text-anchor="middle" font-size="13" fill="#555">MembershipDate</text>
+
+                    <!-- Book Entity -->
+                    <rect x="500" y="150" width="150" height="140" fill="#f0f4ff" stroke="#667eea" stroke-width="2" rx="8"/>
+                    <text x="575" y="175" text-anchor="middle" font-weight="bold" fill="#667eea" font-size="16">BOOK</text>
+                    <line x1="500" y1="185" x2="650" y2="185" stroke="#667eea" stroke-width="2"/>
+                    <text x="575" y="205" text-anchor="middle" font-size="13" fill="#764ba2" font-weight="bold">ISBN (PK)</text>
+                    <text x="575" y="225" text-anchor="middle" font-size="13" fill="#555">Title</text>
+                    <text x="575" y="245" text-anchor="middle" font-size="13" fill="#555">Author</text>
+                    <text x="575" y="265" text-anchor="middle" font-size="13" fill="#555">Publisher</text>
+                    <text x="575" y="285" text-anchor="middle" font-size="13" fill="#555">AvailableCopies</text>
+
+                    <!-- Borrows Relationship -->
+                    <line x1="200" y1="220" x2="500" y2="220" stroke="#ff69b4" stroke-width="2"/>
+                    <polygon points="460,220 480,210 480,230" fill="#ffe6f0" stroke="#ff69b4" stroke-width="2"/>
+                    <text x="350" y="210" text-anchor="middle" font-size="12" fill="#c41e3a" font-weight="bold">Borrows</text>
+                    <text x="220" y="245" font-size="11" fill="#666">M</text>
+                    <text x="480" y="245" font-size="11" fill="#666">N</text>
+
+                    <!-- Loan Bridge Table -->
+                    <rect x="275" y="300" width="150" height="90" fill="#fff9e6" stroke="#ffd700" stroke-width="2" rx="8" stroke-dasharray="5,5"/>
+                    <text x="350" y="320" text-anchor="middle" font-size="13" fill="#e68a00" font-weight="bold">LOAN</text>
+                    <text x="350" y="340" text-anchor="middle" font-size="11" fill="#666">LoanID (PK)</text>
+                    <text x="350" y="355" text-anchor="middle" font-size="11" fill="#666">MemberID (FK)</text>
+                    <text x="350" y="370" text-anchor="middle" font-size="11" fill="#666">ISBN (FK)</text>
+                    <text x="350" y="385" text-anchor="middle" font-size="11" fill="#666">LoanDate, ReturnDate</text>
+
+                    <!-- Connection lines to bridge table -->
+                    <line x1="125" y1="290" x2="300" y2="300" stroke="#ffd700" stroke-width="1" stroke-dasharray="3,3"/>
+                    <line x1="575" y1="290" x2="400" y2="300" stroke="#ffd700" stroke-width="1" stroke-dasharray="3,3"/>
+                </svg>
+            </div>
+
+            <div class="notes">
+                <h5>📝 Key Points:</h5>
+                <p>The LOAN table acts as a bridge entity with additional attributes (LoanDate, ReturnDate). This M:N relationship 
+                allows tracking of book borrowing history and current loan status.</p>
+            </div>
+        </div>
+
+        <!-- Scenario 3: E-Commerce System -->
+        <div class="scenario">
+            <span class="scenario-number">Scenario 03</span>
+            <h2 class="scenario-title">E-Commerce Order System</h2>
+            <p class="scenario-description">
+                An online store needs to manage customers, products, and orders. Customers can place multiple orders, 
+                and each order can contain multiple products. Each product has a price and quantity in stock. The system 
+                must track order details including quantity ordered and item price at the time of purchase.
+            </p>
+            
+            <div class="requirements">
+                <h4>📋 Requirements:</h4>
+                <ul>
+                    <li>Store customer information (ID, name, email, address)</li>
+                    <li>Manage product catalog (ID, name, price, stock quantity)</li>
+                    <li>Record orders with date and status</li>
+                    <li>Track which products are in which orders with quantities and prices</li>
+                </ul>
+            </div>
+
+            <div class="er-diagram">
+                <h4>ER Diagram</h4>
+                <svg viewBox="0 0 800 450" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Customer Entity -->
+                    <rect x="50" y="50" width="150" height="140" fill="#f0f4ff" stroke="#667eea" stroke-width="2" rx="8"/>
+                    <text x="125" y="75" text-anchor="middle" font-weight="bold" fill="#667eea" font-size="16">CUSTOMER</text>
+                    <line x1="50" y1="85" x2="200" y2="85" stroke="#667eea" stroke-width="2"/>
+                    <text x="125" y="105" text-anchor="middle" font-size="13" fill="#764ba2" font-weight="bold">CustomerID (PK)</text>
+                    <text x="125" y="125" text-anchor="middle" font-size="13" fill="#555">Name</text>
+                    <text x="125" y="145" text-anchor="middle" font-size="13" fill="#555">Email</text>
+                    <text x="125" y="165" text-anchor="middle" font-size="13" fill="#555">Address</text>
+                    <text x="125" y="185" text-anchor="middle" font-size="13" fill="#555">Phone</text>
+
+                    <!-- Order Entity -->
+                    <rect x="325" y="50" width="150" height="120" fill="#f0f4ff" stroke="#667eea" stroke-width="2" rx="8"/>
+                    <text x="400" y="75" text-anchor="middle" font-weight="bold" fill="#667eea" font-size="16">ORDER</text>
+                    <line x1="325" y1="85" x2="475" y2="85" stroke="#667eea" stroke-width="2"/>
+                    <text x="400" y="105" text-anchor="middle" font-size="13" fill="#764ba2" font-weight="bold">OrderID (PK)</text>
+                    <text x="400" y="125" text-anchor="middle" font-size="13" fill="#555">OrderDate</text>
+                    <text x="400" y="145" text-anchor="middle" font-size="13" fill="#555">Status</text>
+                    <text x="400" y="165" text-anchor="middle" font-size="13" fill="#555">CustomerID (FK)</text>
+
+                    <!-- Product Entity -->
+                    <rect x="600" y="50" width="150" height="140" fill="#f0f4ff" stroke="#667eea" stroke-width="2" rx="8"/>
+                    <text x="675" y="75" text-anchor="middle" font-weight="bold" fill="#667eea" font-size="16">PRODUCT</text>
+                    <line x1="600" y1="85" x2="750" y2="85" stroke="#667eea" stroke-width="2"/>
+                    <text x="675" y="105" text-anchor="middle" font-size="13" fill="#764ba2" font-weight="bold">ProductID (PK)</text>
+                    <text x="675" y="125" text-anchor="middle" font-size="13" fill="#555">ProductName</text>
+                    <text x="675" y="145" text-anchor="middle" font-size="13" fill="#555">Description</text>
+                    <text x="675" y="165" text-anchor="middle" font-size="13" fill="#555">Price</text>
+                    <text x="675" y="185" text-anchor="middle" font-size="13" fill="#555">StockQuantity</text>
+
+                    <!-- Places Relationship -->
+                    <line x1="200" y1="120" x2="325" y2="120" stroke="#ff69b4" stroke-width="2"/>
+                    <polygon points="285,120 305,110 305,130" fill="#ffe6f0" stroke="#ff69b4" stroke-width="2"/>
+                    <text x="262" y="110" text-anchor="middle" font-size="12" fill="#c41e3a" font-weight="bold">Places</text>
+                    <text x="220" y="145" font-size="11" fill="#666">1</text>
+                    <text x="305" y="145" font-size="11" fill="#666">N</text>
+
+                    <!-- Contains Relationship -->
+                    <line x1="475" y1="120" x2="600" y2="120" stroke="#ff69b4" stroke-width="2"/>
+                    <polygon points="560,120 580,110 580,130" fill="#ffe6f0" stroke="#ff69b4" stroke-width="2"/>
+                    <text x="537" y="110" text-anchor="middle" font-size="12" fill="#c41e3a" font-weight="bold">Contains</text>
+                    <text x="495" y="145" font-size="11" fill="#666">N</text>
+                    <text x="580" y="145" font-size="11" fill="#666">M</text>
+
+                    <!-- OrderItem Bridge Table -->
+                    <rect x="450" y="280" width="180" height="110" fill="#fff9e6" stroke="#ffd700" stroke-width="2" rx="8" stroke-dasharray="5,5"/>
+                    <text x="540" y="305" text-anchor="middle" font-size="13" fill="#e68a00" font-weight="bold">ORDER_ITEM</text>
+                    <text x="540" y="325" text-anchor="middle" font-size="11" fill="#666">OrderID (FK)</text>
+                    <text x="540" y="340" text-anchor="middle" font-size="11" fill="#666">ProductID (FK)</text>
+                    <text x="540" y="355" text-anchor="middle" font-size="11" fill="#666">Quantity</text>
+                    <text x="540" y="370" text-anchor="middle" font-size="11" fill="#666">UnitPrice</text>
+                    <text x="540" y="385" text-anchor="middle" font-size="11" fill="#666">Subtotal</text>
+
+                    <!-- Connection lines to bridge table -->
+                    <line x1="400" y1="170" x2="490" y2="280" stroke="#ffd700" stroke-width="1" stroke-dasharray="3,3"/>
+                    <line x1="675" y1="190" x2="590" y2="280" stroke="#ffd700" stroke-width="1" stroke-dasharray="3,3"/>
+                </svg>
+            </div>
+
+            <div class="notes">
+                <h5>📝 Key Points:</h5>
+                <p>Customer-Order is a 1:N relationship (one customer can have many orders). Order-Product is M:N, requiring 
+                the ORDER_ITEM bridge table. The UnitPrice in ORDER_ITEM preserves the price at purchase time, even if the 
+                product price changes later.</p>
+            </div>
+        </div>
+
+        <!-- Scenario 4: Hospital Management -->
+        <div class="scenario">
+            <span class="scenario-number">Scenario 04</span>
+            <h2 class="scenario-title">Hospital Patient Management System</h2>
+            <p class="scenario-description">
+                A hospital needs to track patients, doctors, and appointments. Patients can have multiple appointments 
+                with different doctors, and doctors can see multiple patients. Each appointment includes a date, time, 
+                and reason for visit. Doctors belong to specific departments.
+            </p>
+            
+            <div class="requirements">
+                <h4>📋 Requirements:</h4>
+                <ul>
+                    <li>Store patient records (ID, name, DOB, contact, medical history)</li>
+                    <li>Manage doctor information (ID, name, specialization, department)</li>
+                    <li>Track appointments (date, time, reason, diagnosis)</li>
+                    <li>Record department details</li>
+                </ul>
+            </div>
+
+            <div class="er-diagram">
+                <h4>ER Diagram</h4>
+                <svg viewBox="0 0 900 400" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Patient Entity -->
+                    <rect x="50" y="130" width="160" height="140" fill="#f0f4ff" stroke="#667eea" stroke-width="2" rx="8"/>
+                    <text x="130" y="155" text-anchor="middle" font-weight="bold" fill="#667eea" font-size="16">PATIENT</text>
+                    <line x1="50" y1="165" x2="210" y2="165" stroke="#667eea" stroke-width="2"/>
+                    <text x="130" y="185" text-anchor="middle" font-size="13" fill="#764ba2" font-weight="bold">PatientID (PK)</text>
+                    <text x="130" y="205" text-anchor="middle" font-size="13" fill="#555">Name</text>
+                    <text x="130" y="225" text-anchor="middle" font-size="13" fill="#555">DateOfBirth</text>
+                    <text x="130" y="245" text-anchor="middle" font-size="13" fill="#555">Contact</text>
+                    <text x="130" y="265" text-anchor="middle" font-size="13" fill="#555">BloodType</text>
+
+                    <!-- Doctor Entity -->
+                    <rect x="450" y="130" width="160" height="140" fill="#f0f4ff" stroke="#667eea" stroke-width="2" rx="8"/>
+                    <text x="530" y="155" text-anchor="middle" font-weight="bold" fill="#667eea" font-size="16">DOCTOR</text>
+                    <line x1="450" y1="165" x2="610" y2="165" stroke="#667eea" stroke-width="2"/>
+                    <text x="530" y="185" text-anchor="middle" font-size="13" fill="#764ba2" font-weight="bold">DoctorID (PK)</text>
+                    <text x="530" y="205" text-anchor="middle" font-size="13" fill="#555">Name</text>
+                    <text x="530" y="225" text-anchor="middle" font-size="13" fill="#555">Specialization</text>
+                    <text x="530" y="245" text-anchor="middle" font-size="13" fill="#555">Phone</text>
+                    <text x="530" y="265" text-anchor="middle" font-size="13" fill="#555">DepartmentID (FK)</text>
+
+                    <!-- Department Entity -->
+                    <rect x="720" y="130" width="160" height="100" fill="#f0f4ff" stroke="#667eea" stroke-width="2" rx="8"/>
+                    <text x="800" y="155" text-anchor="middle" font-weight="bold" fill="#667eea" font-size="16">DEPARTMENT</text>
+                    <line x1="720" y1="165" x2="880" y2="165" stroke="#667eea" stroke-width="2"/>
+                    <text x="800" y="185" text-anchor="middle" font-size="13" fill="#764ba2" font-weight="bold">DepartmentID (PK)</text>
+                    <text x="800" y="205" text-anchor="middle" font-size="13" fill="#555">DeptName</text>
+                    <text x="800" y="225" text-anchor="middle" font-size="13" fill="#555">Location</text>
+
+                    <!-- Has Appointment Relationship -->
+                    <line x1="210" y1="200" x2="450" y2="200" stroke="#ff69b4" stroke-width="2"/>
+                    <polygon points="410,200 430,190 430,210" fill="#ffe6f0" stroke="#ff69b4" stroke-width="2"/>
+                    <text x="330" y="190" text-anchor="middle" font-size="12" fill="#c41e3a" font-weight="bold">Has</text>
+                    <text x="230" y="225" font-size="11" fill="#666">M</text>
+                    <text x="430" y="225" font-size="11" fill="#666">N</text>
+
+                    <!-- Belongs To Relationship -->
+                    <line x1="610" y1="200" x2="720" y2="200" stroke="#ff69b4" stroke-width="2"/>
+                    <polygon points="680,200 700,190 700,210" fill="#ffe6f0" stroke="#ff69b4" stroke-width="2"/>
+                    <text x="665" y="190" text-anchor="middle" font-size="12" fill="#c41e3a" font-weight="bold">Belongs To</text>
+                    <text x="630" y="225" font-size="11" fill="#666">N</text>
+                    <text x="700" y="225" font-size="11" fill="#666">1</text>
+
+                    <!-- Appointment Bridge Table -->
+                    <rect x="250" y="320" width="180" height="110" fill="#fff9e6" stroke="#ffd700" stroke-width="2" rx="8" stroke-dasharray="5,5"/>
+                    <text x="340" y="345" text-anchor="middle" font-size="13" fill="#e68a00" font-weight="bold">APPOINTMENT</text>
+                    <text x="340" y="365" text-anchor="middle" font-size="11" fill="#666">AppointmentID (PK)</text>
+                    <text x="340" y="380" text-anchor="middle" font-size="11" fill="#666">PatientID (FK)</text>
+                    <text x="340" y="395" text-anchor="middle" font-size="11" fill="#666">DoctorID (FK)</text>
+                    <text x="340" y="410" text-anchor="middle" font-size="11" fill="#666">DateTime, Diagnosis</text>
+
+                    <!-- Connection lines to bridge table -->
+                    <line x1="130" y1="270" x2="290" y2="320" stroke="#ffd700" stroke-width="1" stroke-dasharray="3,3"/>
+                    <line x1="530" y1="270" x2="390" y2="320" stroke="#ffd700" stroke-width="1" stroke-dasharray="3,3"/>
+                </svg>
+            </div>
+
+            <div class="notes">
+                <h5>📝 Key Points:</h5>
+                <p>Patient-Doctor has an M:N relationship through APPOINTMENT. Doctor-Department is N:1 (many doctors belong 
+                to one department). The APPOINTMENT entity stores additional information about each visit.</p>
+            </div>
+        </div>
+
+        <!-- Scenario 5: Social Media Platform -->
+        <div class="scenario">
+            <span class="scenario-number">Scenario 05</span>
+            <h2 class="scenario-title">Social Media Platform</h2>
+            <p class="scenario-description">
+                A social media platform allows users to create posts, comment on posts, and follow other users. Users can 
+                create multiple posts, and each post can have multiple comments. Users can follow many other users and be 
+                followed by many users (a many-to-many self-referencing relationship).
+            </p>
+            
+            <div class="requirements">
+                <h4>📋 Requirements:</h4>
+                <ul>
+                    <li>Store user profiles (ID, username, email, bio, join date)</li>
+                    <li>Manage posts (ID, content, timestamp, likes count)</li>
+                    <li>Track comments on posts</li>
+                    <li>Record follower-following relationships</li>
+                </ul>
+            </div>
+
+            <div class="er-diagram">
+                <h4>ER Diagram</h4>
+                <svg viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
+                    <!-- User Entity -->
+                    <rect x="50" y="180" width="160" height="140" fill="#f0f4ff" stroke="#667eea" stroke-width="2" rx="8"/>
+                    <text x="130" y="205" text-anchor="middle" font-weight="bold" fill="#667eea" font-size="16">USER</text>
+                    <line x1="50" y1="215" x2="210" y2="215" stroke="#667eea" stroke-width="2"/>
+                    <text x="130" y="235" text-anchor="middle" font-size="13" fill="#764ba2" font-weight="bold">UserID (PK)</text>
+                    <text x="130" y="255" text-anchor="middle" font-size="13" fill="#555">Username</text>
+                    <text x="130" y="275" text-anchor="middle" font-size="13" fill="#555">Email</text>
+                    <text x="130" y="295" text-anchor="middle" font-size="13" fill="#555">Bio</text>
+                    <text x="130" y="315" text-anchor="middle" font-size="13" fill="#555">JoinDate</text>
+
+                    <!-- Post Entity -->
+                    <rect x="320" y="30" width="160" height="120" fill="#f0f4ff" stroke="#667eea" stroke-width="2" rx="8"/>
+                    <text x="400" y="55" text-anchor="middle" font-weight="bold" fill="#667eea" font-size="16">POST</text>
+                    <line x1="320" y1="65" x2="480" y2="65" stroke="#667eea" stroke-width="2"/>
+                    <text x="400" y="85" text-anchor="middle" font-size="13" fill="#764ba2" font-weight="bold">PostID (PK)</text>
+                    <text x="400" y="105" text-anchor="middle" font-size="13" fill="#555">Content</text>
+                    <text x="400" y="125" text-anchor="middle" font-size="13" fill="#555">Timestamp</text>
+                    <text x="400" y="145" text-anchor="middle" font-size="13" fill="#555">UserID (FK)</text>
+
+                    <!-- Comment Entity -->
+                    <rect x="590" y="30" width="160" height="120" fill="#f0f4ff" stroke="#667eea" stroke-width="2" rx="8"/>
+                    <text x="670" y="55" text-anchor="middle" font-weight="bold" fill="#667eea" font-size="16">COMMENT</text>
+                    <line x1="590" y1="65" x2="750" y2="65" stroke="#667eea" stroke-width="2"/>
+                    <text x="670" y="85" text-anchor="middle" font-size="13" fill="#764ba2" font-weight="bold">CommentID (PK)</text>
+                    <text x="670" y="105" text-anchor="middle" font-size="13" fill="#555">Content</text>
+                    <text x="670" y="125" text-anchor="middle" font-size="13" fill="#555">Timestamp</text>
+                    <text x="670" y="145" text-anchor="middle" font-size="13" fill="#555">PostID (FK), UserID (FK)</text>
+
+                    <!-- Creates Relationship (User to Post) -->
+                    <line x1="160" y1="220" x2="320" y2="90" stroke="#ff69b4" stroke-width="2"/>
+                    <polygon points="300,95 320,90 315,110" fill="#ffe6f0" stroke="#ff69b4" stroke-width="2"/>
+                    <text x="220" y="140" text-anchor="middle" font-size="12" fill="#c41e3a" font-weight="bold">Creates</text>
+                    <text x="180" y="210" font-size="11" fill="#666">1</text>
+                    <text x="300" y="100" font-size="11" fill="#666">N</text>
+
+                    <!-- Has Comments Relationship -->
+                    <line x1="480" y1="90" x2="590" y2="90" stroke="#ff69b4" stroke-width="2"/>
+                    <polygon points="550,90 570,80 570,100" fill="#ffe6f0" stroke="#ff69b4" stroke-width="2"/>
+                    <text x="535" y="80" text-anchor="middle" font-size="12" fill="#c41e3a" font-weight="bold">Has</text>
+                    <text x="500" y="115" font-size="11" fill="#666">1</text>
+                    <text x="570" y="115" font-size="11" fill="#666">N</text>
+
+                    <!-- Writes Comment Relationship -->
+                    <path d="M 210 280 Q 450 200 590 90" stroke="#ff69b4" stroke-width="2" fill="none"/>
+                    <text x="380" y="220" text-anchor="middle" font-size="12" fill="#c41e3a" font-weight="bold">Writes</text>
+
+                    <!-- Follows Relationship (Self-referencing) -->
+                    <path d="M 130 180 Q 130 100 50 180" stroke="#ff69b4" stroke-width="2" fill="none"/>
+                    <polygon points="50,175 45,190 60,185" fill="#ffe6f0" stroke="#ff69b4" stroke-width="2"/>
+                    <text x="90" y="120" text-anchor="middle" font-size="12" fill="#c41e3a" font-weight="bold">Follows</text>
+                    <text x="40" y="140" font-size="11" fill="#666">M:N</text>
+
+                    <!-- Follows Bridge Table -->
+                    <rect x="50" y="370" width="160" height="90" fill="#fff9e6" stroke="#ffd700" stroke-width="2" rx="8" stroke-dasharray="5,5"/>
+                    <text x="130" y="395" text-anchor="middle" font-size="13" fill="#e68a00" font-weight="bold">FOLLOWS</text>
+                    <text x="130" y="415" text-anchor="middle" font-size="11" fill="#666">FollowerID (FK)</text>
+                    <text x="130" y="430" text-anchor="middle" font-size="11" fill="#666">FollowingID (FK)</text>
+                    <text x="130" y="445" text-anchor="middle" font-size="11" fill="#666">FollowDate</text>
+
+                    <!-- Connection line to Follows table -->
+                    <line x1="130" y1="320" x2="130" y2="370" stroke="#ffd700" stroke-width="1" stroke-dasharray="3,3"/>
+                </svg>
+            </div>
+
+            <div class="notes">
+                <h5>📝 Key Points:</h5>
+                <p>This design includes a self-referencing M:N relationship (FOLLOWS) where users follow other users. 
+                User-Post is 1:N, Post-Comment is 1:N, and User-Comment is also 1:N (users write comments).</p>
+            </div>
+        </div>
+
+        <div class="back-link">
+            <a href="../index.html" class="btn">← Back to Home</a>
+        </div>
+    </div>
+</body>
+</html>

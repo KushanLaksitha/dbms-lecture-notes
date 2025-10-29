@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="si">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DBMS Resources</title>
+<title>DBMS සම්පත්</title>
 <style>
     * {
     margin: 0;
@@ -11,7 +11,7 @@
     box-sizing: border-box;
     }
     body {
-        font-family: 'Noto Sans', sans-serif;
+        font-family: 'Noto Sans Sinhala', 'Noto Sans', sans-serif;
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         min-height: 100vh;
         padding: 20px;
@@ -87,8 +87,8 @@
         padding: 15px;
         border-radius: 5px;
         font-family: 'Courier New', Courier, monospace;
-        white-space: pre-wrap; /* Allows wrapping of long lines */
-        word-wrap: break-word; /* Breaks long words */
+        white-space: pre-wrap;
+        word-wrap: break-word;
         margin-top: 10px;
     }
     
@@ -139,15 +139,15 @@
 <body>
     <div class="container">
         <header>
-            <h1 class="page-title">🔧 Additional Resources</h1>
-            <p class="page-subtitle">SQL Examples, Practice Exercises, and Software Links</p>
+            <h1 class="page-title">🔧 අතිරේක සම්පත්</h1>
+            <p class="page-subtitle">SQL උදාහරණ, පුහුණු ව්‍යායාම සහ මෘදුකාංග සබැඳි</p>
         </header>
         <div class="resource-section">
-        <h2 class="section-title">SQL Examples</h2>
+        <h2 class="section-title">SQL උදාහරණ</h2>
         <div class="section-content">
             <ul>
                 <li>
-                    <strong>CREATE TABLE:</strong> Defines a new table.
+                    <strong>CREATE TABLE:</strong> නව වගුවක් අර්ථ දක්වයි.
                     <div class="code-block">
                         CREATE TABLE Students (
                         StudentID INT PRIMARY KEY,
@@ -158,20 +158,20 @@
                     </div>
                 </li>
                 <li>
-                    <strong>INSERT INTO:</strong> Adds a new row of data into a table.
+                    <strong>INSERT INTO:</strong> වගුවකට නව දත්ත පේළියක් එක් කරයි.
                     <div class="code-block">
                         INSERT INTO Students (StudentID, FirstName, LastName, DateOfBirth)
                         VALUES (101, 'John', 'Smith', '2002-08-15');
                     </div>
                 </li>
                 <li>
-                    <strong>SELECT:</strong> Retrieves data from one or more tables.
+                    <strong>SELECT:</strong> වගු එකක් හෝ කිහිපයකින් දත්ත ලබා ගනී.
                     <div class="code-block">
                         SELECT FirstName, LastName FROM Students WHERE StudentID = 101;
                     </div>
                 </li>
                 <li>
-                    <strong>UPDATE:</strong> Modifies existing records in a table.
+                    <strong>UPDATE:</strong> වගුවක පවතින වාර්තා වෙනස් කරයි.
                     <div class="code-block">
                         UPDATE Students
                         SET LastName = 'Jones'
@@ -179,13 +179,13 @@
                     </div>
                 </li>
                 <li>
-                    <strong>DELETE:</strong> Removes records from a table.
+                    <strong>DELETE:</strong> වගුවකින් වාර්තා ඉවත් කරයි.
                     <div class="code-block">
                         DELETE FROM Students WHERE StudentID = 101;
                     </div>
                 </li>
                 <li>
-                    <strong>JOIN:</strong> Combines rows from two or more tables based on a related column.
+                    <strong>JOIN:</strong> සම්බන්ධිත තීරුවක් මත පදනම්ව වගු දෙකක් හෝ වැඩි ගණනකින් පේළි ඒකාබද්ධ කරයි.
                     <div class="code-block">
                         SELECT Students.FirstName, Courses.CourseName
                         FROM Students
@@ -197,29 +197,29 @@
         </div>
     </div>
     <div class="resource-section">
-        <h2 class="section-title">Practice Exercises</h2>
+        <h2 class="section-title">පුහුණු ව්‍යායාම</h2>
         <div class="section-content">
             <ul>
                 <li>
-                    <strong>Scenario 1: Simple Blog Database</strong>
-                    <p>Design a database for a simple blog. It should have tables for `Posts` and `Comments`. What columns would you include in each table? How would you link a comment to a specific post? Think about the relationship type and cardinality.</p>
+                    <strong>සිද්ධිය 1: සරල බ්ලොග් දත්ත ගබඩාවක්</strong>
+                    <p>සරල බ්ලොග් එකක් සඳහා දත්ත ගබඩාවක් සැලසුම් කරන්න. එහි `Posts` සහ `Comments` සඳහා වගු තිබිය යුතුය. ඔබ එක් එක් වගුවේ කුමන තීරු ඇතුළත් කරනවාද? ඔබ විශේෂිත පළ කිරීමකට අදහසක් සම්බන්ධ කරන්නේ කෙසේද? සම්බන්ධතා වර්ගය සහ කාර්ඩිනලිටිය ගැන සිතන්න.</p>
                 </li>
                 <li>
-                    <strong>Scenario 2: Library Management System</strong>
-                    <p>Create an ER diagram for a library. The database should track `Books`, `Members`, and `Loans` (which book is borrowed by which member). Consider the attributes for each entity and the relationships between them. What happens when a member can borrow multiple books?</p>
+                    <strong>සිද්ධිය 2: පුස්තකාල කළමනාකරණ පද්ධතිය</strong>
+                    <p>පුස්තකාලයක් සඳහා ER රූප සටහනක් සාදන්න. දත්ත ගබඩාව `Books`, `Members`, සහ `Loans` (කුමන සාමාජිකයෙකු විසින් කුමන පොතක් ණයට ගෙන ඇත්ද) නිරීක්ෂණය කළ යුතුය. එක් එක් ආයතනය සඳහා ගුණාංග සහ ඒවා අතර සම්බන්ධතා සලකා බලන්න. සාමාජිකයෙකුට පොත් කිහිපයක් ණයට ගත හැකි විට කුමක් සිදු වේද?</p>
                 </li>
                 <li>
-                    <strong>Scenario 3: Query Challenge</strong>
-                    <p>Given a table `Products` with columns `ProductID`, `ProductName`, `Category`, and `Price`, write a SQL query to find the average price of products in the 'Electronics' category.</p>
+                    <strong>සිද්ධිය 3: විමසුම් අභියෝගය</strong>
+                    <p>`ProductID`, `ProductName`, `Category`, සහ `Price` තීරු සහිත `Products` වගුවක් ලබා දී ඇති විට, 'Electronics' කාණ්ඩයේ නිෂ්පාදනවල සාමාන්‍ය මිල සොයා ගැනීමට SQL විමසුමක් ලියන්න.</p>
                 </li>
             </ul>
         </div>
     </div>
     
     <div class="resource-section">
-        <h2 class="section-title">DBMS Software Links</h2>
+        <h2 class="section-title">DBMS මෘදුකාංග සබැඳි</h2>
         <div class="section-content">
-            <p>Here are links to some popular and free-to-use database management systems that you can install on your computer to practice:</p>
+            <p>පුහුණු වීමට ඔබගේ පරිගණකයට ස්ථාපනය කළ හැකි ජනප්‍රිය සහ නොමිලේ භාවිතා කළ හැකි දත්ත ගබඩා කළමනාකරණ පද්ධති කිහිපයක සබැඳි මෙන්න:</p>
             <div class="link-list">
                 <a href="https://www.mysql.com/downloads/" target="_blank">MySQL Community Server</a>
                 <a href="https://www.postgresql.org/download/" target="_blank">PostgreSQL</a>
@@ -230,7 +230,7 @@
     </div>
 
     <div class="back-link">
-        <a href="index.html" class="btn">← Back to Home</a>
+        <a href="../index.html" class="btn">← මුල් පිටුවට ආපසු</a>
     </div>
 </div>
 </body>

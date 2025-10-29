@@ -1,0 +1,1174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DBMS Practical Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 15px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px 20px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            font-size: 14px;
+            opacity: 0.95;
+        }
+
+        .tabs {
+            display: flex;
+            overflow-x: auto;
+            background: #f8f9fa;
+            border-bottom: 2px solid #dee2e6;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .tab {
+            padding: 15px 20px;
+            background: none;
+            border: none;
+            color: #495057;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.3s;
+            border-bottom: 3px solid transparent;
+        }
+
+        .tab.active {
+            color: #667eea;
+            border-bottom-color: #667eea;
+            background: white;
+        }
+
+        .content {
+            padding: 20px;
+            max-height: calc(100vh - 200px);
+            overflow-y: auto;
+        }
+
+        .practical-section {
+            display: none;
+        }
+
+        .practical-section.active {
+            display: block;
+        }
+
+        .question-card {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 18px;
+            margin-bottom: 20px;
+            border-left: 4px solid #667eea;
+        }
+
+        .question-number {
+            color: #667eea;
+            font-weight: bold;
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+
+        .question-text {
+            color: #2c3e50;
+            margin-bottom: 12px;
+            font-size: 15px;
+        }
+
+        .answer-section {
+            background: white;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 10px;
+        }
+
+        .code-block {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            line-height: 1.5;
+            margin: 10px 0;
+        }
+
+        .table-container {
+            overflow-x: auto;
+            margin: 15px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+            background: white;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #dee2e6;
+        }
+
+        th {
+            background: #667eea;
+            color: white;
+            font-weight: 600;
+        }
+
+        tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .note {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 12px;
+            margin: 15px 0;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .section-title {
+            color: #667eea;
+            font-size: 20px;
+            font-weight: bold;
+            margin: 25px 0 15px 0;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #667eea;
+        }
+
+        @media (max-width: 600px) {
+            .header h1 {
+                font-size: 20px;
+            }
+            
+            .tab {
+                padding: 12px 15px;
+                font-size: 13px;
+            }
+
+            .content {
+                padding: 15px;
+            }
+
+            .code-block {
+                font-size: 12px;
+                padding: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📚 Database Management System</h1>
+            <p>Complete Practical Guide with Questions & Answers</p>
+        </div>
+
+        <div class="tabs">
+            <button class="tab active" onclick="showPractical(1)">Practical 01</button>
+            <button class="tab" onclick="showPractical(2)">Practical 02</button>
+            <button class="tab" onclick="showPractical(3)">Practical 03</button>
+            <button class="tab" onclick="showPractical(4)">Practical 04</button>
+        </div>
+
+        <div class="content">
+            <!-- PRACTICAL 01 -->
+            <div id="practical1" class="practical-section active">
+                <div class="section-title">Practical 01 - MySQL Basics</div>
+
+                <div class="question-card">
+                    <div class="question-number">Q1: What is MySQL?</div>
+                    <div class="question-text">Explain MySQL and its characteristics.</div>
+                    <div class="answer-section">
+                        <p><strong>Answer:</strong> MySQL is an open-source Relational Database Management System (RDBMS) that enables users to store, manage, and retrieve structured data efficiently.</p>
+                        <p><strong>Advantages:</strong></p>
+                        <ul style="margin-left: 20px; margin-top: 8px;">
+                            <li>Free and Open Source</li>
+                            <li>Large Community for Support</li>
+                            <li>High Performance, Scalability, Flexibility</li>
+                            <li>Platform Independency</li>
+                        </ul>
+                        <p style="margin-top: 10px;"><strong>Disadvantages:</strong></p>
+                        <ul style="margin-left: 20px; margin-top: 8px;">
+                            <li>Stability issues</li>
+                            <li>Poor Performance in High Loads</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <div class="question-number">Q2: How to start working with MySQL?</div>
+                    <div class="question-text">List the steps to log in to MySQL.</div>
+                    <div class="answer-section">
+                        <p><strong>Steps:</strong></p>
+                        <div class="code-block">1. Open Command Prompt
+2. Navigate to MySQL Bin Directory:
+   cd &lt;path to MySQL Bin Directory&gt;
+
+3. Log in to MySQL:
+   mysql -u root -p
+
+4. Enter your password
+
+5. You'll see mysql> prompt when successfully logged in</div>
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <div class="question-number">Q3: Create a Database</div>
+                    <div class="question-text">How do you create a database named COMPANY?</div>
+                    <div class="answer-section">
+                        <div class="code-block">CREATE DATABASE COMPANY;</div>
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <div class="question-number">Q4: Use a Database</div>
+                    <div class="question-text">How do you select a database for use?</div>
+                    <div class="answer-section">
+                        <div class="code-block">USE COMPANY;</div>
+                        <p style="margin-top: 10px;"><em>This tells MySQL to use the named database as the default database for subsequent statements.</em></p>
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <div class="question-number">Q5: Create an EMPLOYEE Table</div>
+                    <div class="question-text">Create a table with appropriate data types.</div>
+                    <div class="answer-section">
+                        <div class="code-block">CREATE TABLE EMPLOYEE(
+    Fname VARCHAR(15),
+    Minit CHAR,
+    Lname VARCHAR(15),
+    Ssn CHAR(9),
+    Bdate DATE,
+    Address VARCHAR(15),
+    Sex CHAR,
+    Salary DECIMAL(10,2),
+    Super_ssn CHAR(9),
+    Dno INT
+);</div>
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <div class="question-number">Q6: Describe Table Structure</div>
+                    <div class="question-text">How do you view table structure?</div>
+                    <div class="answer-section">
+                        <div class="code-block">DESCRIBE EMPLOYEE;
+-- OR
+DESC EMPLOYEE;</div>
+                        <p style="margin-top: 10px;"><em>Shows column names, data types, and constraints</em></p>
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <div class="question-number">Q7: Modify Tables - Add Column</div>
+                    <div class="question-text">How do you add a new column to an existing table?</div>
+                    <div class="answer-section">
+                        <div class="code-block">ALTER TABLE EMPLOYEE
+ADD tel_no VARCHAR(255);</div>
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <div class="question-number">Q8: Modify Tables - Drop Column</div>
+                    <div class="question-text">How do you remove a column from a table?</div>
+                    <div class="answer-section">
+                        <div class="code-block">ALTER TABLE EMPLOYEE
+DROP COLUMN tel_no;</div>
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <div class="question-number">Q9: Modify Tables - Modify Column</div>
+                    <div class="question-text">How do you change a column's data type?</div>
+                    <div class="answer-section">
+                        <div class="code-block">ALTER TABLE EMPLOYEE
+MODIFY COLUMN Address VARCHAR(30);</div>
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <div class="question-number">Q10: Insert Single Record</div>
+                    <div class="question-text">Insert one employee record into the table.</div>
+                    <div class="answer-section">
+                        <div class="code-block">INSERT INTO EMPLOYEE
+(Fname, Minit, Lname, Ssn, Bdate, Address, Sex, Salary, Super_ssn, Dno)
+VALUES
+('John', 'B', 'Smith', '123456789', '1965-01-09', 
+ '731 Fondren, Houston, TX', 'M', 30000, '333445555', 5);</div>
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <div class="question-number">Q11: Insert Multiple Records</div>
+                    <div class="question-text">Insert multiple records at once.</div>
+                    <div class="answer-section">
+                        <div class="code-block">INSERT INTO EMPLOYEE
+(Fname, Minit, Lname, Ssn, Bdate, Address, Sex, Salary, Super_ssn, Dno)
+VALUES
+('Franklin', 'T', 'Wong', '333445555', '1955-12-08', 
+ '638 Voss, TX', 'M', 40000, '888665555', 5),
+('Alicia', 'J', 'Zelaya', '999887777', '1968-01-19', 
+ '3321 Castle, Houston, TX', 'F', 25000, '987654321', 4);</div>
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <div class="question-number">Q12: Update Single Record</div>
+                    <div class="question-text">Update one employee's first name.</div>
+                    <div class="answer-section">
+                        <div class="code-block">UPDATE EMPLOYEE
+SET Fname = 'Nimal'
+WHERE Ssn = '333445555';</div>
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <div class="question-number">Q13: Update Multiple Records</div>
+                    <div class="question-text">Update salary for all employees in department 5.</div>
+                    <div class="answer-section">
+                        <div class="code-block">UPDATE EMPLOYEE
+SET Salary = 50000.00
+WHERE Dno = 5;</div>
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <div class="question-number">Q14: Update Multiple Columns</div>
+                    <div class="question-text">Update salary and department number together.</div>
+                    <div class="answer-section">
+                        <div class="code-block">UPDATE EMPLOYEE
+SET Salary = 45000.00, Dno = 2
+WHERE Super_ssn = '888665555';</div>
+                        <div class="note">⚠️ Warning: If you omit the WHERE clause, ALL records will be updated!</div>
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <div class="question-number">Q15: Delete Specific Records</div>
+                    <div class="question-text">Delete an employee named Alicia.</div>
+                    <div class="answer-section">
+                        <div class="code-block">DELETE FROM EMPLOYEE 
+WHERE Fname = 'Alicia';</div>
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <div class="question-number">Q16: Delete All Records</div>
+                    <div class="question-text">Remove all records from the table (but keep the table structure).</div>
+                    <div class="answer-section">
+                        <div class="code-block">DELETE FROM EMPLOYEE;</div>
+                        <div class="note">⚠️ This deletes all data but keeps the table structure!</div>
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <div class="question-number">Q17: Drop Database</div>
+                    <div class="question-text">How do you completely remove a database?</div>
+                    <div class="answer-section">
+                        <div class="code-block">DROP DATABASE COMPANY;</div>
+                        <div class="note">⚠️ This permanently deletes the entire database and all its tables!</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PRACTICAL 02 -->
+            <div id="practical2" class="practical-section">
+                <div class="section-title">Practical 02 - Constraints & SELECT</div>
+
+                <div class="question-card">
+                    <div class="question-number">Q1: What are SQL Constraints?</div>
+                    <div class="question-text">List and explain SQL constraints.</div>
+                    <div class="answer-section">
+                        <p><strong>SQL Constraints:</strong></p>
+                        <ul style="margin-left: 20px; margin-top: 8px;">
+                            <li><strong>NOT NULL</strong> - Ensures a column cannot have a NULL value</li>
+                            <li><strong>UNIQUE</strong> - Ensures all values in a column are different</li>
+                            <li><strong>PRIMARY KEY</strong> - Combination of NOT NULL and UNIQUE. Uniquely identifies each row</li>
+                            <li><strong>FOREIGN KEY</strong> - Prevents actions that would destroy links between tables</li>
+                            <li><strong>CHECK</strong> - Ensures values in a column satisfy a specific condition</li>
+                            <li><strong>DEFAULT</strong> - Sets a default value for a column if no value is specified</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <div class="question-number">Q2: Create Table with Constraints</div>
+                    <div class="question-text">Create EMPLOYEE table with NOT NULL, PRIMARY KEY, CHECK, and DEFAULT constraints.</div>
+                    <div class="answer-section">
+                        <div class="code-block">CREATE TABLE EMPLOYEE(
+    Fname VARCHAR(15) NOT NULL,
+    Minit CHAR,
+    Lname VARCHAR(15) NOT NULL,
+    Ssn CHAR(9) NOT NULL,
+    Bdate DATE,
+    Address VARCHAR(30) DEFAULT 'Colombo',
+    Sex CHAR,
+    Age INT,
+    Salary DECIMAL(10,2),
+    Super_ssn CHAR(9),
+    Dno INT NOT NULL,
+    PRIMARY KEY (Ssn),
+    CHECK (Age >= 18)
+);</div>
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <div class="question-number">Q3: Create DEPARTMENT Table</div>
+                    <div class="question-text">Create DEPARTMENT table with FOREIGN KEY and UNIQUE constraints.</div>
+                    <div class="answer-section">
+                        <div class="code-block">CREATE TABLE DEPARTMENT(
+    Dname VARCHAR(15) NOT NULL,
+    Dnumber INT NOT NULL,
+    Mgr_ssn CHAR(9) NOT NULL,
+    Mgr_start_date DATE,
+    PRIMARY KEY (Dnumber),
+    UNIQUE (Dname),
+    FOREIGN KEY (Mgr_ssn) REFERENCES EMPLOYEE(Ssn)
+);</div>
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <div class="question-number">Q4: SELECT All Records</div>
+                    <div class="question-text">Retrieve all data from EMPLOYEE table.</div>
+                    <div class="answer-section">
+                        <div class="code-block">SELECT * FROM EMPLOYEE;</div>
+                        <p style="margin-top: 10px;"><em>The asterisk (*) selects all columns</em></p>
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <div class="question-number">Q5: SELECT Specific Columns</div>
+                    <div class="question-text">Retrieve only first name and address from EMPLOYEE.</div>
+                    <div class="answer-section">
+                        <div class="code-block">SELECT Fname, Address 
+FROM EMPLOYEE;</div>
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <div class="question-number">Q6: SELECT DISTINCT</div>
+                    <div class="question-text">Retrieve unique addresses from EMPLOYEE (remove duplicates).</div>
+                    <div class="answer-section">
+                        <div class="code-block">SELECT DISTINCT Address 
+FROM EMPLOYEE;</div>
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <div class="question-number">Q7: WHERE Clause</div>
+                    <div class="question-text">Retrieve employees who live in Kandy.</div>
+                    <div class="answer-section">
+                        <div class="code-block">SELECT * FROM EMPLOYEE
+WHERE Address = 'Kandy';</div>
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <div class="question-number">Q8: Multiple Conditions with AND</div>
+                    <div class="question-text">Retrieve birth date and address of 'John B. Smith'.</div>
+                    <div class="answer-section">
+                        <div class="code-block">SELECT Bdate, Address
+FROM EMPLOYEE
+WHERE Fname = 'John' AND Minit = 'B' AND Lname = 'Smith';</div>
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <div class="question-number">Q9: Join Two Tables</div>
+                    <div class="question-text">Retrieve name and address of employees who work in 'Research' department.</div>
+                    <div class="answer-section">
+                        <div class="code-block">SELECT Fname, Lname, Address
+FROM EMPLOYEE, DEPARTMENT
+WHERE Dname = 'Research' AND Dnumber = Dno;</div>
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <div class="question-number">Q10: Qualified Column Names</div>
+                    <div class="question-text">Rewrite Q9 with fully qualified attribute names to prevent ambiguity.</div>
+                    <div class="answer-section">
+                        <div class="code-block">SELECT EMPLOYEE.Fname, EMPLOYEE.Lname, EMPLOYEE.Address
+FROM EMPLOYEE, DEPARTMENT
+WHERE DEPARTMENT.Dname = 'Research' 
+AND DEPARTMENT.Dnumber = EMPLOYEE.Dno;</div>
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <div class="question-number">Q11: Table Aliases</div>
+                    <div class="question-text">Use aliases to shorten table names in queries.</div>
+                    <div class="answer-section">
+                        <div class="code-block">SELECT E.Fname, E.Lname, E.Address
+FROM EMPLOYEE AS E, DEPARTMENT AS D
+WHERE D.Dname = 'Research' 
+AND D.Dnumber = E.Dno;</div>
+                        <p style="margin-top: 10px;"><em>AS keyword creates an alias (E for EMPLOYEE, D for DEPARTMENT)</em></p>
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <div class="question-number">Q12: Sample Data - EMPLOYEE Table</div>
+                    <div class="answer-section">
+                        <div class="table-container">
+                            <table>
+                                <tr>
+                                    <th>Fname</th>
+                                    <th>Minit</th>
+                                    <th>Lname</th>
+                                    <th>Ssn</th>
+                                    <th>Salary</th>
+                                    <th>Dno</th>
+                                </tr>
+                                <tr>
+                                    <td>John</td>
+                                    <td>B</td>
+                                    <td>Smith</td>
+                                    <td>123456789</td>
+                                    <td>30000</td>
+                                    <td>5</td>
+                                </tr>
+                                <tr>
+                                    <td>Franklin</td>
+                                    <td>T</td>
+                                    <td>Wong</td>
+                                    <td>333445555</td>
+                                    <td>40000</td>
+                                    <td>5</td>
+                                </tr>
+                                <tr>
+                                    <td>Alicia</td>
+                                    <td>J</td>
+                                    <td>Zelaya</td>
+                                    <td>999887777</td>
+                                    <td>25000</td>
+                                    <td>4</td>
+                                </tr>
+                                <tr>
+                                    <td>Jennifer</td>
+                                    <td>S</td>
+                                    <td>Wallace</td>
+                                    <td>987654321</td>
+                                    <td>43000</td>
+                                    <td>4</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PRACTICAL 03 -->
+            <div id="practical3" class="practical-section">
+                <div class="section-title">Practical 03 - Advanced SELECT Queries</div>
+
+                <div class="question-card">
+                    <div class="question-number">Q1: Setup - Login and TEE</div>
+                    <div class="question-text">How to log in and save output to a file?</div>
+                    <div class="answer-section">
+                        <div class="code-block">-- Login to MySQL
+mysql -u root -p
+
+-- Set output file (saves all commands and results)
+TEE /mySQLPractical/Session3/your_indexNo.txt</div>
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <div class="question-number">Q2: Create Customer Database</div>
+                    <div class="question-text">Create and use Customer_Details database.</div>
+                    <div class="answer-section">
+                        <div class="code-block">CREATE DATABASE Customer_Details;
+USE Customer_Details;</div>
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <div class="question-number">Q3: Create CUSTOMER Table</div>
+                    <div class="question-text">Create table with appropriate data types.</div>
+                    <div class="answer-section">
+                        <div class="code-block">CREATE TABLE CUSTOMER(
+    CustomerID VARCHAR(10) PRIMARY KEY,
+    CustomerName VARCHAR(50) NOT NULL,
+    Birthday DATE,
+    Address VARCHAR(100),
+    City VARCHAR(30),
+    Occupation VARCHAR(30)
+);</div>
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <div class="question-number">Q4: Insert Customer Data</div>
+                    <div class="question-text">Insert all customer records.</div>
+                    <div class="answer-section">
+                        <div class="code-block">INSERT INTO CUSTOMER VALUES
+('A001', 'Thilini Dissanayake', '1984-08-08', 
+ 'No 68, Alfred Avenue', 'Colombo', 'Medical Officer'),
+('A002', 'Amal Kumara', '1994-02-15', 
+ 'No 03, Galle Road', 'Colombo', 'Software Developer'),
+('A003', 'Dilini Perea', '1996-03-13', 
+ 'No 39/A, Temple Road', 'Nugegoda', 'Banker'),
+('A004', 'Nimal Perera', '1990-05-25', 
+ 'No 45/A, Pagoda Road', 'Nugegoda', 'Accountant'),
+('A005', 'Kamal Karunarathne', '1980-04-20', 
+ 'No 45, Flower Road', 'Colombo', 'Banker');</div>
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <div class="question-number">Q5: Show Table Description</div>
+                    <div class="question-text">Display the structure of CUSTOMER table.</div>
+                    <div class="answer-section">
+                        <div class="code-block">DESC CUSTOMER;</div>
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <div class="question-number">Q6: Show All Data</div>
+                    <div class="question-text">Display all inserted customer data.</div>
+                    <div class="answer-section">
+                        <div class="code-block">SELECT * FROM CUSTOMER;</div>
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <div class="question-number">Q7: Select City Column</div>
+                    <div class="question-text">Display all cities (including duplicates).</div>
+                    <div class="answer-section">
+                        <div class="code-block">SELECT City FROM CUSTOMER;</div>
+                        <p style="margin-top: 10px;"><strong>Output:</strong> Colombo, Colombo, Nugegoda, Nugegoda, Colombo</p>
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <div class="question-number">Q8: Select DISTINCT City</div>
+                    <div class="question-text">Display unique cities only.</div>
+                    <div class="answer-section">
+                        <div class="code-block">SELECT DISTINCT City FROM CUSTOMER;</div>
+                        <p style="margin-top: 10px;"><strong>Output:</strong> Colombo, Nugegoda</p>
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <div class="question-number">Q9: Difference Between Q7 and Q8</div>
+                    <div class="question-text">Explain the difference in results.</div>
+                    <div class="answer-section">
+                        <p><strong>Answer:</strong></p>
+                        <ul style="margin-left: 20px; margin-top: 8px;">
+                            <li><strong>Q7 (without DISTINCT):</strong> Shows all city values including duplicates. Result has 5 rows with "Colombo" appearing 3 times.</li>
+                            <li><strong>Q8 (with DISTINCT):</strong> Shows only unique city values. Result has 2 rows with each city appearing once.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <div class="question-number">Q10: Count Distinct Cities</div>
+                    <div class="question-text">Count the number of unique cities.</div>
+                    <div class="answer-section">
+                        <div class="code-block">SELECT COUNT(DISTINCT City) FROM CUSTOMER;</div>
+                        <p style="margin-top: 10px;"><strong>Result:</strong> 2 (Colombo and Nugegoda)</p>
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <div class="question-number">Q11: WHERE - Single Condition</div>
+                    <div class="question-text">Select all customers from Colombo.</div>
+                    <div class="answer-section">
+                        <div class="code-block">SELECT * FROM CUSTOMER
+WHERE City = 'Colombo';</div>
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <div class="question-number">Q12: WHERE with OR</div>
+                    <div class="question-text">Select customers whose occupation is "Banker" OR "Medical Officer".</div>
+                    <div class="answer-section">
+                        <div class="code-block">SELECT * FROM CUSTOMER
+WHERE Occupation = 'Banker' OR Occupation = 'Medical Officer';</div>
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <div class="question-number">Q13: WHERE with NOT</div>
+                    <div class="question-text">Select all customers whose occupation is NOT "Banker".</div>
+                    <div class="answer-section">
+                        <div class="code-block">SELECT * FROM CUSTOMER
+WHERE Occupation != 'Banker';
+-- OR
+SELECT * FROM CUSTOMER
+WHERE Occupation <> 'Banker';</div>
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <div class="question-number">Q14: Complex WHERE with Parentheses</div>
+                    <div class="question-text">Select customers from Colombo AND occupation is "Banker" OR "Software Developer".</div>
+                    <div class="answer-section">
+                        <div class="code-block">SELECT * FROM CUSTOMER
+WHERE City = 'Colombo' 
+AND (Occupation = 'Banker' OR Occupation = 'Software Developer');</div>
+                        <div class="note">💡 Parentheses are important! They ensure OR is evaluated first, then AND.</div>
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <div class="question-number">Q15: ORDER BY Ascending</div>
+                    <div class="question-text">Sort customers by Occupation in ascending order.</div>
+                    <div class="answer-section">
+                        <div class="code-block">SELECT * FROM CUSTOMER
+ORDER BY Occupation;</div>
+                        <p style="margin-top: 10px;"><em>Default order is ASC (ascending): Accountant, Banker, Banker, Medical Officer, Software Developer</em></p>
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <div class="question-number">Q16: ORDER BY Descending</div>
+                    <div class="question-text">Sort customers by Occupation in descending order.</div>
+                    <div class="answer-section">
+                        <div class="code-block">SELECT * FROM CUSTOMER
+ORDER BY Occupation DESC;</div>
+                        <p style="margin-top: 10px;"><em>DESC orders from Z to A: Software Developer, Medical Officer, Banker, Banker, Accountant</em></p>
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <div class="question-number">Sample Data - CUSTOMER Table</div>
+                    <div class="answer-section">
+                        <div class="table-container">
+                            <table>
+                                <tr>
+                                    <th>CustomerID</th>
+                                    <th>CustomerName</th>
+                                    <th>City</th>
+                                    <th>Occupation</th>
+                                </tr>
+                                <tr>
+                                    <td>A001</td>
+                                    <td>Thilini Dissanayake</td>
+                                    <td>Colombo</td>
+                                    <td>Medical Officer</td>
+                                </tr>
+                                <tr>
+                                    <td>A002</td>
+                                    <td>Amal Kumara</td>
+                                    <td>Colombo</td>
+                                    <td>Software Developer</td>
+                                </tr>
+                                <tr>
+                                    <td>A003</td>
+                                    <td>Dilini Perea</td>
+                                    <td>Nugegoda</td>
+                                    <td>Banker</td>
+                                </tr>
+                                <tr>
+                                    <td>A004</td>
+                                    <td>Nimal Perera</td>
+                                    <td>Nugegoda</td>
+                                    <td>Accountant</td>
+                                </tr>
+                                <tr>
+                                    <td>A005</td>
+                                    <td>Kamal Karunarathne</td>
+                                    <td>Colombo</td>
+                                    <td>Banker</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PRACTICAL 04 -->
+            <div id="practical4" class="practical-section">
+                <div class="section-title">Practical 04 - Source Files, Keys & Data Loading</div>
+
+                <div class="section-title" style="font-size: 18px; margin-top: 20px;">Part 1: Using Source Files</div>
+
+                <div class="question-card">
+                    <div class="question-number">Q1: Create SQLCode_1.txt</div>
+                    <div class="question-text">Create a text file with database setup commands.</div>
+                    <div class="answer-section">
+                        <p><strong>Content of SQLCode_1.txt:</strong></p>
+                        <div class="code-block">DROP DATABASE EMPLOYEE;
+CREATE DATABASE EMPLOYEE;
+USE EMPLOYEE;
+TEE D:\DBMS Practical\Session4.txt</div>
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <div class="question-number">Q2: Execute Source File</div>
+                    <div class="question-text">How to run SQL commands from a text file?</div>
+                    <div class="answer-section">
+                        <div class="code-block">-- First, log in to MySQL
+mysql -u root -p
+
+-- Then execute the file
+source D:\DBMSPractical\SQLCode_1.txt</div>
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <div class="question-number">Q3: Create SQLCode_2.txt with Tables</div>
+                    <div class="question-text">Create EMPLOYEE and DEPARTMENT tables in a text file.</div>
+                    <div class="answer-section">
+                        <p><strong>Content of SQLCode_2.txt:</strong></p>
+                        <div class="code-block">CREATE TABLE EMPLOYEE(
+    Fname VARCHAR(15) NOT NULL,
+    Minit CHAR,
+    Lname VARCHAR(15) NOT NULL,
+    SSN CHAR(9) NOT NULL,
+    Bdate DATE,
+    Address VARCHAR(30) DEFAULT 'Colombo',
+    Sex CHAR,
+    Salary DECIMAL(10,2),
+    Dno INT NOT NULL
+);
+
+CREATE TABLE DEPARTMENT(
+    Dname VARCHAR(15) NOT NULL,
+    Dnumber INT NOT NULL,
+    ManagerSSN CHAR(9) NOT NULL
+);</div>
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <div class="question-number">Q4: Add Primary Keys</div>
+                    <div class="question-text">Set SSN as primary key for EMPLOYEE and Dnumber for DEPARTMENT.</div>
+                    <div class="answer-section">
+                        <div class="code-block">ALTER TABLE EMPLOYEE
+ADD CONSTRAINT PK_Employee PRIMARY KEY (SSN);
+
+ALTER TABLE DEPARTMENT
+ADD CONSTRAINT PK_Department PRIMARY KEY (Dnumber);</div>
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <div class="question-number">Q5: Add Foreign Keys</div>
+                    <div class="question-text">Set Dno in EMPLOYEE and ManagerSSN in DEPARTMENT as foreign keys.</div>
+                    <div class="answer-section">
+                        <div class="code-block">ALTER TABLE EMPLOYEE
+ADD CONSTRAINT FK_Dept FOREIGN KEY (Dno) 
+REFERENCES DEPARTMENT(Dnumber);
+
+ALTER TABLE DEPARTMENT
+ADD CONSTRAINT FK_Emp FOREIGN KEY (ManagerSSN) 
+REFERENCES EMPLOYEE(SSN);</div>
+                        <div class="note">💡 Foreign keys create relationships between tables and maintain referential integrity.</div>
+                    </div>
+                </div>
+
+                <div class="section-title" style="font-size: 18px; margin-top: 30px;">Part 2: Supplier-Parts Database</div>
+
+                <div class="question-card">
+                    <div class="question-number">Q6: Create Supplier Table</div>
+                    <div class="question-text">Create Supplier table with constraints.</div>
+                    <div class="answer-section">
+                        <div class="code-block">CREATE TABLE Supplier(
+    Sno VARCHAR(5) PRIMARY KEY,
+    Sname VARCHAR(30) NOT NULL,
+    Status INT,
+    City VARCHAR(30)
+);</div>
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <div class="question-number">Q7: Create Parts Table</div>
+                    <div class="question-text">Create Parts table with constraints.</div>
+                    <div class="answer-section">
+                        <div class="code-block">CREATE TABLE Parts(
+    Pno VARCHAR(5) PRIMARY KEY,
+    Pname VARCHAR(30) NOT NULL,
+    Color VARCHAR(20),
+    Weight INT,
+    City VARCHAR(30)
+);</div>
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <div class="question-number">Q8: Create Supply Table</div>
+                    <div class="question-text">Create Supply table with foreign keys.</div>
+                    <div class="answer-section">
+                        <div class="code-block">CREATE TABLE Supply(
+    Sno VARCHAR(5),
+    Pno VARCHAR(5),
+    Quantity INT,
+    PRIMARY KEY (Sno, Pno),
+    FOREIGN KEY (Sno) REFERENCES Supplier(Sno),
+    FOREIGN KEY (Pno) REFERENCES Parts(Pno)
+);</div>
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <div class="question-number">Q9: Create Text Files for Data</div>
+                    <div class="question-text">Create supplier.txt, parts.txt, and supply.txt with comma-separated values.</div>
+                    <div class="answer-section">
+                        <p><strong>supplier.txt:</strong></p>
+                        <div class="code-block">S1,Smith,20,London
+S2,Jones,10,Paris
+S3,Black,30,Paris
+S4,Clark,20,London
+S5,Adams,30,Athens</div>
+                        
+                        <p style="margin-top: 15px;"><strong>parts.txt:</strong></p>
+                        <div class="code-block">P1,Nut,Red,12,London
+P2,Bolt,Green,17,Paris
+P3,Screw,Blue,17,Rome
+P4,Screw,Red,14,London
+P5,Cam,Blue,12,Paris
+P6,Cog,Red,19,London</div>
+                        
+                        <p style="margin-top: 15px;"><strong>supply.txt:</strong></p>
+                        <div class="code-block">S1,P1,300
+S1,P2,200
+S1,P3,400
+S1,P4,200
+S1,P5,100
+S1,P6,100
+S2,P1,300
+S2,P2,400
+S3,P2,200
+S4,P2,200
+S4,P4,300
+S4,P5,400</div>
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <div class="question-number">Q10: Load Data from Text Files</div>
+                    <div class="question-text">Use LOAD DATA command to import data.</div>
+                    <div class="answer-section">
+                        <div class="code-block">LOAD DATA LOCAL INFILE "D:/data/supplier.txt"
+INTO TABLE Supplier
+FIELDS TERMINATED BY ','
+OPTIONALLY ENCLOSED BY '"'
+LINES TERMINATED BY '\r\n';
+
+LOAD DATA LOCAL INFILE "D:/data/parts.txt"
+INTO TABLE Parts
+FIELDS TERMINATED BY ','
+OPTIONALLY ENCLOSED BY '"'
+LINES TERMINATED BY '\r\n';
+
+LOAD DATA LOCAL INFILE "D:/data/supply.txt"
+INTO TABLE Supply
+FIELDS TERMINATED BY ','
+OPTIONALLY ENCLOSED BY '"'
+LINES TERMINATED BY '\r\n';</div>
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <div class="question-number">Q11: List Suppliers with Status > 15</div>
+                    <div class="question-text">Display Sno and Sname of suppliers whose status is above 15.</div>
+                    <div class="answer-section">
+                        <div class="code-block">SELECT Sno, Sname 
+FROM Supplier
+WHERE Status > 15;</div>
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <div class="question-number">Q12: List Cities of Parts (No Duplicates)</div>
+                    <div class="question-text">Display all cities where parts are manufactured.</div>
+                    <div class="answer-section">
+                        <div class="code-block">SELECT DISTINCT City 
+FROM Parts;</div>
+                        <p style="margin-top: 10px;"><strong>Result:</strong> London, Paris, Rome</p>
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <div class="question-number">Q13: Deduct Status by 2</div>
+                    <div class="question-text">Decrease the status value by 2 for all suppliers.</div>
+                    <div class="answer-section">
+                        <div class="code-block">UPDATE Supplier
+SET Status = Status - 2;</div>
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <div class="question-number">Q14: Sort Suppliers by Status DESC</div>
+                    <div class="question-text">List all suppliers in descending order by status.</div>
+                    <div class="answer-section">
+                        <div class="code-block">SELECT * FROM Supplier
+ORDER BY Status DESC;</div>
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <div class="question-number">Q15: Parts with Quantity > 300</div>
+                    <div class="question-text">Display part numbers and quantities greater than 300.</div>
+                    <div class="answer-section">
+                        <div class="code-block">SELECT Pno, Quantity 
+FROM Supply
+WHERE Quantity > 300;</div>
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <div class="question-number">Q16: Parts with Color Red or Blue</div>
+                    <div class="question-text">List all parts that have Red or Blue color.</div>
+                    <div class="answer-section">
+                        <div class="code-block">SELECT * FROM Parts
+WHERE Color = 'Red' OR Color = 'Blue';</div>
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <div class="question-number">Q17: Parts that are Blue and in Rome</div>
+                    <div class="question-text">List parts with Blue color AND city Rome.</div>
+                    <div class="answer-section">
+                        <div class="code-block">SELECT * FROM Parts
+WHERE Color = 'Blue' AND City = 'Rome';</div>
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <div class="question-number">Q18: Parts Except Blue</div>
+                    <div class="question-text">List all parts that are NOT Blue.</div>
+                    <div class="answer-section">
+                        <div class="code-block">SELECT * FROM Parts
+WHERE Color != 'Blue';
+-- OR
+SELECT * FROM Parts
+WHERE Color <> 'Blue';</div>
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <div class="question-number">Q19: Suppliers with 'i' as Second Letter</div>
+                    <div class="question-text">List supplier names having 'i' as the second letter.</div>
+                    <div class="answer-section">
+                        <div class="code-block">SELECT Sname 
+FROM Supplier
+WHERE Sname LIKE '_i%';</div>
+                        <p style="margin-top: 10px;"><em>_ matches exactly one character, % matches any number of characters</em></p>
+                        <p><strong>Result:</strong> Smith</p>
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <div class="question-number">Q20: Parts with Weight Between 12-17</div>
+                    <div class="question-text">Display name, city, and weight of parts with weight between 12 and 17.</div>
+                    <div class="answer-section">
+                        <div class="code-block">SELECT Pname, City, Weight 
+FROM Parts
+WHERE Weight BETWEEN 12 AND 17;</div>
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <div class="question-number">Sample Data - Supplier Table</div>
+                    <div class="answer-section">
+                        <div class="table-container">
+                            <table>
+                                <tr>
+                                    <th>Sno</th>
+                                    <th>Sname</th>
+                                    <th>Status</th>
+                                    <th>City</th>
+                                </tr>
+                                <tr><td>S1</td><td>Smith</td><td>20</td><td>London</td></tr>
+                                <tr><td>S2</td><td>Jones</td><td>10</td><td>Paris</td></tr>
+                                <tr><td>S3</td><td>Black</td><td>30</td><td>Paris</td></tr>
+                                <tr><td>S4</td><td>Clark</td><td>20</td><td>London</td></tr>
+                                <tr><td>S5</td><td>Adams</td><td>30</td><td>Athens</td></tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <div class="question-number">Sample Data - Parts Table</div>
+                    <div class="answer-section">
+                        <div class="table-container">
+                            <table>
+                                <tr>
+                                    <th>Pno</th>
+                                    <th>Pname</th>
+                                    <th>Color</th>
+                                    <th>Weight</th>
+                                    <th>City</th>
+                                </tr>
+                                <tr><td>P1</td><td>Nut</td><td>Red</td><td>12</td><td>London</td></tr>
+                                <tr><td>P2</td><td>Bolt</td><td>Green</td><td>17</td><td>Paris</td></tr>
+                                <tr><td>P3</td><td>Screw</td><td>Blue</td><td>17</td><td>Rome</td></tr>
+                                <tr><td>P4</td><td>Screw</td><td>Red</td><td>14</td><td>London</td></tr>
+                                <tr><td>P5</td><td>Cam</td><td>Blue</td><td>12</td><td>Paris</td></tr>
+                                <tr><td>P6</td><td>Cog</td><td>Red</td><td>19</td><td>London</td></tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showPractical(num) {
+            // Hide all sections
+            const sections = document.querySelectorAll('.practical-section');
+            sections.forEach(section => section.classList.remove('active'));
+            
+            // Remove active class from all tabs
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            
+            // Show selected section
+            document.getElementById('practical' + num).classList.add('active');
+            
+            // Add active class to clicked tab
+            event.target.classList.add('active');
+            
+            // Scroll to top of content
+            document.querySelector('.content').scrollTop = 0;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DBMS Exam Answers</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 10px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+        
+        .header p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        
+        .content {
+            padding: 20px;
+        }
+        
+        .question {
+            margin-bottom: 30px;
+            border-left: 4px solid #667eea;
+            padding-left: 15px;
+        }
+        
+        .question-number {
+            font-size: 18px;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        
+        .sub-question {
+            margin: 15px 0;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        
+        .sub-question-title {
+            font-weight: bold;
+            color: #764ba2;
+            margin-bottom: 8px;
+        }
+        
+        .answer {
+            margin-top: 10px;
+            padding: 10px;
+            background: white;
+            border-radius: 5px;
+        }
+        
+        .definition {
+            margin: 8px 0;
+            padding-left: 10px;
+        }
+        
+        .definition strong {
+            color: #667eea;
+        }
+        
+        ul, ol {
+            margin-left: 20px;
+            margin-top: 8px;
+        }
+        
+        li {
+            margin: 5px 0;
+        }
+        
+        .code-block {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            margin: 10px 0;
+        }
+        
+        .diagram-box {
+            background: #f0f0f0;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            text-align: center;
+            font-family: monospace;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 10px 0;
+            font-size: 14px;
+        }
+        
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        
+        th {
+            background: #667eea;
+            color: white;
+        }
+        
+        .note {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+        
+        .er-diagram {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 25px;
+            border-radius: 15px;
+            margin: 20px 0;
+            overflow-x: auto;
+        }
+        
+        .entity {
+            background: white;
+            border: 3px solid #667eea;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 15px auto;
+            max-width: 300px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        
+        .entity-name {
+            font-size: 18px;
+            font-weight: bold;
+            color: #667eea;
+            text-align: center;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #667eea;
+            margin-bottom: 10px;
+        }
+        
+        .entity-attrs {
+            font-size: 14px;
+        }
+        
+        .entity-attrs div {
+            padding: 5px;
+            margin: 3px 0;
+            background: #f8f9fa;
+            border-radius: 5px;
+        }
+        
+        .pk {
+            background: #fff3cd !important;
+            font-weight: bold;
+            color: #856404;
+        }
+        
+        .relationship {
+            text-align: center;
+            margin: 10px 0;
+        }
+        
+        .rel-box {
+            display: inline-block;
+            background: #764ba2;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 14px;
+            margin: 5px 0;
+        }
+        
+        .rel-line {
+            width: 3px;
+            height: 20px;
+            background: #764ba2;
+            margin: 0 auto;
+        }
+        
+        .cardinality {
+            display: flex;
+            justify-content: space-between;
+            max-width: 300px;
+            margin: 0 auto;
+            font-weight: bold;
+            color: #764ba2;
+            font-size: 16px;
+        }
+        
+        .card-left, .card-right {
+            background: #fff;
+            border: 2px solid #764ba2;
+            padding: 5px 12px;
+            border-radius: 50%;
+        }
+        
+        @media (max-width: 600px) {
+            .header h1 {
+                font-size: 20px;
+            }
+            
+            .content {
+                padding: 15px;
+            }
+            
+            .code-block {
+                font-size: 11px;
+                padding: 10px;
+            }
+            
+            table {
+                font-size: 12px;
+            }
+            
+            .entity {
+                max-width: 100%;
+            }
+            
+            .entity-name {
+                font-size: 16px;
+            }
+            
+            .er-diagram {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📚 Database Management Systems</h1>
+            <p>Comprehensive Exam Answer Script</p>
+        </div>
+        
+        <div class="content">
+            <!-- Question 1 -->
+            <div class="question">
+                <div class="question-number">Question 1</div>
+                
+                <div class="sub-question">
+                    <div class="sub-question-title">a) Define the following terms:</div>
+                    <div class="answer">
+                        <div class="definition">
+                            <strong>i. Database:</strong> A database is an organized collection of related data that is stored and accessed electronically. It represents some aspect of the real world and is designed for a specific purpose, allowing efficient data storage, retrieval, and management.
+                        </div>
+                        
+                        <div class="definition">
+                            <strong>ii. Database Management System (DBMS):</strong> A DBMS is a software system that enables users to define, create, maintain, and control access to databases. It provides an interface between the database and end users or application programs, ensuring data security, integrity, and efficient data management.
+                        </div>
+                        
+                        <div class="definition">
+                            <strong>iii. Program-Data Independence:</strong> This is the ability to modify the schema definition at one level without affecting the schema definition at the next higher level. It allows changes to the data structure without requiring modifications to application programs that use the data.
+                        </div>
+                        
+                        <div class="definition">
+                            <strong>iv. Data Model:</strong> A data model is a collection of concepts that can be used to describe the structure of a database. It includes data types, relationships, and constraints that should hold on the data. Examples include the relational model, hierarchical model, and network model.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="sub-question">
+                    <div class="sub-question-title">b) ABC Corporation Analysis:</div>
+                    <div class="answer">
+                        <p><strong>i. Responsibilities:</strong></p>
+                        <p><strong>Database Administrator:</strong></p>
+                        <ul>
+                            <li>Oversee the entire database system and ensure smooth operations</li>
+                            <li>Manage security, access control, and user permissions</li>
+                            <li>Monitor system performance and optimize database efficiency</li>
+                            <li>Perform backup and recovery operations</li>
+                            <li>Ensure data integrity and consistency</li>
+                        </ul>
+                        
+                        <p><strong>Database Designers:</strong></p>
+                        <ul>
+                            <li>Design and structure the database schema</li>
+                            <li>Identify entities, attributes, and relationships</li>
+                            <li>Ensure the database can handle complex business requirements</li>
+                            <li>Implement normalization and optimize data structures</li>
+                            <li>Create logical and physical database designs</li>
+                        </ul>
+                        
+                        <p><strong>ii. Three Types of End Users:</strong></p>
+                        <ol>
+                            <li><strong>Casual End Users (Managers):</strong> Occasionally access the database to check reports and monitor business performance</li>
+                            <li><strong>Parametric/Naive Users (Sales Staff):</strong> Regularly enter and retrieve data using predefined forms and transactions</li>
+                            <li><strong>Sophisticated Users (Analysts):</strong> Deep dive into data to generate insights and support strategic decision-making</li>
+                        </ol>
+                        
+                        <p><strong>iii. Potential Challenges:</strong></p>
+                        <ul>
+                            <li><strong>Communication Gap:</strong> Technical experts may use jargon that business users don't understand, leading to misaligned requirements</li>
+                            <li><strong>Conflicting Priorities:</strong> Different departments may have competing needs for data access, storage, and performance optimization</li>
+                            <li><strong>Training Requirements:</strong> Employees need adequate training to use the new system effectively, which requires time and resources</li>
+                            <li><strong>Change Management:</strong> Resistance to adopting new systems and processes from employees accustomed to old methods</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="sub-question">
+                    <div class="sub-question-title">c) Four Key DBMS Capabilities:</div>
+                    <div class="answer">
+                        <ol>
+                            <li><strong>Data Definition:</strong> Ability to define data types, structures, and constraints through Data Definition Language (DDL)</li>
+                            <li><strong>Data Manipulation:</strong> Provides operations to insert, update, delete, and retrieve data through Data Manipulation Language (DML)</li>
+                            <li><strong>Concurrency Control:</strong> Manages simultaneous access by multiple users while maintaining data consistency and integrity</li>
+                            <li><strong>Backup and Recovery:</strong> Provides mechanisms to backup data and recover from system failures or errors</li>
+                        </ol>
+                    </div>
+                </div>
+                
+                <div class="sub-question">
+                    <div class="sub-question-title">d) Disadvantages of DBMS in Small-Scale Applications:</div>
+                    <div class="answer">
+                        <ul>
+                            <li><strong>High Initial Cost:</strong> Expensive to purchase, implement, and maintain DBMS software and hardware</li>
+                            <li><strong>Complexity:</strong> Requires specialized knowledge and skilled personnel, which may be overkill for simple applications</li>
+                            <li><strong>Overhead:</strong> DBMS has significant memory and processing requirements that may not be justified for small datasets</li>
+                            <li><strong>Single-User Performance:</strong> For applications with minimal users, file systems may provide faster access than DBMS</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Question 2 -->
+            <div class="question">
+                <div class="question-number">Question 2</div>
+                
+                <div class="sub-question">
+                    <div class="sub-question-title">a) Database Schema vs Database State:</div>
+                    <div class="answer">
+                        <p><strong>Database Schema:</strong> The description of the database structure, including table definitions, data types, and constraints. It rarely changes and represents the database design.</p>
+                        
+                        <p><strong>Database State:</strong> The actual data stored in the database at a particular moment. It changes frequently as data is inserted, updated, or deleted.</p>
+                    </div>
+                </div>
+                
+                <div class="sub-question">
+                    <div class="sub-question-title">b) Data Abstraction Concept:</div>
+                    <div class="answer">
+                        <p>Data abstraction uses three levels:</p>
+                        <ul>
+                            <li><strong>External Level (View Level):</strong> Users interact with customized views showing only relevant data</li>
+                            <li><strong>Conceptual Level:</strong> Describes what data is stored and relationships between data</li>
+                            <li><strong>Internal Level:</strong> Describes how data is physically stored</li>
+                        </ul>
+                        <p>Example: A manager querying employee salaries sees a simple report interface (external level) without knowing that data is stored across multiple indexed files on disk (internal level).</p>
+                    </div>
+                </div>
+                
+                <div class="sub-question">
+                    <div class="sub-question-title">c) Characteristics of Relations:</div>
+                    <div class="answer">
+                        <ul>
+                            <li><strong>Ordering of Tuples:</strong> Tuples are not ordered; there is no "first" or "last" row</li>
+                            <li><strong>Ordering of Attributes:</strong> Attribute order in a relation is not significant</li>
+                            <li><strong>Atomic Values:</strong> Each attribute value must be atomic (indivisible)</li>
+                            <li><strong>Unique Tuples:</strong> No two tuples can be identical; each tuple is unique</li>
+                            <li><strong>NULL Values:</strong> Relations allow NULL values to represent unknown or inapplicable data</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="sub-question">
+                    <div class="sub-question-title">d) Foreign Keys Specification:</div>
+                    <div class="answer">
+                        <p><strong>Foreign Keys:</strong></p>
+                        <ul>
+                            <li>ENROLL.Ssn references STUDENT.Ssn</li>
+                            <li>ENROLL.Course_code references COURSE.Course_code</li>
+                            <li>BOOK_ADOPTION.Course_code references COURSE.Course_code</li>
+                            <li>BOOK_ADOPTION.Book_isbn references TEXT.Book_isbn</li>
+                        </ul>
+                        <p><strong>Assumptions:</strong></p>
+                        <ul>
+                            <li>Ssn is the primary key of STUDENT</li>
+                            <li>Course_code is the primary key of COURSE</li>
+                            <li>Book_isbn is the primary key of TEXT</li>
+                            <li>(Ssn, Course_code, Quarter) is the primary key of ENROLL</li>
+                            <li>(Course_code, Quarter) is the primary key of BOOK_ADOPTION</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="sub-question">
+                    <div class="sub-question-title">e) Integrity Constraints:</div>
+                    <div class="answer">
+                        <p><strong>Entity Integrity Constraint:</strong></p>
+                        <ul>
+                            <li>No primary key value can be NULL</li>
+                            <li>Ensures each tuple is uniquely identifiable</li>
+                            <li>Important because primary keys are used to reference tuples; NULL values would make identification impossible</li>
+                        </ul>
+                        
+                        <p><strong>Referential Integrity Constraint:</strong></p>
+                        <ul>
+                            <li>A foreign key value must either match a primary key value in the referenced relation or be NULL</li>
+                            <li>Ensures consistency across related tables</li>
+                            <li>Important because it prevents orphaned records and maintains valid relationships between tables</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Question 3 -->
+            <div class="question">
+                <div class="question-number">Question 3</div>
+                
+                <div class="sub-question">
+                    <div class="sub-question-title">a) Steps for Database Design and Implementation:</div>
+                    <div class="answer">
+                        <ol>
+                            <li><strong>Requirements Analysis:</strong> Gather information about student projects, supervisors, and evaluation needs</li>
+                            <li><strong>Conceptual Design:</strong> Create ER diagram identifying entities, attributes, and relationships</li>
+                            <li><strong>Logical Design:</strong> Map ER diagram to relational schema</li>
+                            <li><strong>Normalization:</strong> Apply normal forms to eliminate redundancy</li>
+                            <li><strong>Physical Design:</strong> Choose storage structures, indexes, and access methods</li>
+                            <li><strong>Implementation:</strong> Create database using SQL DDL statements</li>
+                            <li><strong>Testing:</strong> Verify database functionality with sample data</li>
+                            <li><strong>Deployment and Maintenance:</strong> Deploy and maintain the database system</li>
+                        </ol>
+                    </div>
+                </div>
+                
+                <div class="sub-question">
+                    <div class="sub-question-title">b) Space Shuttle Mission Database:</div>
+                    <div class="answer">
+                        <p><strong>i. Entities and Attributes:</strong></p>
+                        
+                        <table>
+                            <tr>
+                                <th>Entity</th>
+                                <th>Attributes</th>
+                            </tr>
+                            <tr>
+                                <td>ASTRONAUT</td>
+                                <td>Astronaut_ID (PK), Name, Rank, Specialization, Years_of_Experience</td>
+                            </tr>
+                            <tr>
+                                <td>MISSION</td>
+                                <td>Mission_ID (PK)</td>
+                            </tr>
+                            <tr>
+                                <td>SPACE_SHUTTLE</td>
+                                <td>Shuttle_ID (PK), Shuttle_Name, Capacity, Launch_Date</td>
+                            </tr>
+                            <tr>
+                                <td>MISSION_CONTROL</td>
+                                <td>Control_ID (PK), Location</td>
+                            </tr>
+                            <tr>
+                                <td>MOON_EXPEDITION</td>
+                                <td>Expedition_ID (PK), Landing_Date, Mission_Objectives</td>
+                            </tr>
+                        </table>
+                        
+                        <div class="er-diagram">
+                            <div class="entity">
+                                <div class="entity-name">ASTRONAUT</div>
+                                <div class="entity-attrs">
+                                    <div class="pk">🔑 Astronaut_ID</div>
+                                    <div>Name</div>
+                                    <div>Rank</div>
+                                    <div>Specialization</div>
+                                    <div>Years_of_Experience</div>
+                                </div>
+                            </div>
+                            
+                            <div class="relationship">
+                                <div class="rel-line"></div>
+                                <div class="rel-box">ASSIGNED_TO</div>
+                                <div class="rel-line"></div>
+                                <div class="cardinality">
+                                    <span class="card-left">M</span>
+                                    <span class="card-right">N</span>
+                                </div>
+                            </div>
+                            
+                            <div class="entity">
+                                <div class="entity-name">MISSION</div>
+                                <div class="entity-attrs">
+                                    <div class="pk">🔑 Mission_ID</div>
+                                </div>
+                            </div>
+                            
+                            <div class="relationship">
+                                <div class="rel-line"></div>
+                                <div class="rel-box">HAS</div>
+                                <div class="rel-line"></div>
+                                <div class="cardinality">
+                                    <span class="card-left">1</span>
+                                    <span class="card-right">1</span>
+                                </div>
+                            </div>
+                            
+                            <div class="entity">
+                                <div class="entity-name">SPACE_SHUTTLE</div>
+                                <div class="entity-attrs">
+                                    <div class="pk">🔑 Shuttle_ID</div>
+                                    <div>Shuttle_Name</div>
+                                    <div>Capacity</div>
+                                    <div>Launch_Date</div>
+                                </div>
+                            </div>
+                            
+                            <div class="relationship">
+                                <div class="rel-line"></div>
+                                <div class="rel-box">OVERSEEN_BY</div>
+                                <div class="rel-line"></div>
+                                <div class="cardinality">
+                                    <span class="card-left">N</span>
+                                    <span class="card-right">1</span>
+                                </div>
+                            </div>
+                            
+                            <div class="entity">
+                                <div class="entity-name">MISSION_CONTROL</div>
+                                <div class="entity-attrs">
+                                    <div class="pk">🔑 Control_ID</div>
+                                    <div>Location</div>
+                                </div>
+                            </div>
+                            
+                            <div class="relationship">
+                                <div class="rel-line"></div>
+                                <div class="rel-box">INCLUDES</div>
+                                <div class="rel-line"></div>
+                                <div class="cardinality">
+                                    <span class="card-left">1</span>
+                                    <span class="card-right">1</span>
+                                </div>
+                            </div>
+                            
+                            <div class="entity">
+                                <div class="entity-name">MOON_EXPEDITION</div>
+                                <div class="entity-attrs">
+                                    <div class="pk">🔑 Expedition_ID</div>
+                                    <div>Landing_Date</div>
+                                    <div>Mission_Objectives</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <p><strong>ii. Cardinality Constraints:</strong></p>
+                        <ul>
+                            <li>ASTRONAUT to MISSION: Many-to-Many (M:N)</li>
+                            <li>MISSION to SPACE_SHUTTLE: One-to-One (1:1)</li>
+                            <li>MISSION to MISSION_CONTROL: Many-to-One (N:1)</li>
+                            <li>MISSION to MOON_EXPEDITION: One-to-One (1:1)</li>
+                        </ul>
+                        
+                        <p><strong>iii. Relational Schema:</strong></p>
+                        <div class="code-block">
+ASTRONAUT(Astronaut_ID, Name, Rank, Specialization, Years_of_Experience)
+
+MISSION(Mission_ID, Shuttle_ID, Control_ID)
+  FK: Shuttle_ID references SPACE_SHUTTLE
+  FK: Control_ID references MISSION_CONTROL
+
+SPACE_SHUTTLE(Shuttle_ID, Shuttle_Name, Capacity, Launch_Date)
+
+MISSION_CONTROL(Control_ID, Location)
+
+MOON_EXPEDITION(Expedition_ID, Mission_ID, Landing_Date, Mission_Objectives)
+  FK: Mission_ID references MISSION
+
+ASSIGNMENT(Astronaut_ID, Mission_ID)
+  FK: Astronaut_ID references ASTRONAUT
+  FK: Mission_ID references MISSION
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Question 4 -->
+            <div class="question">
+                <div class="question-number">Question 4</div>
+                
+                <div class="sub-question">
+                    <div class="sub-question-title">a) Four Components of DBMS Language:</div>
+                    <div class="answer">
+                        <ol>
+                            <li><strong>DDL (Data Definition Language):</strong> CREATE, ALTER, DROP</li>
+                            <li><strong>DML (Data Manipulation Language):</strong> SELECT, INSERT, UPDATE, DELETE</li>
+                            <li><strong>DCL (Data Control Language):</strong> GRANT, REVOKE</li>
+                            <li><strong>TCL (Transaction Control Language):</strong> COMMIT, ROLLBACK, SAVEPOINT</li>
+                        </ol>
+                    </div>
+                </div>
+                
+                <div class="sub-question">
+                    <div class="sub-question-title">b) SQL Statements:</div>
+                    <div class="answer">
+                        <p><strong>i. Retrieve birth date and address of 'John B. Smith':</strong></p>
+                        <div class="code-block">
+SELECT Bdate, Address
+FROM EMPLOYEE
+WHERE Fname = 'John' AND Minit = 'B' AND Lname = 'Smith';
+                        </div>
+                        
+                        <p><strong>ii. Retrieve employees in department 5 with salary $30,000-$40,000:</strong></p>
+                        <div class="code-block">
+SELECT *
+FROM EMPLOYEE
+WHERE Dno = 5 AND Salary BETWEEN 30000 AND 40000;
+                        </div>
+                        
+                        <p><strong>iii. Retrieve name and address of employees in 'Research' department:</strong></p>
+                        <div class="code-block">
+SELECT E.Fname, E.Lname, E.Address
+FROM EMPLOYEE E, DEPARTMENT D
+WHERE E.Dno = D.Dnumber AND D.Dname = 'Research';
+                        </div>
+                        
+                        <p><strong>iv. List project numbers involving employee 'Smith':</strong></p>
+                        <div class="code-block">
+SELECT DISTINCT P.Pnumber
+FROM PROJECT P, EMPLOYEE E, WORKS_ON W, DEPARTMENT D
+WHERE (E.Lname = 'Smith' AND E.Ssn = W.Essn AND W.Pno = P.Pnumber)
+   OR (E.Lname = 'Smith' AND E.Ssn = D.Mgr_ssn AND D.Dnumber = P.Dnum);
+                        </div>
+                        
+                        <p><strong>v. List employees and projects ordered by department and name:</strong></p>
+                        <div class="code-block">
+SELECT E.Dno, E.Lname, E.Fname, P.Pname
+FROM EMPLOYEE E, WORKS_ON W, PROJECT P
+WHERE E.Ssn = W.Essn AND W.Pno = P.Pnumber
+ORDER BY E.Dno, E.Lname, E.Fname;
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Question 5 -->
+            <div class="question">
+                <div class="question-number">Question 5</div>
+                
+                <div class="sub-question">
+                    <div class="sub-question-title">a) Types of Update Anomalies:</div>
+                    <div class="answer">
+                        <p><strong>Three types: Insertion, Deletion, and Update Anomalies</strong></p>
+                        
+                        <p><strong>1. Insertion Anomaly:</strong></p>
+                        <p>Inability to insert certain data without the presence of other data.</p>
+                        <p><em>Example:</em> If a relation stores both employee and department info, you cannot add a new department until an employee is assigned to it.</p>
+                        
+                        <p><strong>2. Deletion Anomaly:</strong></p>
+                        <p>Deletion of data causes unintended loss of other important data.</p>
+                        <p><em>Example:</em> If we delete the last employee in a department, we lose all information about that department.</p>
+                    </div>
+                </div>
+                
+                <div class="sub-question">
+                    <div class="sub-question-title">b) Functional Dependency:</div>
+                    <div class="answer">
+                        <p><strong>Functional Dependency:</strong> A constraint between two sets of attributes. If X → Y, then the value of X uniquely determines the value of Y.</p>
+                        
+                        <p><strong>Full Functional Dependency:</strong> Y is fully functionally dependent on X if Y is functionally dependent on X and not on any proper subset of X.</p>
+                        
+                        <p><strong>Transitive Functional Dependency:</strong> If X → Y and Y → Z, then X → Z is a transitive dependency (where Y is not a candidate key).</p>
+                    </div>
+                </div>
+                
+                <div class="sub-question">
+                    <div class="sub-question-title">c) Steps to Convert 0NF to 3NF:</div>
+                    <div class="answer">
+                        <p><strong>Step 1: 0NF to 1NF</strong></p>
+                        <ul>
+                            <li>Eliminate repeating groups</li>
+                            <li>Ensure each attribute contains atomic values</li>
+                            <li>Identify primary key</li>
+                        </ul>
+                        
+                        <p><strong>Step 2: 1NF to 2NF</strong></p>
+                        <ul>
+                            <li>Ensure relation is in 1NF</li>
+                            <li>Remove partial dependencies</li>
+                            <li>Create separate relations for sets of values that apply to multiple records</li>
+                        </ul>
+                        
+                        <p><strong>Step 3: 2NF to 3NF</strong></p>
+                        <ul>
+                            <li>Ensure relation is in 2NF</li>
+                            <li>Remove transitive dependencies</li>
+                            <li>Create separate relations for attributes that depend on non-key attributes</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="sub-question">
+                    <div class="sub-question-title">d) CAR-SALE Relation Analysis:</div>
+                    <div class="answer">
+                        <p><strong>Given Dependencies:</strong></p>
+                        <ul>
+                            <li>CarID → Sale-date</li>
+                            <li>Option-type → Option-listprice</li>
+                            <li>CarID, Option-type → Option-discounted-price</li>
+                        </ul>
+                        
+                        <p><strong>Justification that CAR-SALE is NOT in 3NF:</strong></p>
+                        <p>The relation violates 3NF because:</p>
+                        <ol>
+                            <li>The primary key is (CarID, Option-type)</li>
+                            <li>There exists a dependency: Option-type → Option-listprice</li>
+                            <li>Option-type is not a superkey, and Option-listprice is not a prime attribute</li>
+                            <li>This represents a transitive dependency through a non-key attribute</li>
+                        </ol>
+                        <p>According to the generalized 3NF definition, for every non-trivial functional dependency X → A, either X must be a superkey or A must be a prime attribute. Since Option-type is not a superkey and Option-listprice is not a prime attribute, the relation is not in 3NF.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="note">
+                <strong>Note:</strong> This answer script provides comprehensive solutions to all questions. Review each answer carefully and ensure you understand the concepts before the examination.
+            </div>
+        </div>
+    </div>
+</body>
+</html>
