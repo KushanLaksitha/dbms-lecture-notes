@@ -1,17 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="si">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Lesson 02: Database Architecture</title>
+<title>පාඩම 02: දත්ත සමුදා ගෘහ නිර්මාණ ශිල්පය</title>
 <style>
     * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
     }
     body {
-        font-family: 'Noto Sans', sans-serif;
+        font-family: 'Noto Sans Sinhala', 'Noto Sans', sans-serif;
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         min-height: 100vh;
         padding: 20px;
@@ -19,7 +19,7 @@
     }
 
     .container {
-        max-width: 960px;
+        max-width: 1000px;
         margin: 0 auto;
         background: white;
         border-radius: 15px;
@@ -30,7 +30,7 @@
     header {
         text-align: center;
         margin-bottom: 40px;
-        border-bottom: 2px solid #667eea;
+        border-bottom: 3px solid #667eea;
         padding-bottom: 20px;
     }
 
@@ -38,47 +38,100 @@
         color: #667eea;
         font-size: 2.8em;
         margin-bottom: 10px;
+        font-weight: 700;
     }
 
     .lesson-subtitle {
-        font-size: 1.3em;
+        font-size: 1.4em;
         color: #555;
+        font-weight: 600;
     }
 
     .topic-section {
-        margin-bottom: 35px;
+        margin-bottom: 40px;
+        background: #f8f9ff;
+        padding: 25px;
+        border-radius: 10px;
+        border-left: 5px solid #667eea;
     }
 
     .topic-title {
         color: #764ba2;
-        font-size: 1.8em;
+        font-size: 1.9em;
         margin-bottom: 15px;
-        border-left: 5px solid #667eea;
-        padding-left: 15px;
+        font-weight: 700;
     }
 
     .topic-description {
-        line-height: 1.7;
-        text-align: justify;
-        padding-left: 20px;
+        line-height: 1.9;
+        font-size: 1.05em;
     }
 
     .topic-description p {
-        margin-bottom: 15px;
+        margin-bottom: 18px;
+        text-align: justify;
     }
 
     .topic-description ul {
-        list-style-type: disc;
-        margin-left: 40px;
-        margin-bottom: 15px;
+        list-style-type: none;
+        margin-left: 0;
+        margin-bottom: 18px;
     }
 
     .topic-description li {
-        margin-bottom: 10px;
+        margin-bottom: 15px;
+        padding-left: 30px;
+        position: relative;
+    }
+
+    .topic-description li:before {
+        content: "●";
+        color: #667eea;
+        font-size: 1.2em;
+        position: absolute;
+        left: 10px;
     }
     
     .topic-description strong {
         color: #667eea;
+        font-weight: 700;
+    }
+
+    .example-box {
+        background: #fff;
+        border: 2px solid #e0e7ff;
+        border-radius: 8px;
+        padding: 20px;
+        margin: 20px 0;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+    .example-title {
+        color: #764ba2;
+        font-weight: 700;
+        margin-bottom: 10px;
+        font-size: 1.1em;
+    }
+
+    .highlight {
+        background: linear-gradient(120deg, #667eea20 0%, #764ba220 100%);
+        padding: 2px 6px;
+        border-radius: 3px;
+        font-weight: 600;
+    }
+
+    .note-box {
+        background: #fffbeb;
+        border-left: 4px solid #f59e0b;
+        padding: 15px 20px;
+        margin: 20px 0;
+        border-radius: 5px;
+    }
+
+    .note-title {
+        color: #f59e0b;
+        font-weight: 700;
+        margin-bottom: 8px;
     }
 
     .back-link {
@@ -96,6 +149,7 @@
         border-radius: 30px;
         text-decoration: none;
         font-size: 1.1em;
+        font-weight: 600;
         transition: all 0.3s ease;
     }
 
@@ -121,80 +175,135 @@
 <body>
     <div class="container">
         <header>
-            <h1 class="lesson-title">Lesson 02</h1>
-            <p class="lesson-subtitle">Database Architecture</p>
+            <h1 class="lesson-title">පාඩම 02</h1>
+            <p class="lesson-subtitle">දත්ත සමුදා ගෘහ නිර්මාණ ශිල්පය</p>
         </header>
+
         <div class="topic-section">
-        <h2 class="topic-title">Database Schema</h2>
-        <div class="topic-description">
-            <p>
-                A <strong>database schema</strong> is the blueprint or logical structure of a database. It defines how the data is organized and how the relationships between different data elements are associated. Think of it as the architectural plan for a house before it's built.
-            </p>
-            <p>
-                The schema specifies the tables, the columns within each table, the data types for each column, and the constraints (like primary keys and foreign keys) that enforce data integrity. It provides a formal definition of the entire database. It's important to distinguish between the schema (the structure) and the database instance (the actual data stored at a specific moment).
-            </p>
+            <h2 class="topic-title">දත්ත සමුදා ක්‍රමානුරූපය (Database Schema)</h2>
+            <div class="topic-description">
+                <p>
+                    <strong>දත්ත සමුදා ක්‍රමානුරූපය</strong> යනු දත්ත සමුදායක තාර්කික ව්‍යුහය හෝ සැලැස්මයි. එය දත්ත සංවිධානය වී ඇති ආකාරය සහ විවිධ දත්ත මූලද්‍රව්‍ය අතර සම්බන්ධතා නිර්වචනය කරයි. මෙය ගෙයක් තැනීමට පෙර සකස් කරන ගෘහ නිර්මාණ සැලැස්ම හා සමානයි.
+                </p>
+                <p>
+                    ක්‍රමානුරූපය තුළ <span class="highlight">වගු</span>, එක් එක් වගුවේ ඇති <span class="highlight">තීරු</span>, එක් එක් තීරුවේ <span class="highlight">දත්ත වර්ග</span>, සහ දත්ත අඛණ්ඩතාව සහතික කරන <span class="highlight">බාධාවන්</span> (ප්‍රාථමික යතුරු සහ විදේශ යතුරු වැනි) නිර්වචනය වේ. මෙය සම්පූර්ණ දත්ත සමුදායේ විධිමත් නිර්වචනයක් සපයයි.
+                </p>
+                
+                <div class="example-box">
+                    <div class="example-title">📌 සරල උදාහරණය:</div>
+                    <p>පාසල් දත්ත සමුදායක් සඳහා Schema එක මෙසේ විය හැක:</p>
+                    <p><strong>Students වගුව:</strong> StudentID (අංකය), Name (පෙළ), Age (අංකය), Grade (පෙළ)</p>
+                    <p><strong>Teachers වගුව:</strong> TeacherID (අංකය), Name (පෙළ), Subject (පෙළ)</p>
+                </div>
+
+                <div class="note-box">
+                    <div class="note-title">⚠️ වැදගත් සටහන:</div>
+                    <p>Schema (ව්‍යුහය) සහ Database Instance (නිශ්චිත මොහොතක ගබඩා කර ඇති සත්‍ය දත්ත) අතර වෙනස හඳුනා ගැනීම වැදගත්ය.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="topic-section">
+            <h2 class="topic-title">තට්ටු තුනේ ක්‍රමානුරූප ගෘහ නිර්මාණය</h2>
+            <div class="topic-description">
+                <p>
+                    ANSI-SPARC ගෘහ නිර්මාණය ලෙසද හැඳින්වෙන මෙම ආකෘතිය දත්ත ස්වාධීනත්වය ප්‍රවර්ධනය කරන දත්ත සමුදා ගොඩනැගීම සඳහා රාමුවක් සපයයි. මෙය දත්ත සමුදාය වෙන් වෙන් වියුක්ත මට්ටම් තුනකට බෙදයි:
+                </p>
+                <ul>
+                    <li><strong>බාහිර මට්ටම (View Level):</strong> මෙය වියුක්තභාවයේ ඉහළම මට්ටම වන අතර අවසාන භාවිතා කරන්නන්ට පෙනෙන දේ මෙයයි. මෙය විශේෂිත පරිශීලක කණ්ඩායමකට අදාළ සම්පූර්ණ දත්ත සමුදායේ කොටසක් පමණක් විස්තර කරයි. උදාහරණයක් ලෙස, මානව සම්පත් දෙපාර්තමේන්තුවට සේවක වැටුප් තොරතුරු පෙනේ, නමුත් විකුණුම් දෙපාර්තමේන්තුවට පාරිභෝගික ඇණවුම් විස්තර පෙනේ. තනි දත්ත සමුදායක් සඳහා බාහිර දර්ශන කිහිපයක් තිබිය හැක.</li>
+                    
+                    <li><strong>සංකල්පීය මට්ටම (Logical Level):</strong> මෙම මට්ටම පරිශීලක ප්‍රජාව සඳහා සම්පූර්ණ දත්ත සමුදායේ ඒකාබද්ධ, තාර්කික දර්ශනයක් සපයයි. භෞතික ගබඩා කිරීමේ විස්තර සලකා නොගෙන, කුමන දත්ත ගබඩා කර ඇත්ද සහ දත්ත අතර සම්බන්ධතා විස්තර කරයි. දත්ත සමුදා පරිපාලක (DBA) සාමාන්‍යයෙන් සියලුම වගු, ආයතන, ගුණාංග සහ බාධාවන්ගේ ව්‍යුහය නිර්වචනය කිරීමට මෙම මට්ටමේ වැඩ කරයි.</li>
+                    
+                    <li><strong>අභ්‍යන්තර මට්ටම (Physical Level):</strong> මෙය අඩුම මට්ටම වන අතර ගබඩා උපාංගවල දත්ත භෞතිකව ගබඩා කර ඇති ආකාරය විස්තර කරයි. මෙය ගොනු සංවිධානය, දත්ත ව්‍යුහ (උදා: සුචිගත කිරීම සඳහා B+ trees) සහ ප්‍රවේශ මාර්ග වැනි පහළ මට්ටමේ විස්තර සමඟ කටයුතු කරයි. මෙම මට්ටම DBMS මගින් කළමනාකරණය වන අතර සාමාන්‍යයෙන් ක්‍රමලේඛකයින් සහ පරිපාලකයින්ගෙන් සැඟවී ඇත.</li>
+                </ul>
+
+                <div class="example-box">
+                    <div class="example-title">🏢 තිරසාර උදාහරණය - බැංකු පද්ධතියක්:</div>
+                    <p><strong>External Level:</strong> ATM යන්ත්‍රයට පෙනෙන්නේ ගිණුම් ශේෂය සහ මෑත ගනුදෙනු පමණි.</p>
+                    <p><strong>Conceptual Level:</strong> සම්පූර්ණ පද්ධතිය දකින්නේ සියලුම ගිණුම්, ගනුදෙනු, ණය, පොලී ගණනය කිරීම යනාදියයි.</p>
+                    <p><strong>Internal Level:</strong> දත්ත SSD වල ගබඩා වී ඇති ආකාරය, indexing භාවිතා කරන ආකාරය වැනි තාක්ෂණික විස්තර.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="topic-section">
+            <h2 class="topic-title">දත්ත ස්වාධීනත්වය (Data Independence)</h2>
+            <div class="topic-description">
+                <p>
+                    දත්ත ස්වාධීනත්වය තට්ටු තුනේ ගෘහ නිර්මාණයේ ප්‍රධාන වාසියකි. මෙය ඊළඟ ඉහළ මට්ටමේ ක්‍රමානුරූපයට බලපෑමක් නොකර එක් මට්ටමක ක්‍රමානුරූපයක් වෙනස් කිරීමේ හැකියාවයි. වර්ග දෙකක් ඇත:
+                </p>
+                <ul>
+                    <li><strong>තාර්කික දත්ත ස්වාධීනත්වය:</strong> බාහිර ක්‍රමානුරූප හෝ යෙදුම් වැඩසටහන් වෙනස් කිරීමකින් තොරව සංකල්පීය ක්‍රමානුරූපය වෙනස් කිරීමේ හැකියාව මෙයයි. උදාහරණයක් ලෙස, ඔබට වගුවකට නව තීරුවක් එකතු කිරීමට හෝ වගු දෙකක් ඒකාබද්ධ කිරීමට හැකිය. බාහිර දර්ශන මගින් අවශ්‍ය මුල් දත්ත තවමත් ප්‍රවේශ විය හැකි තාක් කල්, එම දර්ශන සහ ඒවායේ යෙදුම් බලපානු නොලැබේ.</li>
+                    
+                    <li><strong>භෞතික දත්ත ස්වාධීනත්වය:</strong> සංකල්පීය ක්‍රමානුරූපය වෙනස් කිරීමකින් තොරව අභ්‍යන්තර ක්‍රමානුරූපය වෙනස් කිරීමේ හැකියාව මෙයයි. උදාහරණයක් ලෙස, DBA කාර්ය සාධනය වැඩි දියුණු කිරීම සඳහා ගොනු සංවිධාන ක්‍රමය වෙනස් කිරීමට තීරණය කළ හැකිය, එනම් දත්ත නව ගබඩා උපාංගයකට ගෙන යාම හෝ නව සුචිගත නිර්මාණය කිරීම වැනි. මෙම වෙනස්කම් සංකල්පීය සහ බාහිර මට්ටම් වලින් සැඟවී ඇත.</li>
+                </ul>
+
+                <div class="example-box">
+                    <div class="example-title">💡 ප්‍රායෝගික උදාහරණ:</div>
+                    <p><strong>භෞතික ස්වාධීනත්වය:</strong> පාසල් දත්ත සමුදාය Hard Disk එකකින් SSD එකකට මාරු කළත්, Students වගුවේ ව්‍යුහය හෝ SQL queries වෙනස් කිරීමට අවශ්‍ය නැත.</p>
+                    <p><strong>තාර්කික ස්වාධීනත්වය:</strong> Students වගුවට "Email" තීරුවක් එකතු කළත්, පැරණි queries (Name සහ Age පමණක් යොදා ගන්නා) තවමත් වැඩ කරනු ඇත.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="topic-section">
+            <h2 class="topic-title">DBMS භාෂා</h2>
+            <div class="topic-description">
+                <p>
+                    DBMS භාෂා දත්ත සමුදායක දත්ත නිර්වචනය, හැසිරවීම සහ පාලනය කිරීම සඳහා භාවිතා වේ. වඩාත් පොදු දත්ත සමුදා භාෂාව වන SQL (Structured Query Language) උප-භාෂා කිහිපයකට බෙදිය හැක:
+                </p>
+                <ul>
+                    <li><strong>දත්ත නිර්වචන භාෂාව (DDL):</strong> දත්ත සමුදා ව්‍යුහය හෝ ක්‍රමානුරූපය නිර්වචනය සහ කළමනාකරණය කිරීම සඳහා භාවිතා වේ. DDL විධාන වලට `CREATE` (වගු නිර්මාණය කිරීම), `ALTER` (ව්‍යුහය වෙනස් කිරීම), සහ `DROP` (වගු මකා දැමීම) ඇතුළත් වේ.</li>
+                    
+                    <li><strong>දත්ත හැසිරවීමේ භාෂාව (DML):</strong> දත්ත වෙත ප්‍රවේශ වීම සහ හැසිරවීම සඳහා භාවිතා වේ. DML විධාන වලට `SELECT` (දත්ත ලබා ගැනීම), `INSERT` (නව දත්ත එකතු කිරීම), `UPDATE` (පවතින දත්ත වෙනස් කිරීම), සහ `DELETE` (දත්ත ඉවත් කිරීම) ඇතුළත් වේ.</li>
+                    
+                    <li><strong>දත්ත පාලන භාෂාව (DCL):</strong> පරිශීලකයින් සඳහා ප්‍රවේශ අයිතිවාසිකම් සහ අවසර කළමනාකරණය කිරීම සඳහා භාවිතා වේ. DCL විධාන වලට `GRANT` (අවසර ලබා දීම) සහ `REVOKE` (අවසර ඉවත් කිරීම) ඇතුළත් වේ.</li>
+                    
+                    <li><strong>ගණුදෙනු පාලන භාෂාව (TCL):</strong> දත්ත අඛණ්ඩතාව සහතික කිරීම සඳහා දත්ත සමුදාය තුළ ගණුදෙනු කළමනාකරණය කිරීම සඳහා භාවිතා වේ. TCL විධාන වලට `COMMIT` (වෙනස්කම් සුරැකීම) සහ `ROLLBACK` (වෙනස්කම් අහෝසි කිරීම) ඇතුළත් වේ.</li>
+                </ul>
+
+                <div class="example-box">
+                    <div class="example-title">📝 SQL භාෂා උදාහරණ:</div>
+                    <p><strong>DDL:</strong> CREATE TABLE Students (ID INT, Name VARCHAR(50));</p>
+                    <p><strong>DML:</strong> SELECT * FROM Students WHERE Age > 15;</p>
+                    <p><strong>DCL:</strong> GRANT SELECT ON Students TO Teacher_User;</p>
+                    <p><strong>TCL:</strong> COMMIT; (සියලුම වෙනස්කම් ස්ථිරව සුරකිනවා)</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="topic-section">
+            <h2 class="topic-title">සේවාදායක-සේවාදායකයා ගෘහ නිර්මාණය</h2>
+            <div class="topic-description">
+                <p>
+                    මෙය යෙදුම් ප්‍රධාන කොටස් දෙකකට ව්‍යුහගත කරන පරිගණක ආකෘතියකි: <strong>සේවාදායකයා (Client)</strong> සහ <strong>සේවාදායකය (Server)</strong>. DBMS සන්දර්භය තුළ, මෙම ගෘහ නිර්මාණය බහු පරිශීලකයින්ට (clients) ජාලයක් හරහා මධ්‍යම දත්ත සමුදා සේවාදායකයකට සම්බන්ධ වීමට ඉඩ සලසයි.
+                </p>
+                <ul>
+                    <li><strong>සේවාදායකයා (Client)</strong> යනු පරිශීලක අතුරුමුහුණතක් සපයන ඉදිරිපස යෙදුමයි. පරිශීලක ආදානය පිළිගැනීම, සේවාදායකයට ඉල්ලීම් යැවීම සහ පරිශීලකයාට ප්‍රතිඵල ඉදිරිපත් කිරීම සඳහා එය වගකිව යුතුය.</li>
+                    
+                    <li><strong>සේවාදායකය (Server)</strong> යනු DBMS මෘදුකාංගය ධාවනය වන සහ දත්ත සමුදාය ගබඩා කර ඇති පසුපස පද්ධතියයි. සේවාදායකයාගේ ඉල්ලීම් සැකසීම, අවශ්‍ය දත්ත මෙහෙයුම් (විමසීම හෝ යාවත්කාලීන කිරීම වැනි) සිදු කිරීම සහ සේවාදායකයාට ප්‍රතිඵල ආපසු යැවීම සඳහා එය වගකිව යුතුය.</li>
+                </ul>
+                <p>මෙම ආකෘතිය දත්ත කළමනාකරණය මධ්‍යගත කරයි, ආරක්ෂාව වැඩි දියුණු කරයි, සහ පරිමාණය සහ කාර්ය සාධනය වැඩි දියුණු කරයි, මන්ද බර දත්ත සැකසුම් බලවත් සේවාදායකයක් මගින් හසුරුවනු ලැබේ.</p>
+
+                <div class="example-box">
+                    <div class="example-title">🌐 සැබෑ ලෝක උදාහරණ:</div>
+                    <p>ඔබ ඔන්ලයින් බැංකු වෙබ් අඩවියක් (Client) භාවිතා කරන විට, ඔබේ මුරපදය තහවුරු කිරීම සහ ගිණුම් තොරතුරු ලබා ගැනීම සඳහා එය බැංකුවේ ප්‍රධාන සේවාදායකයට (Server) සම්බන්ධ වේ. සියලුම ප්‍රධාන දත්ත සැකසුම් සහ ගබඩා කිරීම සේවාදායකයේ සිදු වේ.</p>
+                </div>
+
+                <div class="note-box">
+                    <div class="note-title">✅ ප්‍රධාන වාසි:</div>
+                    <p>• මධ්‍යගත දත්ත කළමනාකරණය<br>
+                    • වැඩි දියුණු කළ ආරක්ෂාව<br>
+                    • පහසු backup සහ recovery<br>
+                    • බහු පරිශීලකයින්ට එකවර ප්‍රවේශ වීමේ හැකියාව<br>
+                    • වඩා හොඳ කාර්ය සාධනය සහ පරිමාණය</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="back-link">
+            <a href="../index.html" class="btn">← මුල් පිටුවට ආපසු යන්න</a>
         </div>
     </div>
-
-    <div class="topic-section">
-        <h2 class="topic-title">Three-Level Schema Architecture</h2>
-        <div class="topic-description">
-            <p>
-                Also known as the ANSI-SPARC architecture, this model provides a framework for building databases that promote data independence. It divides the database into three distinct levels of abstraction:
-            </p>
-            <ul>
-                <li><strong>External Level (View Level):</strong> This is the highest level of abstraction and is what the end-users see. It describes only a part of the entire database that is relevant to a specific user group. For example, the HR department might see employee salary information, while the sales department sees customer order details. There can be multiple external views for a single database.</li>
-                <li><strong>Conceptual Level (Logical Level):</strong> This level provides a unified, logical view of the entire database for the community of users. It describes what data is stored and the relationships between the data, without considering the physical storage details. The Database Administrator (DBA) typically works at this level to define the structure of all tables, entities, attributes, and constraints.</li>
-                <li><strong>Internal Level (Physical Level):</strong> This is the lowest level and describes how the data is physically stored on storage devices. It deals with low-level details like file organization, data structures (e.g., B+ trees for indexing), and access paths. This level is managed by the DBMS and is generally hidden from programmers and administrators.</li>
-            </ul>
-        </div>
-    </div>
-
-    <div class="topic-section">
-        <h2 class="topic-title">Data Independence</h2>
-        <div class="topic-description">
-            <p>
-                Data independence is a key advantage of the three-level architecture. It is the ability to modify a schema at one level without affecting the schema at the next higher level. There are two types:
-            </p>
-            <ul>
-                <li><strong>Logical Data Independence:</strong> This is the ability to change the conceptual schema without having to change the external schemas or application programs. For example, you could add a new column to a table or merge two tables. As long as the original data required by the external views is still accessible, those views and their applications will not be affected.</li>
-                <li><strong>Physical Data Independence:</strong> This is the ability to change the internal schema without having to change the conceptual schema. For example, the DBA might decide to change the file organization method to improve performance, such as moving the data to a new storage device or creating new indexes. These changes are hidden from the conceptual and external levels.</li>
-            </ul>
-        </div>
-    </div>
-
-    <div class="topic-section">
-        <h2 class="topic-title">DBMS Languages</h2>
-        <div class="topic-description">
-            <p>
-                DBMS languages are used to define, manipulate, and control the data in a database. The most common database language, SQL (Structured Query Language), can be divided into several sub-languages:
-            </p>
-            <ul>
-                <li><strong>Data Definition Language (DDL):</strong> Used to define and manage the database structure or schema. DDL commands include `CREATE` (to create tables), `ALTER` (to modify the structure), and `DROP` (to delete tables).</li>
-                <li><strong>Data Manipulation Language (DML):</strong> Used for accessing and manipulating the data itself. DML commands include `SELECT` (to retrieve data), `INSERT` (to add new data), `UPDATE` (to modify existing data), and `DELETE` (to remove data).</li>
-                <li><strong>Data Control Language (DCL):</strong> Used to manage access rights and permissions for users. DCL commands include `GRANT` (to give permissions) and `REVOKE` (to take away permissions).</li>
-                <li><strong>Transaction Control Language (TCL):</strong> Used to manage transactions within the database to ensure data integrity. TCL commands include `COMMIT` (to save the changes) and `ROLLBACK` (to undo the changes).</li>
-            </ul>
-        </div>
-    </div>
-
-    <div class="topic-section">
-        <h2 class="topic-title">Client-Server Architecture</h2>
-        <div class="topic-description">
-            <p>
-                This is a computing model that structures applications into two main parts: the <strong>client</strong> and the <strong>server</strong>. In the context of a DBMS, this architecture allows multiple users (clients) to connect to a central database server over a network.
-            </p>
-            <ul>
-                <li>The <strong>Client</strong> is the front-end application that provides a user interface. It is responsible for accepting user input, sending requests to the server, and presenting the results to the user.</li>
-                <li>The <strong>Server</strong> is the back-end system where the DBMS software runs and the database is stored. It is responsible for processing the client's requests, performing the necessary data operations (like querying or updating), and sending the results back to the client.</li>
-            </ul>
-            <p>This model centralizes data management, enhances security, and improves scalability and performance, as the heavy data processing is handled by a powerful server.</p>
-        </div>
-    </div>
-
-    <div class="back-link">
-        <a href="../index.html" class="btn">← Back to Home</a>
-    </div>
-</div>
 </body>
 </html>

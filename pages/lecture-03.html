@@ -1,17 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="si">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Lesson 03: Data Models</title>
+<title>පාඩම 03: දත්ත ආකෘති</title>
 <style>
     * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
     }
     body {
-        font-family: 'Noto Sans', sans-serif;
+        font-family: 'Noto Sans Sinhala', 'Noto Sans', sans-serif;
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         min-height: 100vh;
         padding: 20px;
@@ -19,7 +19,7 @@
     }
 
     .container {
-        max-width: 960px;
+        max-width: 1000px;
         margin: 0 auto;
         background: white;
         border-radius: 15px;
@@ -30,7 +30,7 @@
     header {
         text-align: center;
         margin-bottom: 40px;
-        border-bottom: 2px solid #667eea;
+        border-bottom: 3px solid #667eea;
         padding-bottom: 20px;
     }
 
@@ -38,47 +38,165 @@
         color: #667eea;
         font-size: 2.8em;
         margin-bottom: 10px;
+        font-weight: 700;
     }
 
     .lesson-subtitle {
-        font-size: 1.3em;
+        font-size: 1.4em;
         color: #555;
+        font-weight: 600;
     }
 
     .topic-section {
-        margin-bottom: 35px;
+        margin-bottom: 40px;
+        background: #f8f9ff;
+        padding: 25px;
+        border-radius: 10px;
+        border-left: 5px solid #667eea;
     }
 
     .topic-title {
         color: #764ba2;
-        font-size: 1.8em;
+        font-size: 1.9em;
         margin-bottom: 15px;
-        border-left: 5px solid #667eea;
-        padding-left: 15px;
+        font-weight: 700;
     }
 
     .topic-description {
-        line-height: 1.7;
-        text-align: justify;
-        padding-left: 20px;
+        line-height: 1.9;
+        font-size: 1.05em;
     }
 
     .topic-description p {
-        margin-bottom: 15px;
+        margin-bottom: 18px;
+        text-align: justify;
     }
 
     .topic-description ul {
-        list-style-type: disc;
-        margin-left: 40px;
-        margin-bottom: 15px;
+        list-style-type: none;
+        margin-left: 0;
+        margin-bottom: 18px;
     }
 
     .topic-description li {
-        margin-bottom: 10px;
+        margin-bottom: 15px;
+        padding-left: 30px;
+        position: relative;
+    }
+
+    .topic-description li:before {
+        content: "●";
+        color: #667eea;
+        font-size: 1.2em;
+        position: absolute;
+        left: 10px;
     }
     
     .topic-description strong {
         color: #667eea;
+        font-weight: 700;
+    }
+
+    .example-box {
+        background: #fff;
+        border: 2px solid #e0e7ff;
+        border-radius: 8px;
+        padding: 20px;
+        margin: 20px 0;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+    .example-title {
+        color: #764ba2;
+        font-weight: 700;
+        margin-bottom: 10px;
+        font-size: 1.1em;
+    }
+
+    .visual-diagram {
+        background: #f0f4ff;
+        border: 2px dashed #667eea;
+        border-radius: 8px;
+        padding: 20px;
+        margin: 20px 0;
+        text-align: center;
+        font-family: monospace;
+    }
+
+    .highlight {
+        background: linear-gradient(120deg, #667eea20 0%, #764ba220 100%);
+        padding: 2px 6px;
+        border-radius: 3px;
+        font-weight: 600;
+    }
+
+    .note-box {
+        background: #fffbeb;
+        border-left: 4px solid #f59e0b;
+        padding: 15px 20px;
+        margin: 20px 0;
+        border-radius: 5px;
+    }
+
+    .note-title {
+        color: #f59e0b;
+        font-weight: 700;
+        margin-bottom: 8px;
+    }
+
+    .advantage-box {
+        background: #ecfdf5;
+        border-left: 4px solid #10b981;
+        padding: 15px 20px;
+        margin: 15px 0;
+        border-radius: 5px;
+    }
+
+    .advantage-title {
+        color: #10b981;
+        font-weight: 700;
+        margin-bottom: 8px;
+    }
+
+    .disadvantage-box {
+        background: #fef2f2;
+        border-left: 4px solid #ef4444;
+        padding: 15px 20px;
+        margin: 15px 0;
+        border-radius: 5px;
+    }
+
+    .disadvantage-title {
+        color: #ef4444;
+        font-weight: 700;
+        margin-bottom: 8px;
+    }
+
+    .comparison-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+        background: white;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .comparison-table th {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 12px;
+        text-align: left;
+        font-weight: 700;
+    }
+
+    .comparison-table td {
+        padding: 12px;
+        border-bottom: 1px solid #e5e7eb;
+    }
+
+    .comparison-table tr:last-child td {
+        border-bottom: none;
     }
 
     .back-link {
@@ -96,6 +214,7 @@
         border-radius: 30px;
         text-decoration: none;
         font-size: 1.1em;
+        font-weight: 600;
         transition: all 0.3s ease;
     }
 
@@ -121,98 +240,395 @@
 <body>
     <div class="container">
         <header>
-            <h1 class="lesson-title">Lesson 03</h1>
-            <p class="lesson-subtitle">Data Models</p>
+            <h1 class="lesson-title">පාඩම 03</h1>
+            <p class="lesson-subtitle">දත්ත ආකෘති</p>
         </header>
+
         <div class="topic-section">
-        <h2 class="topic-title">Introduction to Data Models</h2>
-        <div class="topic-description">
-            <p>
-                A <strong>data model</strong> is a conceptual framework that defines the logical structure of a database. It provides a way to describe the design of a database at the logical level, including the data elements, the relationships between them, and the constraints that apply. Data models are essential as they form the foundation upon which a database is built, ensuring consistency and structure.
-            </p>
-        </div>
-    </div>
+            <h2 class="topic-title">දත්ත ආකෘති හඳුන්වාදීම</h2>
+            <div class="topic-description">
+                <p>
+                    <strong>දත්ත ආකෘතියක්</strong> යනු දත්ත සමුදායක තාර්කික ව්‍යුහය නිර්වචනය කරන සංකල්පීය රාමුවකි. දත්ත මූලද්‍රව්‍ය, ඒවා අතර සම්බන්ධතා සහ අදාළ වන බාධාවන් ඇතුළුව තාර්කික මට්ටමින් දත්ත සමුදායක් නිර්මාණය කිරීම විස්තර කිරීමට මෙය මාර්ගයක් සපයයි.
+                </p>
+                <p>
+                    දත්ත ආකෘති අත්‍යවශ්‍ය වන්නේ ඒවා දත්ත සමුදාය ගොඩනගා ඇති පදනම සාදන නිසා, අනුකූලතාව සහ ව්‍යුහය සහතික කරයි. දත්ත සමුදායක් සැලසුම් කිරීමේදී, නිවැරදි දත්ත ආකෘතිය තෝරා ගැනීම ඉතා වැදගත්ය.
+                </p>
 
-    <div class="topic-section">
-        <h2 class="topic-title">Hierarchical Data Model</h2>
-        <div class="topic-description">
-            <p>
-                This is one of the earliest data models, originating in the 1960s. The <strong>hierarchical model</strong> organizes data in a tree-like structure. Data is stored as records which are connected to one another through links. Each record has a single parent, but can have multiple children. The top-level record is called the "root."
-            </p>
-            <ul>
-                <li><strong>Structure:</strong> A strict parent-child hierarchy (one-to-many relationship).</li>
-                <li><strong>Example:</strong> An organizational chart where a manager (parent) has several employees (children).</li>
-                <li><strong>Advantages:</strong> Simple to understand, fast for accessing data along the hierarchical paths, and promotes data integrity since a child cannot exist without a parent.</li>
-                <li><strong>Disadvantages:</strong> Inflexible, as it cannot easily represent many-to-many relationships. Data retrieval can be inefficient if it doesn't follow the hierarchical path.</li>
-            </ul>
+                <div class="note-box">
+                    <div class="note-title">💡 දත්ත ආකෘතියේ වැදගත්කම:</div>
+                    <p>දත්ත ආකෘතිය ගෘහ නිර්මාණ සැලැස්මක් මෙන් ක්‍රියා කරයි - එය දත්ත සංවිධානය කළ යුතු ආකාරය, දත්ත අතර සම්බන්ධතා සහ දත්ත අඛණ්ඩතාව පවත්වා ගත යුතු ආකාරය පෙන්වයි.</p>
+                </div>
+            </div>
         </div>
-    </div>
 
-    <div class="topic-section">
-        <h2 class="topic-title">Network Data Model</h2>
-        <div class="topic-description">
-            <p>
-                The <strong>network model</strong> was developed to address the limitations of the hierarchical model. It also organizes data using records and links, but it allows a child record to have multiple parent records. This creates a more flexible graph-like structure instead of a strict tree.
-            </p>
-            <ul>
-                <li><strong>Structure:</strong> A graph or lattice structure, allowing for many-to-many relationships.</li>
-                <li><strong>Example:</strong> In a university database, a `Student` record could be linked to multiple `Course` records, and a `Course` record could be linked to multiple `Student` records.</li>
-                <li><strong>Advantages:</strong> More flexible than the hierarchical model, capable of handling complex relationships, and reduces data redundancy.</li>
-                <li><strong>Disadvantages:</strong> Can become very complex to design and maintain. Navigating the database requires programmers to be familiar with the physical data structure.</li>
-            </ul>
-        </div>
-    </div>
+        <div class="topic-section">
+            <h2 class="topic-title">ධූරාවලිය දත්ත ආකෘතිය (Hierarchical Data Model)</h2>
+            <div class="topic-description">
+                <p>
+                    මෙය 1960 ගණන්වල ආරම්භ වූ පැරණිතම දත්ත ආකෘති වලින් එකකි. <strong>ධූරාවලිය ආකෘතිය</strong> දත්ත ගස් වැනි ව්‍යුහයකින් සංවිධානය කරයි. දත්ත සබැඳි හරහා එකිනෙකට සම්බන්ධ වී ඇති වාර්තා ලෙස ගබඩා වේ. එක් එක් වාර්තාවට තනි මාපියෙකු ඇත, නමුත් දරුවන් කිහිප දෙනෙකු සිටිය හැක. ඉහළ මට්ටමේ වාර්තාව "මූලය" ලෙස හැඳින්වේ.
+                </p>
 
-    <div class="topic-section">
-        <h2 class="topic-title">Relational Data Model</h2>
-        <div class="topic-description">
-            <p>
-                Proposed by E.F. Codd in 1970, the <strong>relational model</strong> is the most widely used data model today. It organizes data into two-dimensional tables, also known as <strong>relations</strong>. Each table consists of rows (tuples) and columns (attributes).
-            </p>
-            <ul>
-                <li><strong>Structure:</strong> Data is stored in tables. Relationships between tables are established through common columns using primary and foreign keys.</li>
-                <li><strong>Example:</strong> An `Employees` table and a `Departments` table, linked by a `DepartmentID` column present in both.</li>
-                <li><strong>Advantages:</strong> Highly flexible and easy to understand. It provides structural independence, meaning the data structure can be changed without affecting how data is accessed. SQL provides a powerful and standardized way to interact with the data.</li>
-                <li><strong>Disadvantages:</strong> Can sometimes lead to performance issues with very large and complex queries that require joining many tables.</li>
-            </ul>
-        </div>
-    </div>
-    
-    <div class="topic-section">
-        <h2 class="topic-title">Object-Oriented Data Model</h2>
-        <div class="topic-description">
-            <p>
-                The <strong>object-oriented data model</strong> stores data in the form of objects, which are instances of classes. This model emerged to handle the complex data types required by applications written in object-oriented programming languages like Java or C++. An object encapsulates both data (attributes) and behavior (methods).
-            </p>
-            <ul>
-                <li><strong>Structure:</strong> Data and its associated operations are stored together as objects. It supports features like inheritance, encapsulation, and polymorphism.</li>
-                <li><strong>Example:</strong> A `Car` object could have attributes like `color` and `model`, and methods like `startEngine()` and `accelerate()`.</li>
-                <li><strong>Advantages:</strong> Can handle complex and diverse data types (e.g., images, audio). It reduces the "impedance mismatch" between the application's object model and the database's relational model.</li>
-                <li><strong>Disadvantages:</strong> Can be more complex than the relational model and has a less standardized query language compared to SQL. The market for OODBMS is smaller than for RDBMS.</li>
-            </ul>
-        </div>
-    </div>
+                <div class="visual-diagram">
+                    <strong>ව්‍යුහය:</strong><br><br>
+                    CEO (මූලය)<br>
+                    ├── කළමනාකරු A<br>
+                    │   ├── සේවකයා 1<br>
+                    │   └── සේවකයා 2<br>
+                    └── කළමනාකරු B<br>
+                        ├── සේවකයා 3<br>
+                        └── සේවකයා 4
+                </div>
 
-    <div class="topic-section">
-        <h2 class="topic-title">The Relational Model in Practice: MySQL</h2>
-        <div class="topic-description">
-            <p>
-                MySQL is a popular open-source <strong>Relational Database Management System (RDBMS)</strong>. It is a specific software implementation of the relational data model. In MySQL, the logical structure is defined by creating tables with specific columns, and each column is assigned a data type.
-            </p>
-            <p>
-                <strong>MySQL data types</strong> define what kind of value a column can hold. Choosing the correct data type is crucial for data integrity and performance. Common data types in MySQL include:
-            </p>
-            <ul>
-                <li><strong>Numeric Types:</strong> `INT` (integers), `DECIMAL` (fixed-point numbers), `FLOAT` (floating-point numbers).</li>
-                <li><strong>String Types:</strong> `VARCHAR(n)` (variable-length strings up to n characters), `TEXT` (long text data), `CHAR(n)` (fixed-length strings).</li>
-                <li><strong>Date and Time Types:</strong> `DATE` (stores 'YYYY-MM-DD'), `TIME` (stores 'HH:MI:SS'), `DATETIME` (stores both date and time), `TIMESTAMP` (stores a point in time, useful for tracking changes).</li>
-            </ul>
+                <ul>
+                    <li><strong>ව්‍යුහය:</strong> දැඩි මාපිය-දරු ධූරාවලියක් (එක-සිට-බොහෝ සම්බන්ධතාව).</li>
+                    <li><strong>උදාහරණය:</strong> සංවිධාන සටහනක් - කළමනාකරුවෙකුට (මාපිය) සේවකයින් කිහිප දෙනෙකු (දරුවන්) සිටී.</li>
+                </ul>
+
+                <div class="advantage-box">
+                    <div class="advantage-title">✅ වාසි:</div>
+                    <p>• තේරුම් ගැනීමට සරලයි<br>
+                    • ධූරාවලි මාර්ග ඔස්සේ දත්ත වෙත ප්‍රවේශ වීම වේගවත්<br>
+                    • දත්ත අඛණ්ඩතාව ප්‍රවර්ධනය කරයි (මාපියෙකු නොමැතිව දරුවෙකු නොසිටිය හැක)<br>
+                    • ඉතා කාර්යක්ෂම තනි දිශාවේ සම්බන්ධතා සඳහා</p>
+                </div>
+
+                <div class="disadvantage-box">
+                    <div class="disadvantage-title">❌ අවාසි:</div>
+                    <p>• නම්‍යශීලී නොවේ - බොහෝ-සිට-බොහෝ සම්බන්ධතා නිරූපණය කිරීම අපහසුයි<br>
+                    • දත්ත අනාවර්තනය වැඩි විය හැක<br>
+                    • ධූරාවලි මාර්ගය අනුගමනය නොකරන්නේ නම් දත්ත ලබා ගැනීම අකාර්යක්ෂම විය හැක<br>
+                    • ව්‍යුහය වෙනස් කිරීම දුෂ්කරයි</p>
+                </div>
+
+                <div class="example-box">
+                    <div class="example-title">🏢 සැබෑ ලෝක උදාහරණ:</div>
+                    <p><strong>ගොනු පද්ධතිය:</strong> ඔබේ පරිගණකයේ ගොනු පද්ධතිය ධූරාවලි ආකෘතියක් භාවිතා කරයි. C: Drive → Documents → Personal → Photos - එක් එක් folder එකට එක් මාපියෙකු සිටින නමුත් බොහෝ sub-folders සිටිය හැක.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="topic-section">
+            <h2 class="topic-title">ජාල දත්ත ආකෘතිය (Network Data Model)</h2>
+            <div class="topic-description">
+                <p>
+                    <strong>ජාල ආකෘතිය</strong> ධූරාවලි ආකෘතියේ සීමාවන්ට විසඳුම් ලබා දීම සඳහා සංවර්ධනය කරන ලදී. මෙය ද වාර්තා සහ සබැඳි භාවිතා කරමින් දත්ත සංවිධානය කරයි, නමුත් දරු වාර්තාවකට මාපිය වාර්තා කිහිපයක් තිබීමට ඉඩ සලසයි. මෙය දැඩි ගසක් වෙනුවට වඩාත් නම්‍යශීලී ග්‍රැෆ් වැනි ව්‍යුහයක් නිර්මාණය කරයි.
+                </p>
+
+                <div class="visual-diagram">
+                    <strong>ව්‍යුහය:</strong><br><br>
+                    සිසුවා A ←→ පාඨමාලාව 1<br>
+                    ↕&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↕<br>
+                    සිසුවා B ←→ පාඨමාලාව 2<br>
+                    (එක් සිසුවෙකුට පාඨමාලා කිහිපයක්, එක් පාඨමාලාවකට සිසුන් කිහිප දෙනෙකු)
+                </div>
+
+                <ul>
+                    <li><strong>ව්‍යුහය:</strong> ග්‍රැෆ් හෝ දැලි ව්‍යුහයක්, බොහෝ-සිට-බොහෝ සම්බන්ධතාවන්ට ඉඩ දෙයි.</li>
+                    <li><strong>උදාහරණය:</strong> විශ්වවිද්‍යාල දත්ත සමුදායක, `Student` වාර්තාවක් බහු `Course` වාර්තා වෙත සම්බන්ධ විය හැකි අතර `Course` වාර්තාවක් බහු `Student` වාර්තා වෙත සම්බන්ධ විය හැක.</li>
+                </ul>
+
+                <div class="advantage-box">
+                    <div class="advantage-title">✅ වාසි:</div>
+                    <p>• ධූරාවලි ආකෘතියට වඩා නම්‍යශීලී<br>
+                    • සංකීර්ණ සම්බන්ධතා හැසිරවීමට හැකියාව<br>
+                    • දත්ත අනාවර්තනය අඩු කරයි<br>
+                    • බොහෝ-සිට-බොහෝ සම්බන්ධතා සඳහා සුදුසුයි</p>
+                </div>
+
+                <div class="disadvantage-box">
+                    <div class="disadvantage-title">❌ අවාසි:</div>
+                    <p>• සැලසුම් කිරීම සහ නඩත්තු කිරීම ඉතා සංකීර්ණ විය හැක<br>
+                    • දත්ත සමුදාය සැරිසැරීම සඳහා භෞතික දත්ත ව්‍යුහය පිළිබඳ දැනුම අවශ්‍යයි<br>
+                    • නූතන DBMS වලට සාපේක්ෂව අඩු ජනප්‍රියත්වය<br>
+                    • සම්මත විමසුම් භාෂාවක් නොමැතිකම</p>
+                </div>
+
+                <div class="example-box">
+                    <div class="example-title">🎓 සැබෑ ලෝක උදාහරණ:</div>
+                    <p><strong>ප්‍රජා මාධ්‍ය:</strong> Facebook වැනි ජාලයක, එක් පුද්ගලයෙකු මිතුරන් කිහිප දෙනෙකු සමඟ සම්බන්ධ විය හැකි අතර, එක් post එකක් කණ්ඩායම් කිහිපයකට අයත් විය හැක - මෙය ජාල ආකෘතියේ ලක්ෂණයකි.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="topic-section">
+            <h2 class="topic-title">සබඳතා දත්ත ආකෘතිය (Relational Data Model)</h2>
+            <div class="topic-description">
+                <p>
+                    1970 දී E.F. Codd විසින් යෝජනා කරන ලද <strong>සබඳතා ආකෘතිය</strong> අද වඩාත් පුළුල් ලෙස භාවිතා වන දත්ත ආකෘතිය වේ. මෙය දත්ත ද්විමාන වගු වලට සංවිධානය කරයි, <strong>සබඳතා</strong> ලෙසද හැඳින්වේ. එක් එක් වගුව පේළි (tuples) සහ තීරු (attributes) වලින් සමන්විත වේ.
+                </p>
+
+                <div class="visual-diagram">
+                    <strong>Employees වගුව:</strong><br>
+                    <table style="margin: 10px auto; border-collapse: collapse; background: white;">
+                        <tr style="background: #667eea; color: white;">
+                            <th style="border: 1px solid #ddd; padding: 8px;">EmpID</th>
+                            <th style="border: 1px solid #ddd; padding: 8px;">Name</th>
+                            <th style="border: 1px solid #ddd; padding: 8px;">DeptID</th>
+                        </tr>
+                        <tr>
+                            <td style="border: 1px solid #ddd; padding: 8px;">101</td>
+                            <td style="border: 1px solid #ddd; padding: 8px;">Nimal</td>
+                            <td style="border: 1px solid #ddd; padding: 8px;">1</td>
+                        </tr>
+                        <tr>
+                            <td style="border: 1px solid #ddd; padding: 8px;">102</td>
+                            <td style="border: 1px solid #ddd; padding: 8px;">Sunil</td>
+                            <td style="border: 1px solid #ddd; padding: 8px;">2</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <ul>
+                    <li><strong>ව්‍යුහය:</strong> දත්ත වගු වලින් ගබඩා වේ. වගු අතර සම්බන්ධතා ප්‍රාථමික සහ විදේශ යතුරු භාවිතයෙන් පොදු තීරු හරහා ස්ථාපිත වේ.</li>
+                    <li><strong>උදාහරණය:</strong> `Employees` වගුවක් සහ `Departments` වගුවක්, දෙකෙහිම ඇති `DepartmentID` තීරුවකින් සම්බන්ධ වී ඇත.</li>
+                </ul>
+
+                <div class="advantage-box">
+                    <div class="advantage-title">✅ වාසි:</div>
+                    <p>• ඉතා නම්‍යශීලී සහ තේරුම් ගැනීමට පහසුයි<br>
+                    • ව්‍යුහාත්මක ස්වාධීනත්වය සපයයි<br>
+                    • SQL මඟින් බලවත් සහ සම්මත විමසුම් භාෂාවක්<br>
+                    • දත්ත අනාවර්තනය අවම කරයි<br>
+                    • දත්ත අඛණ්ඩතාව පවත්වා ගැනීම පහසුයි<br>
+                    • වඩාත් ජනප්‍රිය සහ පුළුල් ලෙස සහාය දක්වයි</p>
+                </div>
+
+                <div class="disadvantage-box">
+                    <div class="disadvantage-title">❌ අවාසි:</div>
+                    <p>• බොහෝ වගු එකතු කිරීම අවශ්‍ය සංකීර්ණ විමසුම් සමඟ කාර්ය සාධන ගැටළු ඇති විය හැක<br>
+                    • ඉතා විශාල දත්ත සමුදා සඳහා, කාර්ය සාධනය සඳහා ප්‍රශස්තකරණය අවශ්‍ය විය හැක<br>
+                    • සංකීර්ණ වස්තු සහ සම්බන්ධතා සඳහා අවශ්‍ය නොවිය හැක</p>
+                </div>
+
+                <div class="note-box">
+                    <div class="note-title">🌟 ඇයි සබඳතා ආකෘතිය මෙතරම් ජනප්‍රියයි?</div>
+                    <p>• සරල සහ ප්‍රායෝගික සංකල්පය (වගු)<br>
+                    • SQL වැනි බලවත් සම්මත භාෂා<br>
+                    • අධ්‍යයන කිරීම සහ භාවිතා කිරීම පහසු<br>
+                    • බොහෝ ව්‍යාපාරික අවශ්‍යතා සඳහා සුදුසුයි</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="topic-section">
+            <h2 class="topic-title">වස්තු-නැඹුරු දත්ත ආකෘතිය (Object-Oriented Data Model)</h2>
+            <div class="topic-description">
+                <p>
+                    <strong>වස්තු-නැඹුරු දත්ත ආකෘතිය</strong> දත්ත වස්තු ස්වරූපයෙන් ගබඩා කරයි, ඒවා පන්ති වල අවස්ථා වේ. Java හෝ C++ වැනි වස්තු-නැඹුරු වැඩසටහන් භාෂා වලින් ලියා ඇති යෙදුම් සඳහා අවශ්‍ය සංකීර්ණ දත්ත වර්ග හැසිරවීම සඳහා මෙම ආකෘතිය බිහි විය. වස්තුවක් දත්ත (ගුණාංග) සහ හැසිරීම (ක්‍රම) යන දෙකම ඇතුළත් කරයි.
+                </p>
+
+                <div class="example-box">
+                    <div class="example-title">🚗 වස්තුවක් ව්‍යුහය:</div>
+                    <p><strong>Car වස්තුව:</strong><br>
+                    <strong>ගුණාංග (Attributes):</strong> color, model, year, price<br>
+                    <strong>ක්‍රම (Methods):</strong> startEngine(), accelerate(), brake(), turnOff()</p>
+                </div>
+
+                <ul>
+                    <li><strong>ව්‍යුහය:</strong> දත්ත සහ එහි සම්බන්ධිත මෙහෙයුම් වස්තු ලෙස එකට ගබඩා වේ. උරුමය, ආවරණය සහ බහුරූපිකත්වය වැනි ලක්ෂණ සඳහා සහාය දක්වයි.</li>
+                    <li><strong>උදාහරණය:</strong> `Car` වස්තුවකට `color` සහ `model` වැනි ගුණාංග, සහ `startEngine()` සහ `accelerate()` වැනි ක්‍රම තිබිය හැක.</li>
+                </ul>
+
+                <div class="advantage-box">
+                    <div class="advantage-title">✅ වාසි:</div>
+                    <p>• සංකීර්ණ සහ විවිධ දත්ත වර්ග හැසිරවිය හැක (රූප, ශ්‍රව්‍ය, වීඩියෝ)<br>
+                    • යෙදුම්වල වස්තු ආකෘති සහ දත්ත සමුදා අතර "impedance mismatch" අඩු කරයි<br>
+                    • උරුමය සහ කේත නැවත භාවිතා කිරීම සඳහා සහාය<br>
+                    • වඩා හොඳ කැප්සියුලේෂන් සහ දත්ත සැඟවීම<br>
+                    • සංකීර්ණ සම්බන්ධතා ස්වාභාවිකව නිරූපණය කරයි</p>
+                </div>
+
+                <div class="disadvantage-box">
+                    <div class="disadvantage-title">❌ අවාසි:</div>
+                    <p>• සබඳතා ආකෘතියට වඩා වඩාත් සංකීර්ණ විය හැක<br>
+                    • SQL හා සසඳන විට අඩු සම්මත විමසුම් භාෂාවක්<br>
+                    • OODBMS සඳහා වෙළඳපල RDBMS ට වඩා කුඩායි<br>
+                    • සීමිත මෘදුකාංග සහ මෙවලම් සහාය<br>
+                    • ඉගෙන ගැනීමේ වක්‍රය තරමක් අධිකයි</p>
+                </div>
+
+                <div class="example-box">
+                    <div class="example-title">🎮 සැබෑ ලෝක උදාහරණ:</div>
+                    <p><strong>ක්‍රීඩා සංවර්ධනය:</strong> ක්‍රීඩා චරිතයක් (Game Character) වස්තුවක් ලෙස නිර්වචනය කළ හැක: health, position, weapons (ගුණාංග) සහ move(), attack(), defend() (ක්‍රම) සමඟ. මෙය වස්තු-නැඹුරු දත්ත සමුදාවක ස්වාභාවිකව ගබඩා කළ හැක.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="topic-section">
+            <h2 class="topic-title">ප්‍රායෝගිකව සබඳතා ආකෘතිය: MySQL</h2>
+            <div class="topic-description">
+                <p>
+                    MySQL යනු ජනප්‍රිය විවෘත මූලාශ්‍ර <strong>සබඳතා දත්ත සමුදා කළමනාකරණ පද්ධතියකි (RDBMS)</strong>. මෙය සබඳතා දත්ත ආකෘතියේ නිශ්චිත මෘදුකාංග ක්‍රියාත්මක කිරීමකි. MySQL හි, විශේෂිත තීරු සහිත වගු නිර්මාණය කිරීමෙන් තාර්කික ව්‍යුහය නිර්වචනය වන අතර, එක් එක් තීරුවට දත්ත වර්ගයක් පවරා ඇත.
+                </p>
+                <p>
+                    <strong>MySQL දත්ත වර්ග</strong> තීරුවකට තබා ගත හැකි අගය කුමක්ද යන්න නිර්වචනය කරයි. දත්ත අඛණ්ඩතාව සහ කාර්ය සාධනය සඳහා නිවැරදි දත්ත වර්ගය තෝරා ගැනීම ඉතා වැදගත්ය.
+                </p>
+
+                <div class="note-box">
+                    <div class="note-title">⚡ දත්ත වර්ග තෝරා ගැනීමේ වැදගත්කම:</div>
+                    <p>• <strong>ගබඩා ඉඩ:</strong> INT(4) VARCHAR(255) ට වඩා අඩු ඉඩ ගනී<br>
+                    • <strong>කාර්ය සාධනය:</strong> නිවැරදි වර්ග වේගවත් ගණනය කිරීම් සඳහා ඉඩ සලසයි<br>
+                    • <strong>දත්ත වලංගුකරණය:</strong> වැරදි දත්ත ඇතුළත් වීම වළක්වයි<br>
+                    • <strong>විමසුම් ප්‍රශස්තකරණය:</strong> නිවැරදි වර්ග වඩා හොඳ සුචිගත කිරීම සඳහා ඉඩ සලසයි</p>
+                </div>
+
+                <h3 style="color: #667eea; margin: 25px 0 15px 0; font-size: 1.4em;">MySQL හි පොදු දත්ත වර්ග:</h3>
+
+                <div class="example-box">
+                    <div class="example-title">🔢 සංඛ්‍යාත්මක වර්ග (Numeric Types):</div>
+                    <ul style="list-style-type: none; padding-left: 0;">
+                        <li><strong>INT</strong> - නිඛිල (Integer): -2,147,483,648 සිට 2,147,483,647<br>
+                        <span style="color: #666;">උදා: වයස, ගණන, ID අංක</span></li>
+                        <li><strong>DECIMAL(M,D)</strong> - ස්ථාවර ලක්ෂ්‍ය සංඛ්‍යා: නිරවද්‍ය දශම ගණනය කිරීම් සඳහා<br>
+                        <span style="color: #666;">උදා: මුදල් අගයන් - DECIMAL(10,2) = 12345678.90</span></li>
+                        <li><strong>FLOAT / DOUBLE</strong> - පාවෙන ලක්ෂ්‍ය සංඛ්‍යා: විද්‍යාත්මක ගණනය කිරීම් සඳහා<br>
+                        <span style="color: #666;">උදා: විද්‍යාත්මක මිනුම්, ප්‍රතිශත</span></li>
+                    </ul>
+                </div>
+
+                <div class="example-box">
+                    <div class="example-title">📝 පෙළ/අක්ෂර වර්ග (String Types):</div>
+                    <ul style="list-style-type: none; padding-left: 0;">
+                        <li><strong>VARCHAR(n)</strong> - විචල්‍ය-දිග පෙළ: n අක්ෂර දක්වා<br>
+                        <span style="color: #666;">උදා: නම්, ඊමේල් - VARCHAR(100) සඳහා "Nimal" 5 bytes පමණක් භාවිතා කරයි</span></li>
+                        <li><strong>CHAR(n)</strong> - ස්ථාවර-දිග පෙළ: සෑම විටම n අක්ෂර<br>
+                        <span style="color: #666;">උදා: රටේ කේත - CHAR(2) = "LK", "US"</span></li>
+                        <li><strong>TEXT</strong> - දිගු පෙළ දත්ත: 65,535 අක්ෂර දක්වා<br>
+                        <span style="color: #666;">උදා: විස්තර, සටහන්, ලිපි අන්තර්ගත</span></li>
+                    </ul>
+                </div>
+
+                <div class="example-box">
+                    <div class="example-title">📅 දිනය සහ වේලාව වර්ග (Date and Time Types):</div>
+                    <ul style="list-style-type: none; padding-left: 0;">
+                        <li><strong>DATE</strong> - දිනය පමණක්: 'YYYY-MM-DD'<br>
+                        <span style="color: #666;">උදා: උපන් දිනය - '1995-08-15'</span></li>
+                        <li><strong>TIME</strong> - වේලාව පමණක්: 'HH:MI:SS'<br>
+                        <span style="color: #666;">උදා: වැඩ වේලාව - '09:30:00'</span></li>
+                        <li><strong>DATETIME</strong> - දිනය සහ වේලාව: 'YYYY-MM-DD HH:MI:SS'<br>
+                        <span style="color: #666;">උදා: සිදුවීම් වේලාව - '2025-10-29 14:30:00'</span></li>
+                        <li><strong>TIMESTAMP</strong> - වේලාවේ ලක්ෂ්‍යයක්: වෙනස්කම් ලුහුබැඳීම සඳහා ප්‍රයෝජනවත්<br>
+                        <span style="color: #666;">උදා: created_at, updated_at - ස්වයංක්‍රීයව යාවත්කාලීන වේ</span></li>
+                    </ul>
+                </div>
+
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>දත්ත වර්ගය</th>
+                            <th>ප්‍රමාණය</th>
+                            <th>භාවිතා සඳහා හොඳම</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>INT</strong></td>
+                            <td>4 bytes</td>
+                            <td>ID, වයස, ගණන්</td>
+                        </tr>
+                        <tr>
+                            <td><strong>VARCHAR(100)</strong></td>
+                            <td>1-101 bytes</td>
+                            <td>නම්, ඊමේල්, URL</td>
+                        </tr>
+                        <tr>
+                            <td><strong>TEXT</strong></td>
+                            <td>64 KB දක්වා</td>
+                            <td>දිගු විස්තර, ලිපි</td>
+                        </tr>
+                        <tr>
+                            <td><strong>DATE</strong></td>
+                            <td>3 bytes</td>
+                            <td>උපන් දිනය, කල් ඉකුත් වීම</td>
+                        </tr>
+                        <tr>
+                            <td><strong>DECIMAL(10,2)</strong></td>
+                            <td>5 bytes</td>
+                            <td>මුදල්, මිල, වැටුප්</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="example-box">
+                    <div class="example-title">💻 ප්‍රායෝගික උදාහරණ - Students වගුව නිර්මාණය:</div>
+                    <div style="background: #f8f9fa; padding: 15px; border-radius: 5px; font-family: monospace; margin-top: 10px;">
+                        CREATE TABLE Students (<br>
+                        &nbsp;&nbsp;StudentID INT PRIMARY KEY,<br>
+                        &nbsp;&nbsp;Name VARCHAR(100) NOT NULL,<br>
+                        &nbsp;&nbsp;Age INT,<br>
+                        &nbsp;&nbsp;Email VARCHAR(150),<br>
+                        &nbsp;&nbsp;EnrollmentDate DATE,<br>
+                        &nbsp;&nbsp;GPA DECIMAL(3,2)<br>
+                        );
+                    </div>
+                </div>
+
+                <div class="note-box">
+                    <div class="note-title">🎯 දත්ත වර්ග තෝරා ගැනීමේ ඉඟි:</div>
+                    <p>• <strong>සෑම විටම අවම ප්‍රමාණය භාවිතා කරන්න:</strong> VARCHAR(10000) වෙනුවට VARCHAR(100)<br>
+                    • <strong>මුදල් සඳහා DECIMAL භාවිතා කරන්න:</strong> FLOAT නොව (නිරවද්‍යතාව සඳහා)<br>
+                    • <strong>විශාල පෙළ සඳහා TEXT භාවිතා කරන්න:</strong> VARCHAR(10000) වෙනුවට<br>
+                    • <strong>සැබෑ INT අවශ්‍ය නම් පමණක් INT භාවිතා කරන්න:</strong> කුඩා සංඛ්‍යා සඳහා TINYINT හෝ SMALLINT<br>
+                    • <strong>TIMESTAMP භාවිතා කරන්න:</strong> වාර්තා නිර්මාණය කළ/යාවත්කාලීන කළ වේලා සඳහා</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="topic-section" style="background: linear-gradient(135deg, #667eea10 0%, #764ba210 100%);">
+            <h2 class="topic-title">දත්ත ආකෘති සංසන්දනය</h2>
+            <div class="topic-description">
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>දත්ත ආකෘතිය</th>
+                            <th>ව්‍යුහය</th>
+                            <th>ප්‍රධාන ලක්ෂණය</th>
+                            <th>භාවිතය</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Hierarchical</strong></td>
+                            <td>ගස් (Tree)</td>
+                            <td>එක-සිට-බොහෝ</td>
+                            <td>ගොනු පද්ධති, XML</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Network</strong></td>
+                            <td>ග්‍රැෆ්</td>
+                            <td>බොහෝ-සිට-බොහෝ</td>
+                            <td>සංකීර්ණ සම්බන්ධතා</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Relational</strong></td>
+                            <td>වගු (Tables)</td>
+                            <td>නම්‍යශීලී, SQL</td>
+                            <td>බොහෝ ව්‍යාපාර යෙදුම්</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Object-Oriented</strong></td>
+                            <td>වස්තු (Objects)</td>
+                            <td>උරුමය, ආවරණය</td>
+                            <td>සංකීර්ණ යෙදුම්</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div style="margin-top: 25px; padding: 20px; background: white; border-radius: 8px;">
+                    <h3 style="color: #667eea; margin-bottom: 15px;">🎓 මතක තබා ගන්න:</h3>
+                    <p style="line-height: 1.8;">
+                        • <strong>Hierarchical & Network:</strong> පැරණි, දැන් අඩුවෙන් භාවිතා වේ<br>
+                        • <strong>Relational:</strong> වඩාත් ජනප්‍රිය, බොහෝ භාවිතයන් සඳහා හොඳම<br>
+                        • <strong>Object-Oriented:</strong> විශේෂ අවශ්‍යතා සඳහා (මාධ්‍ය, CAD)<br>
+                        • <strong>අද:</strong> 90%+ දත්ත සමුදා සබඳතා ආකෘතිය භාවිතා කරයි
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="back-link">
+            <a href="../index.html" class="btn">← මුල් පිටුවට ආපසු යන්න</a>
         </div>
     </div>
-
-    <div class="back-link">
-        <a href="../index.html" class="btn">← Back to Home</a>
-    </div>
-</div>
 </body>
 </html>
