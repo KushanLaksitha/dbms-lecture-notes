@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 03: Data Models</title>
+<style>
+    * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    }
+    body {
+        font-family: 'Noto Sans', sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        padding: 20px;
+        color: #333;
+    }
+
+    .container {
+        max-width: 960px;
+        margin: 0 auto;
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        padding: 40px;
+    }
+
+    header {
+        text-align: center;
+        margin-bottom: 40px;
+        border-bottom: 2px solid #667eea;
+        padding-bottom: 20px;
+    }
+
+    .lesson-title {
+        color: #667eea;
+        font-size: 2.8em;
+        margin-bottom: 10px;
+    }
+
+    .lesson-subtitle {
+        font-size: 1.3em;
+        color: #555;
+    }
+
+    .topic-section {
+        margin-bottom: 35px;
+    }
+
+    .topic-title {
+        color: #764ba2;
+        font-size: 1.8em;
+        margin-bottom: 15px;
+        border-left: 5px solid #667eea;
+        padding-left: 15px;
+    }
+
+    .topic-description {
+        line-height: 1.7;
+        text-align: justify;
+        padding-left: 20px;
+    }
+
+    .topic-description p {
+        margin-bottom: 15px;
+    }
+
+    .topic-description ul {
+        list-style-type: disc;
+        margin-left: 40px;
+        margin-bottom: 15px;
+    }
+
+    .topic-description li {
+        margin-bottom: 10px;
+    }
+    
+    .topic-description strong {
+        color: #667eea;
+    }
+
+    .back-link {
+        display: inline-block;
+        margin-top: 40px;
+        text-align: center;
+        width: 100%;
+    }
+
+    .btn {
+        display: inline-block;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 15px 40px;
+        border-radius: 30px;
+        text-decoration: none;
+        font-size: 1.1em;
+        transition: all 0.3s ease;
+    }
+
+    .btn:hover {
+        transform: scale(1.05);
+        box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+    }
+
+    @media (max-width: 768px) {
+        .container {
+            padding: 20px;
+        }
+        .lesson-title {
+            font-size: 2em;
+        }
+        .topic-title {
+            font-size: 1.5em;
+        }
+    }
+
+</style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1 class="lesson-title">Lesson 03</h1>
+            <p class="lesson-subtitle">Data Models</p>
+        </header>
+        <div class="topic-section">
+        <h2 class="topic-title">Introduction to Data Models</h2>
+        <div class="topic-description">
+            <p>
+                A <strong>data model</strong> is a conceptual framework that defines the logical structure of a database. It provides a way to describe the design of a database at the logical level, including the data elements, the relationships between them, and the constraints that apply. Data models are essential as they form the foundation upon which a database is built, ensuring consistency and structure.
+            </p>
+        </div>
+    </div>
+
+    <div class="topic-section">
+        <h2 class="topic-title">Hierarchical Data Model</h2>
+        <div class="topic-description">
+            <p>
+                This is one of the earliest data models, originating in the 1960s. The <strong>hierarchical model</strong> organizes data in a tree-like structure. Data is stored as records which are connected to one another through links. Each record has a single parent, but can have multiple children. The top-level record is called the "root."
+            </p>
+            <ul>
+                <li><strong>Structure:</strong> A strict parent-child hierarchy (one-to-many relationship).</li>
+                <li><strong>Example:</strong> An organizational chart where a manager (parent) has several employees (children).</li>
+                <li><strong>Advantages:</strong> Simple to understand, fast for accessing data along the hierarchical paths, and promotes data integrity since a child cannot exist without a parent.</li>
+                <li><strong>Disadvantages:</strong> Inflexible, as it cannot easily represent many-to-many relationships. Data retrieval can be inefficient if it doesn't follow the hierarchical path.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="topic-section">
+        <h2 class="topic-title">Network Data Model</h2>
+        <div class="topic-description">
+            <p>
+                The <strong>network model</strong> was developed to address the limitations of the hierarchical model. It also organizes data using records and links, but it allows a child record to have multiple parent records. This creates a more flexible graph-like structure instead of a strict tree.
+            </p>
+            <ul>
+                <li><strong>Structure:</strong> A graph or lattice structure, allowing for many-to-many relationships.</li>
+                <li><strong>Example:</strong> In a university database, a `Student` record could be linked to multiple `Course` records, and a `Course` record could be linked to multiple `Student` records.</li>
+                <li><strong>Advantages:</strong> More flexible than the hierarchical model, capable of handling complex relationships, and reduces data redundancy.</li>
+                <li><strong>Disadvantages:</strong> Can become very complex to design and maintain. Navigating the database requires programmers to be familiar with the physical data structure.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="topic-section">
+        <h2 class="topic-title">Relational Data Model</h2>
+        <div class="topic-description">
+            <p>
+                Proposed by E.F. Codd in 1970, the <strong>relational model</strong> is the most widely used data model today. It organizes data into two-dimensional tables, also known as <strong>relations</strong>. Each table consists of rows (tuples) and columns (attributes).
+            </p>
+            <ul>
+                <li><strong>Structure:</strong> Data is stored in tables. Relationships between tables are established through common columns using primary and foreign keys.</li>
+                <li><strong>Example:</strong> An `Employees` table and a `Departments` table, linked by a `DepartmentID` column present in both.</li>
+                <li><strong>Advantages:</strong> Highly flexible and easy to understand. It provides structural independence, meaning the data structure can be changed without affecting how data is accessed. SQL provides a powerful and standardized way to interact with the data.</li>
+                <li><strong>Disadvantages:</strong> Can sometimes lead to performance issues with very large and complex queries that require joining many tables.</li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="topic-section">
+        <h2 class="topic-title">Object-Oriented Data Model</h2>
+        <div class="topic-description">
+            <p>
+                The <strong>object-oriented data model</strong> stores data in the form of objects, which are instances of classes. This model emerged to handle the complex data types required by applications written in object-oriented programming languages like Java or C++. An object encapsulates both data (attributes) and behavior (methods).
+            </p>
+            <ul>
+                <li><strong>Structure:</strong> Data and its associated operations are stored together as objects. It supports features like inheritance, encapsulation, and polymorphism.</li>
+                <li><strong>Example:</strong> A `Car` object could have attributes like `color` and `model`, and methods like `startEngine()` and `accelerate()`.</li>
+                <li><strong>Advantages:</strong> Can handle complex and diverse data types (e.g., images, audio). It reduces the "impedance mismatch" between the application's object model and the database's relational model.</li>
+                <li><strong>Disadvantages:</strong> Can be more complex than the relational model and has a less standardized query language compared to SQL. The market for OODBMS is smaller than for RDBMS.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="topic-section">
+        <h2 class="topic-title">The Relational Model in Practice: MySQL</h2>
+        <div class="topic-description">
+            <p>
+                MySQL is a popular open-source <strong>Relational Database Management System (RDBMS)</strong>. It is a specific software implementation of the relational data model. In MySQL, the logical structure is defined by creating tables with specific columns, and each column is assigned a data type.
+            </p>
+            <p>
+                <strong>MySQL data types</strong> define what kind of value a column can hold. Choosing the correct data type is crucial for data integrity and performance. Common data types in MySQL include:
+            </p>
+            <ul>
+                <li><strong>Numeric Types:</strong> `INT` (integers), `DECIMAL` (fixed-point numbers), `FLOAT` (floating-point numbers).</li>
+                <li><strong>String Types:</strong> `VARCHAR(n)` (variable-length strings up to n characters), `TEXT` (long text data), `CHAR(n)` (fixed-length strings).</li>
+                <li><strong>Date and Time Types:</strong> `DATE` (stores 'YYYY-MM-DD'), `TIME` (stores 'HH:MI:SS'), `DATETIME` (stores both date and time), `TIMESTAMP` (stores a point in time, useful for tracking changes).</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="back-link">
+        <a href="../index.html" class="btn">← Back to Home</a>
+    </div>
+</div>
+</body>
+</html>

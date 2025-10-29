@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 05: ER Modeling</title>
+<style>
+    * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    }
+    body {
+        font-family: 'Noto Sans', sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        padding: 20px;
+        color: #333;
+    }
+
+    .container {
+        max-width: 960px;
+        margin: 0 auto;
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        padding: 40px;
+    }
+
+    header {
+        text-align: center;
+        margin-bottom: 40px;
+        border-bottom: 2px solid #667eea;
+        padding-bottom: 20px;
+    }
+
+    .lesson-title {
+        color: #667eea;
+        font-size: 2.8em;
+        margin-bottom: 10px;
+    }
+
+    .lesson-subtitle {
+        font-size: 1.3em;
+        color: #555;
+    }
+
+    .topic-section {
+        margin-bottom: 35px;
+    }
+
+    .topic-title {
+        color: #764ba2;
+        font-size: 1.8em;
+        margin-bottom: 15px;
+        border-left: 5px solid #667eea;
+        padding-left: 15px;
+    }
+
+    .topic-description {
+        line-height: 1.7;
+        text-align: justify;
+        padding-left: 20px;
+    }
+
+    .topic-description p {
+        margin-bottom: 15px;
+    }
+
+    .topic-description ul {
+        list-style-type: disc;
+        margin-left: 40px;
+        margin-bottom: 15px;
+    }
+
+    .topic-description li {
+        margin-bottom: 10px;
+    }
+    
+    .topic-description strong {
+        color: #667eea;
+    }
+
+    .back-link {
+        display: inline-block;
+        margin-top: 40px;
+        text-align: center;
+        width: 100%;
+    }
+
+    .btn {
+        display: inline-block;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 15px 40px;
+        border-radius: 30px;
+        text-decoration: none;
+        font-size: 1.1em;
+        transition: all 0.3s ease;
+    }
+
+    .btn:hover {
+        transform: scale(1.05);
+        box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+    }
+
+    @media (max-width: 768px) {
+        .container {
+            padding: 20px;
+        }
+        .lesson-title {
+            font-size: 2em;
+        }
+        .topic-title {
+            font-size: 1.5em;
+        }
+    }
+
+</style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1 class="lesson-title">Lesson 05</h1>
+            <p class="lesson-subtitle">Entity-Relationship (ER) Modeling</p>
+        </header>
+        <div class="topic-section">
+        <h2 class="topic-title">Entity Types and Attributes</h2>
+        <div class="topic-description">
+            <p>
+                The Entity-Relationship (ER) model is a high-level conceptual data model used to visualize the structure of a database. Its core components are entities, attributes, and relationships.
+            </p>
+            <ul>
+                <li><strong>Entity:</strong> An entity is a real-world object or concept that can be distinctly identified. For example, in a university database, entities could be a specific `Student`, a `Professor`, or a `Course`.</li>
+                <li><strong>Entity Type (or Entity Set):</strong> This is a collection of entities that share the same properties or attributes. For example, `STUDENT` is an entity type that represents the set of all students in the university. In an ER diagram, an entity type is typically represented by a rectangle.</li>
+                <li><strong>Attribute:</strong> An attribute is a property or characteristic of an entity type. For the `STUDENT` entity type, attributes could include `StudentID`, `Name`, `Address`, and `DateOfBirth`. Attributes are represented by ovals in an ER diagram.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="topic-section">
+        <h2 class="topic-title">Relationship Types</h2>
+        <div class="topic-description">
+            <p>
+                A <strong>relationship</strong> is an association among two or more entities. A <strong>relationship type</strong> defines a set of associations among entities from one or more entity types.
+            </p>
+            <p>
+                For example, an `ENROLLS_IN` relationship type could associate `STUDENT` entities with `COURSE` entities. A specific instance of this relationship would be 'Student John Smith enrolls in Course CS101'. In an ER diagram, a relationship type is represented by a diamond shape.
+            </p>
+            <p><strong>Degree of a Relationship:</strong> The number of participating entity types.
+                <ul>
+                    <li><strong>Unary (Recursive):</strong> A relationship between instances of the same entity type. (e.g., an `EMPLOYEE` supervises another `EMPLOYEE`).</li>
+                    <li><strong>Binary:</strong> A relationship between two different entity types. This is the most common type. (e.g., `STUDENT` enrolls in `COURSE`).</li>
+                    <li><strong>Ternary:</strong> A relationship involving three entity types. (e.g., a `DOCTOR` prescribes a `MEDICINE` for a `PATIENT`).</li>
+                </ul>
+            </p>
+        </div>
+    </div>
+
+    <div class="topic-section">
+        <h2 class="topic-title">Cardinality and Participation</h2>
+        <div class="topic-description">
+            <p>
+                These constraints define the rules of association between entities.
+            </p>
+            <p>
+                <strong>Cardinality Ratio</strong> specifies the maximum number of relationship instances that an entity can participate in.
+            </p>
+            <ul>
+                <li><strong>One-to-One (1:1):</strong> An entity in Set A can be associated with at most one entity in Set B, and vice versa. (e.g., a `DEPARTMENT` is managed by one `MANAGER`).</li>
+                <li><strong>One-to-Many (1:N):</strong> An entity in Set A can be associated with many entities in Set B, but an entity in Set B can be associated with at most one entity in Set A. (e.g., a `PROFESSOR` teaches many `COURSES`).</li>
+                <li><strong>Many-to-Many (M:N):</strong> An entity in Set A can be associated with many entities in Set B, and vice versa. (e.g., `STUDENTS` enroll in many `COURSES`).</li>
+            </ul>
+            <p>
+                <strong>Participation Constraint</strong> specifies whether the existence of an entity depends on its being related to another entity via the relationship type.
+            </p>
+            <ul>
+                <li><strong>Total Participation (Mandatory):</strong> Every entity in the entity set must participate in at least one relationship instance. (e.g., every `COURSE` must be taught by a `PROFESSOR`). This is often shown with a double line in ER diagrams.</li>
+                <li><strong>Partial Participation (Optional):</strong> Not all entities in the set need to participate in the relationship. (e.g., a `PROFESSOR` does not necessarily have to teach a `COURSE` every semester). This is shown with a single line.</li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="topic-section">
+        <h2 class="topic-title">Weak Entities</h2>
+        <div class="topic-description">
+            <p>
+                A <strong>weak entity type</strong> is an entity type that does not have a key attribute of its own. It cannot be uniquely identified by its attributes alone. Its existence is dependent on another entity type, called the <strong>strong (or identifying) entity type</strong>.
+            </p>
+            <ul>
+                <li><strong>Identifying Relationship:</strong> The relationship that associates a weak entity type with its strong entity type.</li>
+                <li><strong>Partial Key (or Discriminator):</strong> An attribute or set of attributes of a weak entity that, combined with the primary key of the strong entity, uniquely identifies a weak entity instance.</li>
+                <li><strong>Example:</strong> Consider an `EMPLOYEE` and their `DEPENDENT`. `DEPENDENT` is a weak entity because a dependent cannot exist without the employee, and their `Name` might not be unique across all dependents. The `Name` is a partial key. To uniquely identify a dependent, you need the `EmployeeID` from the `EMPLOYEE` entity and the `Name` of the dependent.</li>
+                <li>In ER diagrams, weak entity types and their identifying relationships are typically shown with double-lined rectangles and diamonds, respectively.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="topic-section">
+        <h2 class="topic-title">Interactive ER Tool</h2>
+        <div class="topic-description">
+            <p>
+                An <strong>interactive ER tool</strong> is a software application that allows database designers to create and manipulate Entity-Relationship diagrams visually. These tools provide a graphical user interface where you can drag and drop symbols for entities, relationships, and attributes.
+            </p>
+            <p>
+                Using such a tool simplifies the database design process significantly. Key features often include:
+            </p>
+            <ul>
+                <li>A palette of ER diagram notations (rectangles, diamonds, ovals).</li>
+                <li>The ability to connect shapes to define relationships and link attributes.</li>
+                <li>Options to specify constraints like cardinality and participation.</li>
+                <li>Automated validation to check for design errors.</li>
+                <li>The ability to automatically generate SQL DDL code from the finished diagram, which can be used to create the actual database tables.</li>
+            </ul>
+            <p>Popular examples of ER diagramming tools include Lucidchart, draw.io, and MySQL Workbench.</p>
+        </div>
+    </div>
+
+    <div class="back-link">
+        <a href="../index.html" class="btn">← Back to Home</a>
+    </div>
+</div>
+</body>
+</html>

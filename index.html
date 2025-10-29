@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="si">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DBMS පාඩම් සටහන්</title>
+<style>
+    * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    }
+    body {
+        font-family: 'Noto Sans Sinhala', 'Noto Sans', sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        padding: 20px;
+        position: relative;
+        overflow-x: hidden;
+    }
+
+    .floating-shapes {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+        z-index: 0;
+    }
+
+    .shape {
+        position: absolute;
+        opacity: 0.1;
+        animation: float 20s infinite ease-in-out;
+    }
+
+    .shape:nth-child(1) {
+        top: 10%;
+        left: 10%;
+        width: 80px;
+        height: 80px;
+        background: white;
+        border-radius: 50%;
+        animation-delay: 0s;
+    }
+
+    .shape:nth-child(2) {
+        top: 60%;
+        right: 10%;
+        width: 100px;
+        height: 100px;
+        background: white;
+        border-radius: 20px;
+        animation-delay: 5s;
+    }
+
+    .shape:nth-child(3) {
+        bottom: 20%;
+        left: 20%;
+        width: 60px;
+        height: 60px;
+        background: white;
+        transform: rotate(45deg);
+        animation-delay: 10s;
+    }
+
+    @keyframes float {
+        0%, 100% { transform: translateY(0) rotate(0deg); }
+        50% { transform: translateY(-30px) rotate(180deg); }
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        position: relative;
+        z-index: 1;
+    }
+
+    header {
+        text-align: center;
+        color: white;
+        padding: 40px 20px;
+        margin-bottom: 40px;
+        animation: fadeInDown 1s ease;
+    }
+
+    @keyframes fadeInDown {
+        from {
+            opacity: 0;
+            transform: translateY(-30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    h1 {
+        font-size: 2.8em;
+        margin-bottom: 15px;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        letter-spacing: 1px;
+    }
+
+    .subtitle {
+        font-size: 1.3em;
+        opacity: 0.95;
+        font-weight: 300;
+    }
+
+    .lang-toggle {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 1000;
+    }
+
+    .lang-btn {
+        background: white;
+        color: #667eea;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 25px;
+        cursor: pointer;
+        font-weight: bold;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        transition: all 0.3s ease;
+    }
+
+    .lang-btn:hover {
+        transform: scale(1.05);
+        box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+    }
+
+    .highlights {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+        margin-bottom: 40px;
+        animation: fadeIn 1.5s ease;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+
+    .highlight-card {
+        background: white;
+        padding: 25px;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .highlight-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.1), transparent);
+        transition: left 0.5s ease;
+    }
+
+    .highlight-card:hover::before {
+        left: 100%;
+    }
+
+    .highlight-card:hover {
+        transform: translateY(-5px) scale(1.02);
+        box-shadow: 0 15px 40px rgba(0,0,0,0.25);
+    }
+
+    .highlight-card h3 {
+        color: #667eea;
+        margin-bottom: 10px;
+        font-size: 1.4em;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .highlight-card p {
+        color: #666;
+        line-height: 1.8;
+        font-size: 1.05em;
+    }
+
+    .lectures-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 25px;
+        margin-bottom: 40px;
+    }
+
+    .lecture-card {
+        background: white;
+        border-radius: 15px;
+        padding: 30px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        transition: all 0.4s ease;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+        animation: slideUp 0.6s ease forwards;
+        opacity: 0;
+    }
+
+    .lecture-card:nth-child(1) { animation-delay: 0.1s; }
+    .lecture-card:nth-child(2) { animation-delay: 0.2s; }
+    .lecture-card:nth-child(3) { animation-delay: 0.3s; }
+    .lecture-card:nth-child(4) { animation-delay: 0.4s; }
+    .lecture-card:nth-child(5) { animation-delay: 0.5s; }
+
+    @keyframes slideUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .lecture-card::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 4px;
+        background: linear-gradient(90deg, #667eea, #764ba2);
+        transform: scaleX(0);
+        transition: transform 0.3s ease;
+    }
+
+    .lecture-card:hover::after {
+        transform: scaleX(1);
+    }
+
+    .lecture-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 50px rgba(102, 126, 234, 0.3);
+    }
+
+    .lecture-number {
+        display: inline-block;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 10px 20px;
+        border-radius: 25px;
+        font-size: 0.95em;
+        margin-bottom: 15px;
+        font-weight: bold;
+        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+    }
+
+    .lecture-card h2 {
+        color: #333;
+        margin-bottom: 15px;
+        font-size: 1.6em;
+        font-weight: 600;
+    }
+
+    .lecture-card ul {
+        list-style: none;
+        color: #666;
+    }
+
+    .lecture-card li {
+        padding: 8px 0;
+        padding-left: 25px;
+        position: relative;
+        transition: all 0.3s ease;
+        font-size: 1.05em;
+    }
+
+    .lecture-card li:hover {
+        padding-left: 30px;
+        color: #667eea;
+    }
+
+    .lecture-card li:before {
+        content: "▸";
+        position: absolute;
+        left: 0;
+        color: #667eea;
+        font-size: 1.2em;
+        transition: all 0.3s ease;
+    }
+
+    .lecture-card li:hover:before {
+        transform: translateX(3px);
+    }
+
+    .resources-section {
+        background: white;
+        border-radius: 15px;
+        padding: 40px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        text-align: center;
+        animation: fadeIn 2s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .resources-section::before {
+        content: '🔧';
+        position: absolute;
+        top: -20px;
+        right: -20px;
+        font-size: 150px;
+        opacity: 0.05;
+    }
+
+    .resources-section h2 {
+        color: #667eea;
+        margin-bottom: 20px;
+        font-size: 2em;
+        font-weight: 600;
+    }
+
+    .resources-section p {
+        font-size: 1.1em;
+    }
+
+    .btn {
+        display: inline-block;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 15px 45px;
+        border-radius: 30px;
+        text-decoration: none;
+        font-size: 1.15em;
+        transition: all 0.3s ease;
+        margin: 10px;
+        font-weight: 600;
+        box-shadow: 0 5px 20px rgba(102, 126, 234, 0.3);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .btn::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.2);
+        transition: left 0.5s ease;
+    }
+
+    .btn:hover::before {
+        left: 100%;
+    }
+
+    .btn:hover {
+        transform: scale(1.08);
+        box-shadow: 0 8px 30px rgba(102, 126, 234, 0.5);
+    }
+
+    footer {
+        text-align: center;
+        color: white;
+        padding: 30px;
+        margin-top: 40px;
+        opacity: 0.95;
+        animation: fadeIn 2.5s ease;
+    }
+
+    .stats-banner {
+        display: flex;
+        justify-content: space-around;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border-radius: 15px;
+        padding: 20px;
+        margin-bottom: 40px;
+        color: white;
+    }
+
+    .stat-item {
+        text-align: center;
+    }
+
+    .stat-number {
+        font-size: 2.5em;
+        font-weight: bold;
+        display: block;
+    }
+
+    .stat-label {
+        font-size: 1em;
+        opacity: 0.9;
+    }
+
+    @media (max-width: 768px) {
+        h1 {
+            font-size: 2em;
+        }
+
+        .lectures-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .stats-banner {
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .shape {
+            display: none;
+        }
+    }
+</style>
+</head>
+<body>
+    <div class="floating-shapes">
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+
+    <div class="container">
+        <header>
+            <h1>🎓 දත්ත සමුදා කළමනාකරණ පද්ධති</h1>
+            <p class="subtitle">සම්පූර්ණ DBMS පාඩම් සටහන් සහ සම්පත්</p>
+        </header>
+
+        <div class="stats-banner">
+            <div class="stat-item">
+                <span class="stat-number">05</span>
+                <span class="stat-label">පාඩම්</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">25+</span>
+                <span class="stat-label">මාතෘකා</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">100%</span>
+                <span class="stat-label">සිංහල මාධ්‍යය</span>
+            </div>
+        </div>
+
+        <div class="highlights">
+            <div class="highlight-card">
+                <h3>📚 සවිස්තරාත්මක ප්‍රවේශය</h3>
+                <p>මූලික සංකල්ප සිට උසස් තාක්ෂණික දැනුම දක්වා සියලු මාතෘකා ආවරණය කරයි</p>
+            </div>
+            <div class="highlight-card">
+                <h3>🎯 ප්‍රායෝගික උදාහරණ</h3>
+                <p>සැබෑ ලෝක උදාහරණ සහ අන්තර්ක්‍රියාකාරී මෙවලම්</p>
+            </div>
+            <div class="highlight-card">
+                <h3>💡 පහසුවෙන් ඉගෙන ගන්න</h3>
+                <p>සිංහල භාෂාවෙන් පැහැදිලි පැහැදිලි කිරීම් සමඟ</p>
+            </div>
+        </div>
+
+        <div class="lectures-grid">
+            <div class="lecture-card" onclick="location.href='pages/lecture-01.html'">
+                <span class="lecture-number">පාඩම 01</span>
+                <h2>DBMS හඳුන්වාදීම</h2>
+                <ul>
+                    <li>දත්ත, තොරතුරු සහ සැකසුම්</li>
+                    <li>දත්ත සමුදා වර්ග</li>
+                    <li>ගොනු පද්ධති ගැටළු</li>
+                    <li>දත්ත සමුදා ඉතිහාසය</li>
+                    <li>DBMS සංරචක</li>
+                </ul>
+            </div>
+            <div class="lecture-card" onclick="location.href='pages/lecture-02.html'">
+                <span class="lecture-number">පාඩම 02</span>
+                <h2>දත්ත සමුදා ගෘහනිර්මාණ ශිල්පය</h2>
+                <ul>
+                    <li>දත්ත සමුදා ක්‍රමසැලැස්ම</li>
+                    <li>තුන්-මට්ටම් ක්‍රමසැලැස්ම ගෘහනිර්මාණය</li>
+                    <li>දත්ත ස්වාධීනත්වය</li>
+                    <li>DBMS භාෂා</li>
+                    <li>සේවාලාභී-සේවාදායක ගෘහනිර්මාණය</li>
+                </ul>
+            </div>
+
+            <div class="lecture-card" onclick="location.href='pages/lecture-03.html'">
+                <span class="lecture-number">පාඩම 03</span>
+                <h2>දත්ත ආකෘති</h2>
+                <ul>
+                    <li>ධුරාවලි දත්ත ආකෘතිය</li>
+                    <li>ජාල දත්ත ආකෘතිය</li>
+                    <li>සාපේක්ෂ දත්ත ආකෘතිය</li>
+                    <li>වස්තු-නැඹුරු දත්ත ආකෘතිය</li>
+                    <li>MYSQL දත්ත ආකෘති</li>
+                </ul>
+            </div>
+
+            <div class="lecture-card" onclick="location.href='pages/lecture-04.html'">
+                <span class="lecture-number">පාඩම 04</span>
+                <h2>දත්ත සමුදා සැලසුම් ක්‍රියාවලිය</h2>
+                <ul>
+                    <li>අවශ්‍යතා විශ්ලේෂණය</li>
+                    <li>සංකල්පීය සැලසුම</li>
+                    <li>තාර්කික සැලසුම</li>
+                    <li>ක්‍රමසැලැස්ම පිරිපහදු කිරීම</li>
+                    <li>භෞතික සැලසුම</li>
+                </ul>
+            </div>
+
+            <div class="lecture-card" onclick="location.href='pages/lecture-05.html'">
+                <span class="lecture-number">පාඩම 05</span>
+                <h2>ER ආකෘතිකරණය</h2>
+                <ul>
+                    <li>ආයතන වර්ග සහ ගුණාංග</li>
+                    <li>සම්බන්ධතා වර්ග</li>
+                    <li>කාර්ඩිනලිටි සහ සහභාගිත්වය</li>
+                    <li>දුර්වල ආයතන</li>
+                    <li>අන්තර්ක්‍රියාකාරී ER මෙවලම</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="resources-section">
+            <h2>🔧 අතිරේක සම්පත්</h2>
+            <p style="margin-bottom: 20px; color: #666; font-size: 1.1em;">SQL උදාහරණ, පුහුණු අභ්‍යාස සහ DBMS මෘදුකාංග සබැඳි</p>
+            <a href="pages/resources.html" class="btn">සම්පත් බලන්න</a>
+        </div>
+
+        <footer>
+            <p style="font-size: 1.1em;">© 2025 DBMS පාඩම් සටහන් | සියලුම හිමිකම් ඇවිරිණි</p>
+            <p style="margin-top: 10px; font-size: 1em;">සිංහල භාෂාවෙන් සම්පූර්ණ දත්ත සමුදා කළමනාකරණ පද්ධති පා‍ඨමාලාව</p>
+            <p style="margin-top: 15px; font-size: 0.95em; opacity: 0.8;">✨ දැනුම බෙදාගැනීම යනු සැබෑ ශක්තියයි ✨</p>
+        </footer>
+    </div>
+</body>
+</html>

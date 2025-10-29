@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DBMS Resources</title>
+<style>
+    * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    }
+    body {
+        font-family: 'Noto Sans', sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        padding: 20px;
+        color: #333;
+    }
+
+    .container {
+        max-width: 960px;
+        margin: 0 auto;
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        padding: 40px;
+    }
+
+    header {
+        text-align: center;
+        margin-bottom: 40px;
+        border-bottom: 2px solid #667eea;
+        padding-bottom: 20px;
+    }
+
+    .page-title {
+        color: #667eea;
+        font-size: 2.8em;
+        margin-bottom: 10px;
+    }
+
+    .page-subtitle {
+        font-size: 1.3em;
+        color: #555;
+    }
+
+    .resource-section {
+        margin-bottom: 40px;
+    }
+
+    .section-title {
+        color: #764ba2;
+        font-size: 1.8em;
+        margin-bottom: 20px;
+        border-left: 5px solid #667eea;
+        padding-left: 15px;
+    }
+
+    .section-content {
+        line-height: 1.7;
+        padding-left: 20px;
+    }
+
+    .section-content p {
+        margin-bottom: 15px;
+    }
+
+    .section-content ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    .section-content li {
+        margin-bottom: 25px;
+    }
+    
+    .section-content strong {
+        color: #555;
+        font-size: 1.1em;
+    }
+
+    .code-block {
+        background-color: #f4f4f9;
+        border: 1px solid #ddd;
+        border-left: 4px solid #667eea;
+        padding: 15px;
+        border-radius: 5px;
+        font-family: 'Courier New', Courier, monospace;
+        white-space: pre-wrap; /* Allows wrapping of long lines */
+        word-wrap: break-word; /* Breaks long words */
+        margin-top: 10px;
+    }
+    
+    .link-list a {
+        display: block;
+        background-color: #f9f9f9;
+        padding: 15px;
+        margin-bottom: 10px;
+        border-radius: 8px;
+        text-decoration: none;
+        color: #764ba2;
+        font-weight: bold;
+        border: 1px solid #eee;
+        transition: all 0.3s ease;
+    }
+    
+    .link-list a:hover {
+        transform: translateX(5px);
+        background-color: #f0f0ff;
+        border-color: #667eea;
+    }
+
+    .back-link {
+        display: inline-block;
+        margin-top: 40px;
+        text-align: center;
+        width: 100%;
+    }
+
+    .btn {
+        display: inline-block;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 15px 40px;
+        border-radius: 30px;
+        text-decoration: none;
+        font-size: 1.1em;
+        transition: all 0.3s ease;
+    }
+
+    .btn:hover {
+        transform: scale(1.05);
+        box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+    }
+
+</style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1 class="page-title">🔧 Additional Resources</h1>
+            <p class="page-subtitle">SQL Examples, Practice Exercises, and Software Links</p>
+        </header>
+        <div class="resource-section">
+        <h2 class="section-title">SQL Examples</h2>
+        <div class="section-content">
+            <ul>
+                <li>
+                    <strong>CREATE TABLE:</strong> Defines a new table.
+                    <div class="code-block">
+                        CREATE TABLE Students (
+                        StudentID INT PRIMARY KEY,
+                        FirstName VARCHAR(50),
+                        LastName VARCHAR(50),
+                        DateOfBirth DATE
+                        );
+                    </div>
+                </li>
+                <li>
+                    <strong>INSERT INTO:</strong> Adds a new row of data into a table.
+                    <div class="code-block">
+                        INSERT INTO Students (StudentID, FirstName, LastName, DateOfBirth)
+                        VALUES (101, 'John', 'Smith', '2002-08-15');
+                    </div>
+                </li>
+                <li>
+                    <strong>SELECT:</strong> Retrieves data from one or more tables.
+                    <div class="code-block">
+                        SELECT FirstName, LastName FROM Students WHERE StudentID = 101;
+                    </div>
+                </li>
+                <li>
+                    <strong>UPDATE:</strong> Modifies existing records in a table.
+                    <div class="code-block">
+                        UPDATE Students
+                        SET LastName = 'Jones'
+                        WHERE StudentID = 101;
+                    </div>
+                </li>
+                <li>
+                    <strong>DELETE:</strong> Removes records from a table.
+                    <div class="code-block">
+                        DELETE FROM Students WHERE StudentID = 101;
+                    </div>
+                </li>
+                <li>
+                    <strong>JOIN:</strong> Combines rows from two or more tables based on a related column.
+                    <div class="code-block">
+                        SELECT Students.FirstName, Courses.CourseName
+                        FROM Students
+                        JOIN Enrollments ON Students.StudentID = Enrollments.StudentID
+                        JOIN Courses ON Enrollments.CourseID = Courses.CourseID;
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="resource-section">
+        <h2 class="section-title">Practice Exercises</h2>
+        <div class="section-content">
+            <ul>
+                <li>
+                    <strong>Scenario 1: Simple Blog Database</strong>
+                    <p>Design a database for a simple blog. It should have tables for `Posts` and `Comments`. What columns would you include in each table? How would you link a comment to a specific post? Think about the relationship type and cardinality.</p>
+                </li>
+                <li>
+                    <strong>Scenario 2: Library Management System</strong>
+                    <p>Create an ER diagram for a library. The database should track `Books`, `Members`, and `Loans` (which book is borrowed by which member). Consider the attributes for each entity and the relationships between them. What happens when a member can borrow multiple books?</p>
+                </li>
+                <li>
+                    <strong>Scenario 3: Query Challenge</strong>
+                    <p>Given a table `Products` with columns `ProductID`, `ProductName`, `Category`, and `Price`, write a SQL query to find the average price of products in the 'Electronics' category.</p>
+                </li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="resource-section">
+        <h2 class="section-title">DBMS Software Links</h2>
+        <div class="section-content">
+            <p>Here are links to some popular and free-to-use database management systems that you can install on your computer to practice:</p>
+            <div class="link-list">
+                <a href="https://www.mysql.com/downloads/" target="_blank">MySQL Community Server</a>
+                <a href="https://www.postgresql.org/download/" target="_blank">PostgreSQL</a>
+                <a href="https://www.sqlite.org/download.html" target="_blank">SQLite</a>
+                <a href="https://www.microsoft.com/en-us/sql-server/sql-server-downloads" target="_blank">Microsoft SQL Server Express</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="back-link">
+        <a href="index.html" class="btn">← Back to Home</a>
+    </div>
+</div>
+</body>
+</html>

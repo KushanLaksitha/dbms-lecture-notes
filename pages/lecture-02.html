@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 02: Database Architecture</title>
+<style>
+    * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    }
+    body {
+        font-family: 'Noto Sans', sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        padding: 20px;
+        color: #333;
+    }
+
+    .container {
+        max-width: 960px;
+        margin: 0 auto;
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        padding: 40px;
+    }
+
+    header {
+        text-align: center;
+        margin-bottom: 40px;
+        border-bottom: 2px solid #667eea;
+        padding-bottom: 20px;
+    }
+
+    .lesson-title {
+        color: #667eea;
+        font-size: 2.8em;
+        margin-bottom: 10px;
+    }
+
+    .lesson-subtitle {
+        font-size: 1.3em;
+        color: #555;
+    }
+
+    .topic-section {
+        margin-bottom: 35px;
+    }
+
+    .topic-title {
+        color: #764ba2;
+        font-size: 1.8em;
+        margin-bottom: 15px;
+        border-left: 5px solid #667eea;
+        padding-left: 15px;
+    }
+
+    .topic-description {
+        line-height: 1.7;
+        text-align: justify;
+        padding-left: 20px;
+    }
+
+    .topic-description p {
+        margin-bottom: 15px;
+    }
+
+    .topic-description ul {
+        list-style-type: disc;
+        margin-left: 40px;
+        margin-bottom: 15px;
+    }
+
+    .topic-description li {
+        margin-bottom: 10px;
+    }
+    
+    .topic-description strong {
+        color: #667eea;
+    }
+
+    .back-link {
+        display: inline-block;
+        margin-top: 40px;
+        text-align: center;
+        width: 100%;
+    }
+
+    .btn {
+        display: inline-block;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 15px 40px;
+        border-radius: 30px;
+        text-decoration: none;
+        font-size: 1.1em;
+        transition: all 0.3s ease;
+    }
+
+    .btn:hover {
+        transform: scale(1.05);
+        box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+    }
+
+    @media (max-width: 768px) {
+        .container {
+            padding: 20px;
+        }
+        .lesson-title {
+            font-size: 2em;
+        }
+        .topic-title {
+            font-size: 1.5em;
+        }
+    }
+
+</style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1 class="lesson-title">Lesson 02</h1>
+            <p class="lesson-subtitle">Database Architecture</p>
+        </header>
+        <div class="topic-section">
+        <h2 class="topic-title">Database Schema</h2>
+        <div class="topic-description">
+            <p>
+                A <strong>database schema</strong> is the blueprint or logical structure of a database. It defines how the data is organized and how the relationships between different data elements are associated. Think of it as the architectural plan for a house before it's built.
+            </p>
+            <p>
+                The schema specifies the tables, the columns within each table, the data types for each column, and the constraints (like primary keys and foreign keys) that enforce data integrity. It provides a formal definition of the entire database. It's important to distinguish between the schema (the structure) and the database instance (the actual data stored at a specific moment).
+            </p>
+        </div>
+    </div>
+
+    <div class="topic-section">
+        <h2 class="topic-title">Three-Level Schema Architecture</h2>
+        <div class="topic-description">
+            <p>
+                Also known as the ANSI-SPARC architecture, this model provides a framework for building databases that promote data independence. It divides the database into three distinct levels of abstraction:
+            </p>
+            <ul>
+                <li><strong>External Level (View Level):</strong> This is the highest level of abstraction and is what the end-users see. It describes only a part of the entire database that is relevant to a specific user group. For example, the HR department might see employee salary information, while the sales department sees customer order details. There can be multiple external views for a single database.</li>
+                <li><strong>Conceptual Level (Logical Level):</strong> This level provides a unified, logical view of the entire database for the community of users. It describes what data is stored and the relationships between the data, without considering the physical storage details. The Database Administrator (DBA) typically works at this level to define the structure of all tables, entities, attributes, and constraints.</li>
+                <li><strong>Internal Level (Physical Level):</strong> This is the lowest level and describes how the data is physically stored on storage devices. It deals with low-level details like file organization, data structures (e.g., B+ trees for indexing), and access paths. This level is managed by the DBMS and is generally hidden from programmers and administrators.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="topic-section">
+        <h2 class="topic-title">Data Independence</h2>
+        <div class="topic-description">
+            <p>
+                Data independence is a key advantage of the three-level architecture. It is the ability to modify a schema at one level without affecting the schema at the next higher level. There are two types:
+            </p>
+            <ul>
+                <li><strong>Logical Data Independence:</strong> This is the ability to change the conceptual schema without having to change the external schemas or application programs. For example, you could add a new column to a table or merge two tables. As long as the original data required by the external views is still accessible, those views and their applications will not be affected.</li>
+                <li><strong>Physical Data Independence:</strong> This is the ability to change the internal schema without having to change the conceptual schema. For example, the DBA might decide to change the file organization method to improve performance, such as moving the data to a new storage device or creating new indexes. These changes are hidden from the conceptual and external levels.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="topic-section">
+        <h2 class="topic-title">DBMS Languages</h2>
+        <div class="topic-description">
+            <p>
+                DBMS languages are used to define, manipulate, and control the data in a database. The most common database language, SQL (Structured Query Language), can be divided into several sub-languages:
+            </p>
+            <ul>
+                <li><strong>Data Definition Language (DDL):</strong> Used to define and manage the database structure or schema. DDL commands include `CREATE` (to create tables), `ALTER` (to modify the structure), and `DROP` (to delete tables).</li>
+                <li><strong>Data Manipulation Language (DML):</strong> Used for accessing and manipulating the data itself. DML commands include `SELECT` (to retrieve data), `INSERT` (to add new data), `UPDATE` (to modify existing data), and `DELETE` (to remove data).</li>
+                <li><strong>Data Control Language (DCL):</strong> Used to manage access rights and permissions for users. DCL commands include `GRANT` (to give permissions) and `REVOKE` (to take away permissions).</li>
+                <li><strong>Transaction Control Language (TCL):</strong> Used to manage transactions within the database to ensure data integrity. TCL commands include `COMMIT` (to save the changes) and `ROLLBACK` (to undo the changes).</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="topic-section">
+        <h2 class="topic-title">Client-Server Architecture</h2>
+        <div class="topic-description">
+            <p>
+                This is a computing model that structures applications into two main parts: the <strong>client</strong> and the <strong>server</strong>. In the context of a DBMS, this architecture allows multiple users (clients) to connect to a central database server over a network.
+            </p>
+            <ul>
+                <li>The <strong>Client</strong> is the front-end application that provides a user interface. It is responsible for accepting user input, sending requests to the server, and presenting the results to the user.</li>
+                <li>The <strong>Server</strong> is the back-end system where the DBMS software runs and the database is stored. It is responsible for processing the client's requests, performing the necessary data operations (like querying or updating), and sending the results back to the client.</li>
+            </ul>
+            <p>This model centralizes data management, enhances security, and improves scalability and performance, as the heavy data processing is handled by a powerful server.</p>
+        </div>
+    </div>
+
+    <div class="back-link">
+        <a href="../index.html" class="btn">← Back to Home</a>
+    </div>
+</div>
+</body>
+</html>

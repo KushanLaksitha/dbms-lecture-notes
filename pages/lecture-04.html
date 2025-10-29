@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 04: Database Design Process</title>
+<style>
+    * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    }
+    body {
+        font-family: 'Noto Sans', sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        padding: 20px;
+        color: #333;
+    }
+
+    .container {
+        max-width: 960px;
+        margin: 0 auto;
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        padding: 40px;
+    }
+
+    header {
+        text-align: center;
+        margin-bottom: 40px;
+        border-bottom: 2px solid #667eea;
+        padding-bottom: 20px;
+    }
+
+    .lesson-title {
+        color: #667eea;
+        font-size: 2.8em;
+        margin-bottom: 10px;
+    }
+
+    .lesson-subtitle {
+        font-size: 1.3em;
+        color: #555;
+    }
+
+    .topic-section {
+        margin-bottom: 35px;
+    }
+
+    .topic-title {
+        color: #764ba2;
+        font-size: 1.8em;
+        margin-bottom: 15px;
+        border-left: 5px solid #667eea;
+        padding-left: 15px;
+    }
+
+    .topic-description {
+        line-height: 1.7;
+        text-align: justify;
+        padding-left: 20px;
+    }
+
+    .topic-description p {
+        margin-bottom: 15px;
+    }
+
+    .topic-description ul {
+        list-style-type: disc;
+        margin-left: 40px;
+        margin-bottom: 15px;
+    }
+
+    .topic-description li {
+        margin-bottom: 10px;
+    }
+    
+    .topic-description strong {
+        color: #667eea;
+    }
+
+    .back-link {
+        display: inline-block;
+        margin-top: 40px;
+        text-align: center;
+        width: 100%;
+    }
+
+    .btn {
+        display: inline-block;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 15px 40px;
+        border-radius: 30px;
+        text-decoration: none;
+        font-size: 1.1em;
+        transition: all 0.3s ease;
+    }
+
+    .btn:hover {
+        transform: scale(1.05);
+        box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+    }
+
+    @media (max-width: 768px) {
+        .container {
+            padding: 20px;
+        }
+        .lesson-title {
+            font-size: 2em;
+        }
+        .topic-title {
+            font-size: 1.5em;
+        }
+    }
+
+</style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1 class="lesson-title">Lesson 04</h1>
+            <p class="lesson-subtitle">Database Design Process</p>
+        </header>
+        <div class="topic-section">
+        <h2 class="topic-title">Introduction to Database Design</h2>
+        <div class="topic-description">
+            <p>
+                Database design is the process of producing a detailed data model of a database. This logical data model contains all the needed logical and physical design choices and physical storage parameters needed to generate a design in a Data Definition Language (DDL), which can then be used to create a database. A well-designed database is essential for ensuring data consistency, minimizing redundancy, and providing efficient access.
+            </p>
+            <p>The design process is typically broken down into several stages, moving from a high-level, abstract view to a concrete implementation.</p>
+        </div>
+    </div>
+
+    <div class="topic-section">
+        <h2 class="topic-title">1. Requirements Analysis</h2>
+        <div class="topic-description">
+            <p>
+                This is the initial and most critical phase. The goal is to identify and document the needs of the end-users and the intended purpose of the database. It involves understanding what data needs to be stored, what operations will be performed on the data, and what performance requirements exist.
+            </p>
+            <ul>
+                <li><strong>Objective:</strong> To collect all necessary information from stakeholders.</li>
+                <li><strong>Activities:</strong> Conducting interviews with users, distributing questionnaires, analyzing existing business documents and forms, and studying the current system (if any).</li>
+                <li><strong>Outcome:</strong> A detailed document specifying the data requirements and functional requirements of the system.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="topic-section">
+        <h2 class="topic-title">2. Conceptual Design</h2>
+        <div class="topic-description">
+            <p>
+                In this phase, the requirements gathered are used to create a high-level conceptual data model. This model is independent of any specific Database Management System (DBMS) and focuses on representing the data and its relationships in an easily understandable way.
+            </p>
+            <ul>
+                <li><strong>Objective:</strong> To create a stable, high-level data model that satisfies the requirements.</li>
+                <li><strong>Tool:</strong> The most common tool used is the <strong>Entity-Relationship (ER) model</strong>, which uses diagrams to represent entities, their attributes, and the relationships between them.</li>
+                <li><strong>Outcome:</strong> An ER diagram that provides a clear visual blueprint of the database structure.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="topic-section">
+        <h2 class="topic-title">3. Logical Design</h2>
+        <div class="topic-description">
+            <p>
+                The logical design phase involves translating the conceptual model (the ER diagram) into a schema that can be implemented by a specific type of DBMS. The most common target is the relational model.
+            </p>
+            <ul>
+                <li><strong>Objective:</strong> To convert the conceptual schema into a format for a specific data model (e.g., relational, network).</li>
+                <li><strong>Activities:</strong>
+                    <ul>
+                        <li>Mapping entities from the ER diagram into tables.</li>
+                        <li>Mapping attributes into columns with specific data types.</li>
+                        <li>Mapping relationships into foreign keys to link the tables.</li>
+                    </ul>
+                </li>
+                <li><strong>Outcome:</strong> A set of table definitions (a logical schema) with columns, primary keys, and foreign keys defined.</li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="topic-section">
+        <h2 class="topic-title">4. Schema Refinement (Normalization)</h2>
+        <div class="topic-description">
+            <p>
+                This step focuses on improving the logical schema to prevent data anomalies and redundancy. <strong>Normalization</strong> is a formal process of analyzing the tables to ensure that the data dependencies are structured correctly.
+            </p>
+            <ul>
+                <li><strong>Objective:</strong> To organize the columns and tables to minimize data redundancy and avoid insertion, update, and deletion anomalies.</li>
+                <li><strong>Activities:</strong> Applying normalization rules (like First Normal Form, Second Normal Form, etc.) to decompose tables that have issues.</li>
+                <li><strong>Outcome:</strong> A refined, normalized schema that is less prone to data integrity problems.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="topic-section">
+        <h2 class="topic-title">5. Physical Design</h2>
+        <div class="topic-description">
+            <p>
+                The final phase involves deciding how the logical schema will be physically stored on storage devices. This stage is dependent on the specific DBMS being used and deals with performance and storage optimization.
+            </p>
+            <ul>
+                <li><strong>Objective:</strong> To optimize performance while ensuring data integrity.</li>
+                <li><strong>Activities:</strong>
+                    <ul>
+                        <li>Choosing appropriate file organizations for tables.</li>
+                        <li>Creating indexes on certain columns to speed up data retrieval.</li>
+                        <li>Handling data distribution and partitioning for very large databases.</li>
+                    </ul>
+                </li>
+                <li><strong>Outcome:</strong> A physical database design that specifies all the necessary storage details, ready for implementation using DDL commands.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="back-link">
+        <a href="../index.html" class="btn">← Back to Home</a>
+    </div>
+</div>
+</body>
+</html>
