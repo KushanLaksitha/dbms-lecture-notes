@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="si">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Lesson 05: ER Modeling</title>
+<title>පාඩම 05: ER ආකෘතිකරණය</title>
 <style>
     * {
     margin: 0;
@@ -11,7 +11,7 @@
     box-sizing: border-box;
     }
     body {
-        font-family: 'Noto Sans', sans-serif;
+        font-family: 'Noto Sans Sinhala', 'Noto Sans', sans-serif;
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         min-height: 100vh;
         padding: 20px;
@@ -58,7 +58,7 @@
     }
 
     .topic-description {
-        line-height: 1.7;
+        line-height: 1.9;
         text-align: justify;
         padding-left: 20px;
     }
@@ -79,6 +79,31 @@
     
     .topic-description strong {
         color: #667eea;
+    }
+
+    .example-box {
+        background: #f8f9ff;
+        border-left: 4px solid #667eea;
+        padding: 20px;
+        margin: 20px 0;
+        border-radius: 5px;
+    }
+
+    .example-title {
+        color: #764ba2;
+        font-weight: bold;
+        margin-bottom: 10px;
+        font-size: 1.1em;
+    }
+
+    .diagram-box {
+        background: #fff;
+        border: 2px solid #667eea;
+        padding: 20px;
+        margin: 15px 0;
+        border-radius: 8px;
+        font-family: monospace;
+        text-align: center;
     }
 
     .back-link {
@@ -121,104 +146,363 @@
 <body>
     <div class="container">
         <header>
-            <h1 class="lesson-title">Lesson 05</h1>
-            <p class="lesson-subtitle">Entity-Relationship (ER) Modeling</p>
+            <h1 class="lesson-title">පාඩම 05</h1>
+            <p class="lesson-subtitle">ආයතන-සම්බන්ධතා (ER) ආකෘතිකරණය</p>
         </header>
+        
         <div class="topic-section">
-        <h2 class="topic-title">Entity Types and Attributes</h2>
-        <div class="topic-description">
-            <p>
-                The Entity-Relationship (ER) model is a high-level conceptual data model used to visualize the structure of a database. Its core components are entities, attributes, and relationships.
-            </p>
-            <ul>
-                <li><strong>Entity:</strong> An entity is a real-world object or concept that can be distinctly identified. For example, in a university database, entities could be a specific `Student`, a `Professor`, or a `Course`.</li>
-                <li><strong>Entity Type (or Entity Set):</strong> This is a collection of entities that share the same properties or attributes. For example, `STUDENT` is an entity type that represents the set of all students in the university. In an ER diagram, an entity type is typically represented by a rectangle.</li>
-                <li><strong>Attribute:</strong> An attribute is a property or characteristic of an entity type. For the `STUDENT` entity type, attributes could include `StudentID`, `Name`, `Address`, and `DateOfBirth`. Attributes are represented by ovals in an ER diagram.</li>
-            </ul>
-        </div>
-    </div>
-
-    <div class="topic-section">
-        <h2 class="topic-title">Relationship Types</h2>
-        <div class="topic-description">
-            <p>
-                A <strong>relationship</strong> is an association among two or more entities. A <strong>relationship type</strong> defines a set of associations among entities from one or more entity types.
-            </p>
-            <p>
-                For example, an `ENROLLS_IN` relationship type could associate `STUDENT` entities with `COURSE` entities. A specific instance of this relationship would be 'Student John Smith enrolls in Course CS101'. In an ER diagram, a relationship type is represented by a diamond shape.
-            </p>
-            <p><strong>Degree of a Relationship:</strong> The number of participating entity types.
+            <h2 class="topic-title">ආයතන වර්ග සහ ගුණාංග</h2>
+            <div class="topic-description">
+                <p>
+                    Entity-Relationship (ER) ආකෘතිය යනු දත්ත සමුදායක ව්‍යුහය දෘශ්‍යමය කිරීමට භාවිතා කරන උසස් මට්ටමේ සංකල්පීය දත්ත ආකෘතියකි. එහි මූලික සංරචක වන්නේ ආයතන, ගුණාංග සහ සම්බන්ධතා වේ.
+                </p>
                 <ul>
-                    <li><strong>Unary (Recursive):</strong> A relationship between instances of the same entity type. (e.g., an `EMPLOYEE` supervises another `EMPLOYEE`).</li>
-                    <li><strong>Binary:</strong> A relationship between two different entity types. This is the most common type. (e.g., `STUDENT` enrolls in `COURSE`).</li>
-                    <li><strong>Ternary:</strong> A relationship involving three entity types. (e.g., a `DOCTOR` prescribes a `MEDICINE` for a `PATIENT`).</li>
+                    <li><strong>ආයතනය (Entity):</strong> ආයතනයක් යනු පැහැදිලිව හඳුනා ගත හැකි සැබෑ ලෝකයේ වස්තුවක් හෝ සංකල්පයකි. උදාහරණයක් ලෙස, විශ්ව විද්‍යාල දත්ත සමුදායක, නිශ්චිත `සිසුවෙක්`, `මහාචාර්යවරයෙක්` හෝ `පාඨමාලාවක්` ආයතන විය හැකිය.</li>
+                    <li><strong>ආයතන වර්ගය (Entity Type හෝ Entity Set):</strong> මෙය එකම ගුණාංග හෝ ලක්ෂණ බෙදා ගන්නා ආයතන එකතුවකි. උදාහරණයක් ලෙස, `STUDENT` යනු විශ්ව විද්‍යාලයේ සියලුම සිසුන්ගේ කට්ටලය නියෝජනය කරන ආයතන වර්ගයකි. ER රූප සටහනක, ආයතන වර්ගය සාමාන්‍යයෙන් සෘජුකෝණාස්‍රයකින් නිරූපණය කෙරේ.</li>
+                    <li><strong>ගුණාංගය (Attribute):</strong> ගුණාංගයක් යනු ආයතන වර්ගයක ගුණාංගයක් හෝ ලක්ෂණයකි. `STUDENT` ආයතන වර්ගය සඳහා, ගුණාංග වලට `StudentID`, `Name`, `Address` සහ `DateOfBirth` ඇතුළත් විය හැකිය. ගුණාංග ER රූප සටහනක ඕවල් මගින් නිරූපණය කෙරේ.</li>
                 </ul>
-            </p>
+                
+                <div class="example-box">
+                    <div class="example-title">උදාහරණය 1: රෝහල් පද්ධතිය</div>
+                    <p><strong>ආයතන වර්ග:</strong></p>
+                    <ul>
+                        <li><strong>PATIENT (රෝගී):</strong> ගුණාංග - PatientID, Name, Age, BloodType, ContactNo</li>
+                        <li><strong>DOCTOR (වෛද්‍යවරයා):</strong> ගුණාංග - DoctorID, Name, Specialization, LicenseNo</li>
+                        <li><strong>APPOINTMENT (හමුවීම):</strong> ගුණාංග - AppointmentID, Date, Time, Reason</li>
+                    </ul>
+                </div>
+                
+                <div class="example-box">
+                    <div class="example-title">උදාහරණය 2: බැංකු පද්ධතිය</div>
+                    <p><strong>ආයතන වර්ග:</strong></p>
+                    <ul>
+                        <li><strong>CUSTOMER (පාරිභෝගිකයා):</strong> ගුණාංග - CustomerID, Name, NIC, Address, Phone</li>
+                        <li><strong>ACCOUNT (ගිණුම):</strong> ගුණාංග - AccountNo, Type, Balance, OpenDate</li>
+                        <li><strong>BRANCH (ශාඛාව):</strong> ගුණාංග - BranchID, Name, Location, Manager</li>
+                    </ul>
+                </div>
+            </div>
         </div>
-    </div>
 
-    <div class="topic-section">
-        <h2 class="topic-title">Cardinality and Participation</h2>
-        <div class="topic-description">
-            <p>
-                These constraints define the rules of association between entities.
-            </p>
-            <p>
-                <strong>Cardinality Ratio</strong> specifies the maximum number of relationship instances that an entity can participate in.
-            </p>
-            <ul>
-                <li><strong>One-to-One (1:1):</strong> An entity in Set A can be associated with at most one entity in Set B, and vice versa. (e.g., a `DEPARTMENT` is managed by one `MANAGER`).</li>
-                <li><strong>One-to-Many (1:N):</strong> An entity in Set A can be associated with many entities in Set B, but an entity in Set B can be associated with at most one entity in Set A. (e.g., a `PROFESSOR` teaches many `COURSES`).</li>
-                <li><strong>Many-to-Many (M:N):</strong> An entity in Set A can be associated with many entities in Set B, and vice versa. (e.g., `STUDENTS` enroll in many `COURSES`).</li>
-            </ul>
-            <p>
-                <strong>Participation Constraint</strong> specifies whether the existence of an entity depends on its being related to another entity via the relationship type.
-            </p>
-            <ul>
-                <li><strong>Total Participation (Mandatory):</strong> Every entity in the entity set must participate in at least one relationship instance. (e.g., every `COURSE` must be taught by a `PROFESSOR`). This is often shown with a double line in ER diagrams.</li>
-                <li><strong>Partial Participation (Optional):</strong> Not all entities in the set need to participate in the relationship. (e.g., a `PROFESSOR` does not necessarily have to teach a `COURSE` every semester). This is shown with a single line.</li>
-            </ul>
+        <div class="topic-section">
+            <h2 class="topic-title">සම්බන්ධතා වර්ග</h2>
+            <div class="topic-description">
+                <p>
+                    <strong>සම්බන්ධතාවක් (Relationship)</strong> යනු ආයතන දෙකක් හෝ වැඩි ගණනක් අතර ඇති සම්බන්ධතාවයකි. <strong>සම්බන්ධතා වර්ගයක් (Relationship Type)</strong> එක් හෝ වැඩි ආයතන වර්ගවලින් ආයතන අතර සම්බන්ධතා කට්ටලයක් අර්ථ දක්වයි.
+                </p>
+                <p>
+                    උදාහරණයක් ලෙස, `ENROLLS_IN` සම්බන්ධතා වර්ගය `STUDENT` ආයතන `COURSE` ආයතන සමඟ සම්බන්ධ කළ හැකිය. මෙම සම්බන්ධතාවේ නිශ්චිත අවස්ථාවක් වනුයේ 'සිසුවා ජෝන් ස්මිත් CS101 පාඨමාලාවට ඇතුළත් වේ' යන්නයි. ER රූප සටහනක, සම්බන්ධතා වර්ගය දියමන්ති හැඩයකින් නිරූපණය කෙරේ.
+                </p>
+                <p><strong>සම්බන්ධතාවේ මාත්‍රාව (Degree):</strong> සහභාගී වන ආයතන වර්ගවල සංඛ්‍යාව.
+                    <ul>
+                        <li><strong>ඒකීය (Unary/Recursive):</strong> එකම ආයතන වර්ගයේ අවස්ථා අතර සම්බන්ධතාවයක්. (උදා: `EMPLOYEE` තවත් `EMPLOYEE` අධීක්ෂණය කරයි).</li>
+                        <li><strong>ද්විමය (Binary):</strong> විවිධ ආයතන වර්ග දෙකක් අතර සම්බන්ධතාවයක්. මෙය වඩාත් පොදු වර්ගයයි. (උදා: `STUDENT` `COURSE` එකට ඇතුළත් වේ).</li>
+                        <li><strong>ත්‍රිමය (Ternary):</strong> ආයතන වර්ග තුනක් සම්බන්ධ සම්බන්ධතාවයක්. (උදා: `DOCTOR` `PATIENT` සඳහා `MEDICINE` නිර්දේශ කරයි).</li>
+                    </ul>
+                </p>
+                
+                <div class="example-box">
+                    <div class="example-title">උදාහරණය 3: ඒකීය සම්බන්ධතාව</div>
+                    <p><strong>කාර්ය මණ්ඩල පද්ධතිය:</strong></p>
+                    <ul>
+                        <li>EMPLOYEE (සේවකයා) ආයතන වර්ගය</li>
+                        <li>SUPERVISES (අධීක්ෂණය කරයි) සම්බන්ධතාව</li>
+                        <li>එක් සේවකයෙක් තවත් සේවකයන් අධීක්ෂණය කරයි</li>
+                        <li>උදාහරණ: "සංජීව රාජපක්ෂ අනුර පෙරේරා අධීක්ෂණය කරයි"</li>
+                    </ul>
+                </div>
+                
+                <div class="example-box">
+                    <div class="example-title">උදාහරණය 4: ද්විමය සම්බන්ධතාව</div>
+                    <p><strong>පුස්තකාල පද්ධතිය:</strong></p>
+                    <ul>
+                        <li>MEMBER (සාමාජිකයා) BORROWS (ණයට ගනී) BOOK (පොත)</li>
+                        <li>"කමල් සිල්වා 'මඩොල් දූව' පොත ණයට ගනී"</li>
+                    </ul>
+                </div>
+                
+                <div class="example-box">
+                    <div class="example-title">උදාහරණය 5: ත්‍රිමය සම්බන්ධතාව</div>
+                    <p><strong>සැපයුම් පද්ධතිය:</strong></p>
+                    <ul>
+                        <li>SUPPLIER (සැපයුම්කරු) SUPPLIES (සපයයි) PART (කොටස) TO (වෙත) PROJECT (ව්‍යාපෘතිය)</li>
+                        <li>"ABC සමාගම X10 කොටස Yota දුරකථන ව්‍යාපෘතියට සපයයි"</li>
+                    </ul>
+                </div>
+            </div>
         </div>
-    </div>
-    
-    <div class="topic-section">
-        <h2 class="topic-title">Weak Entities</h2>
-        <div class="topic-description">
-            <p>
-                A <strong>weak entity type</strong> is an entity type that does not have a key attribute of its own. It cannot be uniquely identified by its attributes alone. Its existence is dependent on another entity type, called the <strong>strong (or identifying) entity type</strong>.
-            </p>
-            <ul>
-                <li><strong>Identifying Relationship:</strong> The relationship that associates a weak entity type with its strong entity type.</li>
-                <li><strong>Partial Key (or Discriminator):</strong> An attribute or set of attributes of a weak entity that, combined with the primary key of the strong entity, uniquely identifies a weak entity instance.</li>
-                <li><strong>Example:</strong> Consider an `EMPLOYEE` and their `DEPENDENT`. `DEPENDENT` is a weak entity because a dependent cannot exist without the employee, and their `Name` might not be unique across all dependents. The `Name` is a partial key. To uniquely identify a dependent, you need the `EmployeeID` from the `EMPLOYEE` entity and the `Name` of the dependent.</li>
-                <li>In ER diagrams, weak entity types and their identifying relationships are typically shown with double-lined rectangles and diamonds, respectively.</li>
-            </ul>
-        </div>
-    </div>
 
-    <div class="topic-section">
-        <h2 class="topic-title">Interactive ER Tool</h2>
-        <div class="topic-description">
-            <p>
-                An <strong>interactive ER tool</strong> is a software application that allows database designers to create and manipulate Entity-Relationship diagrams visually. These tools provide a graphical user interface where you can drag and drop symbols for entities, relationships, and attributes.
-            </p>
-            <p>
-                Using such a tool simplifies the database design process significantly. Key features often include:
-            </p>
-            <ul>
-                <li>A palette of ER diagram notations (rectangles, diamonds, ovals).</li>
-                <li>The ability to connect shapes to define relationships and link attributes.</li>
-                <li>Options to specify constraints like cardinality and participation.</li>
-                <li>Automated validation to check for design errors.</li>
-                <li>The ability to automatically generate SQL DDL code from the finished diagram, which can be used to create the actual database tables.</li>
-            </ul>
-            <p>Popular examples of ER diagramming tools include Lucidchart, draw.io, and MySQL Workbench.</p>
+        <div class="topic-section">
+            <h2 class="topic-title">කාර්ඩිනැලිටි සහ සහභාගීත්වය</h2>
+            <div class="topic-description">
+                <p>
+                    මෙම සීමාවන් ආයතන අතර සම්බන්ධතාවේ නීති අර්ථ දක්වයි.
+                </p>
+                <p>
+                    <strong>කාර්ඩිනැලිටි අනුපාතය (Cardinality Ratio)</strong> ආයතනයකට සහභාගී විය හැකි සම්බන්ධතා අවස්ථාවල උපරිම සංඛ්‍යාව සඳහන් කරයි.
+                </p>
+                <ul>
+                    <li><strong>එකෙන්-එකට (1:1):</strong> කට්ටලය A හි ආයතනයක් උපරිම එක් ආයතනයක් කට්ටලය B හි සම්බන්ධ විය හැක, සහ විරුද්ධව. (උදා: `DEPARTMENT` එකක් එක් `MANAGER` කෙනෙකු විසින් කළමනාකරණය කෙරේ).</li>
+                    <li><strong>එකෙන්-බොහෝ (1:N):</strong> කට්ටලය A හි ආයතනයක් කට්ටලය B හි බොහෝ ආයතන සමඟ සම්බන්ධ විය හැක, නමුත් කට්ටලය B හි ආයතනයක් උපරිම එක් ආයතනයක් කට්ටලය A හි සම්බන්ධ විය හැක. (උදා: `PROFESSOR` බොහෝ `COURSES` උගන්වයි).</li>
+                    <li><strong>බොහෝ-බොහෝ (M:N):</strong> කට්ටලය A හි ආයතනයක් කට්ටලය B හි බොහෝ ආයතන සමඟ සම්බන්ධ විය හැක, සහ විරුද්ධව. (උදා: `STUDENTS` බොහෝ `COURSES` වලට ඇතුළත් වේ).</li>
+                </ul>
+                
+                <div class="example-box">
+                    <div class="example-title">උදාහරණය 6: එකෙන්-එකට (1:1) සම්බන්ධතාව</div>
+                    <p><strong>රජයේ දෙපාර්තමේන්තු පද්ධතිය:</strong></p>
+                    <ul>
+                        <li>එක් දෙපාර්තමේන්තුවකට එක් අධ්‍යක්ෂවරයෙක් පමණි</li>
+                        <li>එක් අධ්‍යක්ෂවරයෙක් එක් දෙපාර්තමේන්තුවක් පමණක් කළමනාකරණය කරයි</li>
+                        <li>DEPARTMENT (1) ←→ (1) DIRECTOR</li>
+                    </ul>
+                </div>
+                
+                <div class="example-box">
+                    <div class="example-title">උදාහරණය 7: එකෙන්-බොහෝ (1:N) සම්බන්ධතාව</div>
+                    <p><strong>පාසල් පද්ධතිය:</strong></p>
+                    <ul>
+                        <li>එක් ගුරුවරයෙක් බොහෝ පන්ති උගන්වයි</li>
+                        <li>එක් පන්තියක් එක් ප්‍රධාන ගුරුවරයෙකු විසින් පමණක් උගන්වනු ලැබේ</li>
+                        <li>TEACHER (1) ←→ (N) CLASS</li>
+                    </ul>
+                </div>
+                
+                <div class="example-box">
+                    <div class="example-title">උදාහරණය 8: බොහෝ-බොහෝ (M:N) සම්බන්ධතාව</div>
+                    <p><strong>චිත්‍රපට පද්ධතිය:</strong></p>
+                    <ul>
+                        <li>එක් නළුවෙක් බොහෝ චිත්‍රපට වල රඟපායි</li>
+                        <li>එක් චිත්‍රපටයක බොහෝ නළුවන් රඟපායි</li>
+                        <li>ACTOR (M) ←→ (N) MOVIE</li>
+                    </ul>
+                </div>
+                
+                <p>
+                    <strong>සහභාගීත්ව සීමාව (Participation Constraint)</strong> සම්බන්ධතා වර්ගය හරහා වෙනත් ආයතනයකට සම්බන්ධ වීම මත ආයතනයක පැවැත්ම රඳා පවතීද යන්න සඳහන් කරයි.
+                </p>
+                <ul>
+                    <li><strong>සම්පූර්ණ සහභාගීත්වය (Total/Mandatory):</strong> ආයතන කට්ටලයේ සෑම ආයතනයක්ම අවම වශයෙන් එක් සම්බන්ධතා අවස්ථාවක සහභාගී විය යුතුය. (උදා: සෑම `COURSE` එකක්ම `PROFESSOR` කෙනෙකු විසින් උගන්වනු ලැබිය යුතුය). මෙය බොහෝ විට ER රූප සටහන් වල ද්විත්ව රේඛාවකින් දැක්වේ.</li>
+                    <li><strong>අර්ධ සහභාගීත්වය (Partial/Optional):</strong> කට්ටලයේ සියලුම ආයතන සම්බන්ධතාවයට සහභාගී වීමට අවශ්‍ය නොවේ. (උදා: `PROFESSOR` හට සෑම අධ්‍යයන වාරයකම `COURSE` එකක් උගන්වන්න අවශ්‍ය නොවේ). මෙය තනි රේඛාවකින් දැක්වේ.</li>
+                </ul>
+                
+                <div class="example-box">
+                    <div class="example-title">උදාහරණය 9: සහභාගීත්ව සීමා</div>
+                    <p><strong>රියදුරු බලපත්‍ර පද්ධතිය:</strong></p>
+                    <ul>
+                        <li><strong>සම්පූර්ණ සහභාගීත්වය:</strong> සෑම LICENSE එකක්ම PERSON කෙනෙකුට අයත් විය යුතුය (බලපත්‍රයකට හිමිකරුවන් නොමැතිව පැවතිය නොහැක)</li>
+                        <li><strong>අර්ධ සහභාගීත්වය:</strong> සෑම PERSON කෙනෙකුටම LICENSE එකක් තිබීම අවශ්‍ය නොවේ (සමහර පුද්ගලයන්ට රියදුරු බලපත්‍ර නැත)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="topic-section">
+            <h2 class="topic-title">දුර්වල ආයතන</h2>
+            <div class="topic-description">
+                <p>
+                    <strong>දුර්වල ආයතන වර්ගයක් (Weak Entity Type)</strong> යනු තමන්ගේම ප්‍රධාන යතුර ගුණාංගයක් නොමැති ආයතන වර්ගයකි. එය එහි ගුණාංග තනිවම අද්විතීයව හඳුනා ගත නොහැක. එහි පැවැත්ම වෙනත් ආයතන වර්ගයක් මත රඳා පවතී, එය <strong>ශක්තිමත් (හෝ හඳුනාගන්නා) ආයතන වර්ගය (Strong/Identifying Entity Type)</strong> ලෙස හැඳින්වේ.
+                </p>
+                <ul>
+                    <li><strong>හඳුනාගන්නා සම්බන්ධතාව (Identifying Relationship):</strong> දුර්වල ආයතන වර්ගය එහි ශක්තිමත් ආයතන වර්ගය සමඟ සම්බන්ධ කරන සම්බන්ධතාව.</li>
+                    <li><strong>අර්ධ යතුර (Partial Key/Discriminator):</strong> ශක්තිමත් ආයතනයේ ප්‍රාථමික යතුර සමඟ ඒකාබද්ධව, දුර්වල ආයතන අවස්ථාවක් අද්විතීයව හඳුනා ගන්නා දුර්වල ආයතනයක ගුණාංගයක් හෝ ගුණාංග කට්ටලයක්.</li>
+                    <li><strong>උදාහරණය:</strong> `EMPLOYEE` සහ ඔවුන්ගේ `DEPENDENT` සලකා බලන්න. `DEPENDENT` දුර්වල ආයතනයක් වන්නේ සේවකයා නොමැතිව යැපෙන්නෙකු පැවතිය නොහැකි නිසාය, සහ ඔවුන්ගේ `Name` සියලුම යැපෙන්නන් හරහා අද්විතීය නොවිය හැකිය. `Name` අර්ධ යතුරකි. යැපෙන්නෙකු අද්විතීයව හඳුනා ගැනීමට, ඔබට `EMPLOYEE` ආයතනයෙන් `EmployeeID` සහ යැපෙන්නාගේ `Name` අවශ්‍ය වේ.</li>
+                    <li>ER රූප සටහන් වල, දුර්වල ආයතන වර්ග සහ ඒවායේ හඳුනාගන්නා සම්බන්ධතා සාමාන්‍යයෙන් ද්විත්ව රේඛීය සෘජුකෝණාස්‍ර සහ දියමන්ති මගින් පිළිවෙලින් දැක්වේ.</li>
+                </ul>
+                
+                <div class="example-box">
+                    <div class="example-title">උදාහරණය 10: දුර්වල ආයතන - ව්‍යාපාරික පද්ධතිය</div>
+                    <p><strong>ශක්තිමත් ආයතනය:</strong> EMPLOYEE (සේවකයා)</p>
+                    <ul>
+                        <li>EmployeeID (ප්‍රාථමික යතුර)</li>
+                        <li>Name, Position, Salary</li>
+                    </ul>
+                    <p><strong>දුර්වල ආයතනය:</strong> DEPENDENT (යැපෙන්නා)</p>
+                    <ul>
+                        <li>Name (අර්ධ යතුර)</li>
+                        <li>Relationship, DateOfBirth</li>
+                        <li>අද්විතීය හඳුනාගැනීම: EmployeeID + Name</li>
+                    </ul>
+                    <p><strong>උදාහරණ අවස්ථා:</strong></p>
+                    <ul>
+                        <li>Employee E001 (සුනිල් පෙරේරා) → Dependent (අනුරා - බිරිඳ)</li>
+                        <li>Employee E002 (කමල් සිල්වා) → Dependent (අනුරා - දියණිය)</li>
+                        <li>දෙදෙනාගේම යැපෙන්නන්ගේ නම "අනුරා" නමුත් EmployeeID + Name මගින් අද්විතීයව හඳුනාගත හැක</li>
+                    </ul>
+                </div>
+                
+                <div class="example-box">
+                    <div class="example-title">උදාහරණය 11: දුර්වල ආයතන - ගොඩනැගිලි පද්ධතිය</div>
+                    <p><strong>ශක්තිමත් ආයතනය:</strong> BUILDING (ගොඩනැගිල්ල)</p>
+                    <ul>
+                        <li>BuildingID (ප්‍රාථමික යතුර)</li>
+                        <li>Name, Address, YearBuilt</li>
+                    </ul>
+                    <p><strong>දුර්වල ආයතනය:</strong> ROOM (කාමරය)</p>
+                    <ul>
+                        <li>RoomNumber (අර්ධ යතුර - එක් ගොඩනැගිල්ලක් තුළ පමණක් අද්විතීයයි)</li>
+                        <li>Floor, Capacity, Type</li>
+                        <li>අද්විතීය හඳුනාගැනීම: BuildingID + RoomNumber</li>
+                    </ul>
+                    <p><strong>උදාහරණ අවස්ථා:</strong></p>
+                    <ul>
+                        <li>Building B01 (ඉංජිනේරු පීඨය) → Room 101, Room 102, Room 103</li>
+                        <li>Building B02 (විද්‍යා පීඨය) → Room 101, Room 102, Room 103</li>
+                        <li>කාමර අංකය 101 දෙගොඩනැගිල්ලේම තිබේ, නමුත් BuildingID + RoomNumber මගින් වෙන්කර හඳුනාගත හැක</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="topic-section">
+            <h2 class="topic-title">අන්තර්ක්‍රියාකාරී ER මෙවලම</h2>
+            <div class="topic-description">
+                <p>
+                    <strong>අන්තර්ක්‍රියාකාරී ER මෙවලමක් (Interactive ER Tool)</strong> යනු දත්ත සමුදා සැලසුම්කරුවන්ට Entity-Relationship රූප සටහන් දෘශ්‍යමය ලෙස නිර්මාණය කිරීමට සහ හැසිරවීමට ඉඩ සලසන මෘදුකාංග යෙදුමකි. මෙම මෙවලම් ආයතන, සම්බන්ධතා සහ ගුණාංග සඳහා සංකේත ඇද දමා තැබිය හැකි චිත්‍රක පරිශීලක අතුරු මුහුණතක් සපයයි.
+                </p>
+                <p>
+                    එවැනි මෙවලමක් භාවිතා කිරීම දත්ත සමුදා සැලසුම් ක්‍රියාවලිය සැලකිය යුතු ලෙස සරල කරයි. ප්‍රධාන ලක්ෂණ බොහෝ විට ඇතුළත් වේ:
+                </p>
+                <ul>
+                    <li>ER රූප සටහන් සංකේතවල පැලට් එකක් (සෘජුකෝණාස්‍ර, දියමන්ති, ඕවල්).</li>
+                    <li>සම්බන්ධතා අර්ථ දැක්වීමට සහ ගුණාංග සම්බන්ධ කිරීමට හැඩතල සම්බන්ධ කිරීමේ හැකියාව.</li>
+                    <li>කාර්ඩිනැලිටි සහ සහභාගීත්වය වැනි සීමාවන් සඳහන් කිරීමේ විකල්ප.</li>
+                    <li>සැලසුම් දෝෂ පරීක්ෂා කිරීමට ස්වයංක්‍රීය වලංගු කිරීම.</li>
+                    <li>නිම කළ රූප සටහනෙන් SQL DDL කේතය ස්වයංක්‍රීයව ජනනය කිරීමේ හැකියාව, එය සැබෑ දත්ත සමුදා වගු නිර්මාණය කිරීමට භාවිතා කළ හැකිය.</li>
+                </ul>
+                <p>ER රූප සටහන් මෙවලම්වල ජනප්‍රිය උදාහරණ අතර Lucidchart, draw.io, සහ MySQL Workbench ඇතුළත් වේ.</p>
+                
+                <div class="example-box">
+                    <div class="example-title">උදාහරණය 12: ER මෙවලම් භාවිතා කිරීමේ ප්‍රතිලාභ</div>
+                    <p><strong>ප්‍රතිලාභ:</strong></p>
+                    <ul>
+                        <li><strong>දෘශ්‍යකරණය:</strong> සංකීර්ණ දත්ත සම්බන්ධතා පහසුවෙන් තේරුම් ගැනීමට හැකිය</li>
+                        <li><strong>සහයෝගීතාව:</strong> කණ්ඩායම් සාමාජිකයින් එකම රූප සටහන මත වැඩ කළ හැක</li>
+                        <li><strong>දෝෂ අඩු කිරීම:</strong> ස්වයංක්‍රීය වලංගු කිරීම සැලසුම් වැරදි හඳුනා ගනී</li>
+                        <li><strong>කාලය ඉතිරි කිරීම:</strong> SQL කේතය ස්වයංක්‍රීයව ජනනය වේ</li>
+                        <li><strong>ලේඛනගත කිරීම:</strong> රූප සටහන පද්ධති ලේඛනයක් ලෙස සේවය කරයි</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="topic-section">
+            <h2 class="topic-title">සම්පූර්ණ ER ආකෘතිකරණ උදාහරණය: විශ්ව විද්‍යාල පද්ධතිය</h2>
+            <div class="topic-description">
+                <div class="example-box">
+                    <div class="example-title">පියවර 1: ආයතන වර්ග හඳුනා ගැනීම</div>
+                    <ul>
+                        <li><strong>STUDENT:</strong> StudentID, Name, Email, DateOfBirth, Major</li>
+                        <li><strong>PROFESSOR:</strong> ProfessorID, Name, Email, Department, Rank</li>
+                        <li><strong>COURSE:</strong> CourseID, Title, Credits, Level</li>
+                        <li><strong>DEPARTMENT:</strong> DeptID, Name, Building, Budget</li>
+                        <li><strong>SECTION:</strong> SectionNo (අර්ධ යතුර), Semester, Year, Room</li>
+                    </ul>
+                </div>
+                
+                <div class="example-box">
+                    <div class="example-title">පියවර 2: සම්බන්ධතා හඳුනා ගැනීම</div>
+                    <ul>
+                        <li><strong>ENROLLS:</strong> STUDENT (M) ←→ (N) SECTION - සිසුන් කොටස් වලට ඇතුළත් වේ</li>
+                        <li><strong>TEACHES:</strong> PROFESSOR (1) ←→ (N) SECTION - මහාචාර්යවරු කොටස් උගන්වයි</li>
+                        <li><strong>OFFERS:</strong> COURSE (1) ←→ (N) SECTION - පාඨමාලා කොටස් ලෙස පිරිනමනු ලැබේ (SECTION දුර්වල ආයතනයකි)</li>
+                        <li><strong>BELONGS_TO:</strong> PROFESSOR (N) ←→ (1) DEPARTMENT - මහාචාර්යවරු දෙපාර්තමේන්තු වලට අයත්</li>
+                        <li><strong>CHAIRS:</strong> DEPARTMENT (1) ←→ (1) PROFESSOR - දෙපාර්තමේන්තුව මහාචාර්යවරයෙකු විසින් ප්‍රධානත්වය දැරේ</li>
+                    </ul>
+                </div>
+                
+                <div class="example-box">
+                    <div class="example-title">පියවර 3: සහභාගීත්ව සීමා සඳහන් කිරීම</div>
+                    <ul>
+                        <li>STUDENT → ENROLLS: අර්ධ (සිසුවෙක් කිසිදු කොටසක් නොගන්නා විය හැක)</li>
+                        <li>SECTION → ENROLLS: අර්ධ (කොටසක් හිස් විය හැක)</li>
+                        <li>SECTION → TEACHES: සම්පූර්ණ (සෑම කොටසක්ම මහාචාර්යවරයෙකු විසින් උගන්වනු ලැබිය යුතුය)</li>
+                        <li>SECTION → OFFERS: සම්පූර්ණ (සෑම කොටසක්ම පාඨමාලාවකට අයත් විය යුතුය)</li>
+                        <li>PROFESSOR → CHAIRS: අර්ධ (සෑම මහාචාර්යවරයෙකුම ප්‍රධානයෙක් නොවේ)</li>
+                        <li>DEPARTMENT → CHAIRS: සම්පූර්ණ (සෑම දෙපාර්තමේන්තුවකටම ප්‍රධානයෙකු තිබිය යුතුය)</li>
+                    </ul>
+                </div>
+                
+                <div class="example-box">
+                    <div class="example-title">පියවර 4: දුර්වල ආයතන හඳුනා ගැනීම</div>
+                    <p><strong>SECTION යනු දුර්වල ආයතනයකි:</strong></p>
+                    <ul>
+                        <li>ශක්තිමත් ආයතනය: COURSE</li>
+                        <li>අර්ධ යතුර: SectionNo (එක් පාඨමාලාවක් තුළ පමණක් අද්විතීයයි)</li>
+                        <li>හඳුනාගන්නා සම්බන්ධතාව: OFFERS</li>
+                        <li>අද්විතීය හඳුනාගැනීම: CourseID + SectionNo</li>
+                        <li>උදාහරණය: CS101 පාඨමාලාවට Section 01, Section 02 තිබිය හැක</li>
+                    </ul>
+                </div>
+                
+                <div class="diagram-box">
+                    <div class="example-title">රූප සටහන් නිරූපණය (සංකේත විස්තරය)</div>
+                    <pre style="text-align: left; line-height: 2;">
+┌─────────────┐         ┌─────────────┐         ┌─────────────┐
+│  STUDENT    │         │  PROFESSOR  │         │ DEPARTMENT  │
+│─────────────│         │─────────────│         │─────────────│
+│ StudentID   │         │ ProfessorID │         │   DeptID    │
+│    Name     │         │    Name     │         │    Name     │
+│   Email     │         │   Email     │◄───────►│  Building   │
+└─────────────┘         └─────────────┘         └─────────────┘
+       │                       │                        ▲
+       │ ENROLLS               │ TEACHES                │ CHAIRS
+       │  (M:N)                │  (1:N)                 │ (1:1)
+       ▼                       ▼                        │
+┌══════════════┐         ┌══════════════┐              │
+║   SECTION    ║◄────────║    COURSE    ║──────────────┘
+║══════════════║ OFFERS  ║══════════════║
+║  SectionNo   ║  (1:N)  ║   CourseID   ║
+║   Semester   ║         ║    Title     ║
+║     Year     ║         ║   Credits    ║
+╚══════════════╝         ╚══════════════╝
+
+සංකේත: ══ දුර්වල ආයතනය, ◄─► සම්බන්ධතාව
+                    </pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="topic-section">
+            <h2 class="topic-title">ER ආකෘතිකරණයේ හොඳ භාවිතයන්</h2>
+            <div class="topic-description">
+                <div class="example-box">
+                    <div class="example-title">කළ යුතු දේ (Do's):</div>
+                    <ul>
+                        <li>✓ පැහැදිලි සහ විස්තරාත්මක නම් භාවිතා කරන්න (STUDENT_ENROLLMENT වඩා හොඳයි ENRL වලට වඩා)</li>
+                        <li>✓ සෑම ආයතනයකටම ප්‍රාථමික යතුරක් තිබේදැයි සහතික කරන්න</li>
+                        <li>✓ බොහෝ-බොහෝ සම්බන්ධතා හඳුනා ගන්න (ඒවා පසුව වෙනම වගුවක් බවට පත් වේ)</li>
+                        <li>✓ දුර්වල ආයතන නිසි ලෙස සලකුණු කරන්න</li>
+                        <li>✓ සහභාගීත්ව සීමා (සම්පූර්ණ/අර්ධ) සඳහන් කරන්න</li>
+                        <li>✓ නම් කිරීමේ සම්මතයන් අනුගමනය කරන්න</li>
+                    </ul>
+                </div>
+                
+                <div class="example-box">
+                    <div class="example-title">නොකළ යුතු දේ (Don'ts):</div>
+                    <ul>
+                        <li>✗ ආයතන සහ සම්බන්ධතා අතර ව්‍යාකූලත්වය ඇති නොකරන්න</li>
+                        <li>✗ සංකීර්ණ ගුණාංග ආයතන බවට අත් නොහරින්න</li>
+                        <li>✗ කාර්ඩිනැලිටි තීරණය කිරීම නොසලකා නොහරින්න</li>
+                        <li>✗ අත්‍යවශ්‍ය නොවන ත්‍රිමය සම්බන්ධතා නිර්මාණය නොකරන්න</li>
+                        <li>✗ අනවශ්‍ය අනාවර්තිත ගුණාංග ඇතුළත් නොකරන්න</li>
+                    </ul>
+                </div>
+                
+                <div class="example-box">
+                    <div class="example-title">සාමාන්‍ය වැරදි සහ විසඳුම්:</div>
+                    <ul>
+                        <li><strong>වැරැද්ද:</strong> බොහෝ-බොහෝ සම්බන්ධතාවක් තනි විදේශීය යතුරකින් නිරූපණය කිරීම</li>
+                        <li><strong>විසඳුම:</strong> සම්බන්ධතා වගුවක් (හන්දි වගුවක්) නිර්මාණය කරන්න</li>
+                        <li style="margin-top: 10px;"><strong>වැරැද්ද:</strong> අනවශ්‍ය ගුණාංග ආයතන වලට එකතු කිරීම</li>
+                        <li><strong>විසඳුම:</strong> ව්‍යුත්පන්න කළ හැකි ගුණාංග ඉවත් කරන්න (උදා: Age ගබඩා කරන වෙනුවට DateOfBirth ගබඩා කරන්න)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="back-link">
+            <a href="../index.html" class="btn">← මුල් පිටුවට ආපසු යන්න</a>
         </div>
     </div>
-
-    <div class="back-link">
-        <a href="../index.html" class="btn">← Back to Home</a>
-    </div>
-</div>
 </body>
 </html>

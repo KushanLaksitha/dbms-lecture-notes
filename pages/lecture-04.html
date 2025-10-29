@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="si">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Lesson 04: Database Design Process</title>
+<title>පාඩම 04: දත්ත සමුදා සැලසුම් ක්‍රියාවලිය</title>
 <style>
     * {
     margin: 0;
@@ -11,7 +11,7 @@
     box-sizing: border-box;
     }
     body {
-        font-family: 'Noto Sans', sans-serif;
+        font-family: 'Noto Sans Sinhala', 'Noto Sans', sans-serif;
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         min-height: 100vh;
         padding: 20px;
@@ -58,7 +58,7 @@
     }
 
     .topic-description {
-        line-height: 1.7;
+        line-height: 1.9;
         text-align: justify;
         padding-left: 20px;
     }
@@ -79,6 +79,21 @@
     
     .topic-description strong {
         color: #667eea;
+    }
+
+    .example-box {
+        background: #f8f9ff;
+        border-left: 4px solid #667eea;
+        padding: 20px;
+        margin: 20px 0;
+        border-radius: 5px;
+    }
+
+    .example-title {
+        color: #764ba2;
+        font-weight: bold;
+        margin-bottom: 10px;
+        font-size: 1.1em;
     }
 
     .back-link {
@@ -121,104 +136,227 @@
 <body>
     <div class="container">
         <header>
-            <h1 class="lesson-title">Lesson 04</h1>
-            <p class="lesson-subtitle">Database Design Process</p>
+            <h1 class="lesson-title">පාඩම 04</h1>
+            <p class="lesson-subtitle">දත්ත සමුදා සැලසුම් ක්‍රියාවලිය</p>
         </header>
+        
         <div class="topic-section">
-        <h2 class="topic-title">Introduction to Database Design</h2>
-        <div class="topic-description">
-            <p>
-                Database design is the process of producing a detailed data model of a database. This logical data model contains all the needed logical and physical design choices and physical storage parameters needed to generate a design in a Data Definition Language (DDL), which can then be used to create a database. A well-designed database is essential for ensuring data consistency, minimizing redundancy, and providing efficient access.
-            </p>
-            <p>The design process is typically broken down into several stages, moving from a high-level, abstract view to a concrete implementation.</p>
+            <h2 class="topic-title">දත්ත සමුදා සැලසුම පිළිබඳ හැඳින්වීම</h2>
+            <div class="topic-description">
+                <p>
+                    දත්ත සමුදා සැලසුම යනු දත්ත සමුදායක විස්තරාත්මක දත්ත ආකෘතියක් නිපදවීමේ ක්‍රියාවලියයි. මෙම තාර්කික දත්ත ආකෘතියට අවශ්‍ය සියලුම තාර්කික සහ භෞතික සැලසුම් තෝරාගැනීම් සහ භෞතික ගබඩා පරාමිති අඩංගු වන අතර, ඒවා Data Definition Language (DDL) හි සැලසුමක් ජනනය කිරීමට භාවිතා කළ හැකිය. හොඳින් සැලසුම් කරන ලද දත්ත සමුදායක් දත්ත සමගියතාව සහතික කිරීම, අනවශ්‍ය දත්ත අවම කිරීම සහ කාර්යක්ෂම ප්‍රවේශය සැපයීම සඳහා අත්‍යවශ්‍ය වේ.
+                </p>
+                <p>සැලසුම් ක්‍රියාවලිය සාමාන්‍යයෙන් අදියර කිහිපයකට බෙදා ඇති අතර, ඉහළ මට්ටමේ වියුක්ත දර්ශනයක සිට සංයුක්ත ක්‍රියාත්මක කිරීමක් දක්වා ගමන් කරයි.</p>
+            </div>
         </div>
-    </div>
 
-    <div class="topic-section">
-        <h2 class="topic-title">1. Requirements Analysis</h2>
-        <div class="topic-description">
-            <p>
-                This is the initial and most critical phase. The goal is to identify and document the needs of the end-users and the intended purpose of the database. It involves understanding what data needs to be stored, what operations will be performed on the data, and what performance requirements exist.
-            </p>
-            <ul>
-                <li><strong>Objective:</strong> To collect all necessary information from stakeholders.</li>
-                <li><strong>Activities:</strong> Conducting interviews with users, distributing questionnaires, analyzing existing business documents and forms, and studying the current system (if any).</li>
-                <li><strong>Outcome:</strong> A detailed document specifying the data requirements and functional requirements of the system.</li>
-            </ul>
-        </div>
-    </div>
-
-    <div class="topic-section">
-        <h2 class="topic-title">2. Conceptual Design</h2>
-        <div class="topic-description">
-            <p>
-                In this phase, the requirements gathered are used to create a high-level conceptual data model. This model is independent of any specific Database Management System (DBMS) and focuses on representing the data and its relationships in an easily understandable way.
-            </p>
-            <ul>
-                <li><strong>Objective:</strong> To create a stable, high-level data model that satisfies the requirements.</li>
-                <li><strong>Tool:</strong> The most common tool used is the <strong>Entity-Relationship (ER) model</strong>, which uses diagrams to represent entities, their attributes, and the relationships between them.</li>
-                <li><strong>Outcome:</strong> An ER diagram that provides a clear visual blueprint of the database structure.</li>
-            </ul>
-        </div>
-    </div>
-
-    <div class="topic-section">
-        <h2 class="topic-title">3. Logical Design</h2>
-        <div class="topic-description">
-            <p>
-                The logical design phase involves translating the conceptual model (the ER diagram) into a schema that can be implemented by a specific type of DBMS. The most common target is the relational model.
-            </p>
-            <ul>
-                <li><strong>Objective:</strong> To convert the conceptual schema into a format for a specific data model (e.g., relational, network).</li>
-                <li><strong>Activities:</strong>
+        <div class="topic-section">
+            <h2 class="topic-title">1. අවශ්‍යතා විශ්ලේෂණය</h2>
+            <div class="topic-description">
+                <p>
+                    මෙය ආරම්භක සහ වඩාත් තීරණාත්මක අවධියයි. අරමුණ වන්නේ අවසන් පරිශීලකයින්ගේ අවශ්‍යතා සහ දත්ත සමුදායේ අපේක්ෂිත අරමුණ හඳුනා ගැනීම සහ ලේඛනගත කිරීමයි. කුමන දත්ත ගබඩා කළ යුතුද, දත්ත මත කුමන මෙහෙයුම් සිදු කළ යුතුද සහ කුමන කාර්ය සාධන අවශ්‍යතා පවතීද යන්න තේරුම් ගැනීම මෙයට ඇතුළත් වේ.
+                </p>
+                <ul>
+                    <li><strong>අරමුණ:</strong> පාර්ශවකරුවන්ගෙන් අවශ්‍ය සියලුම තොරතුරු එකතු කිරීම.</li>
+                    <li><strong>ක්‍රියාකාරකම්:</strong> පරිශීලකයින් සමඟ සම්මුඛ සාකච්ඡා පැවැත්වීම, ප්‍රශ්නාවලි බෙදා හැරීම, පවතින ව්‍යාපාරික ලේඛන සහ පෝරම විශ්ලේෂණය කිරීම සහ වත්මන් පද්ධතිය අධ්‍යයනය කිරීම (ඇත්නම්).</li>
+                    <li><strong>ප්‍රතිඵලය:</strong> පද්ධතියේ දත්ත අවශ්‍යතා සහ ක්‍රියාකාරී අවශ්‍යතා සඳහන් කරන විස්තරාත්මක ලේඛනයක්.</li>
+                </ul>
+                
+                <div class="example-box">
+                    <div class="example-title">උදාහරණය: පාසල් කළමනාකරණ පද්ධතියක්</div>
+                    <p><strong>අවශ්‍යතා:</strong></p>
                     <ul>
-                        <li>Mapping entities from the ER diagram into tables.</li>
-                        <li>Mapping attributes into columns with specific data types.</li>
-                        <li>Mapping relationships into foreign keys to link the tables.</li>
+                        <li>සිසුන්ගේ නම, ලිපිනය, උපන් දිනය, දුරකථන අංකය ගබඩා කළ යුතුය</li>
+                        <li>ගුරුවරුන්ගේ විස්තර සහ ඔවුන් උගන්වන විෂයයන් ගබඩා කළ යුතුය</li>
+                        <li>විභාග ලකුණු සහ පන්ති තොරතුරු සටහන් කළ යුතුය</li>
+                        <li>දෙමව්පියන්ට ඔවුන්ගේ දරුවන්ගේ ප්‍රගතිය බැලීමට හැකි විය යුතුය</li>
                     </ul>
-                </li>
-                <li><strong>Outcome:</strong> A set of table definitions (a logical schema) with columns, primary keys, and foreign keys defined.</li>
-            </ul>
+                </div>
+            </div>
         </div>
-    </div>
-    
-    <div class="topic-section">
-        <h2 class="topic-title">4. Schema Refinement (Normalization)</h2>
-        <div class="topic-description">
-            <p>
-                This step focuses on improving the logical schema to prevent data anomalies and redundancy. <strong>Normalization</strong> is a formal process of analyzing the tables to ensure that the data dependencies are structured correctly.
-            </p>
-            <ul>
-                <li><strong>Objective:</strong> To organize the columns and tables to minimize data redundancy and avoid insertion, update, and deletion anomalies.</li>
-                <li><strong>Activities:</strong> Applying normalization rules (like First Normal Form, Second Normal Form, etc.) to decompose tables that have issues.</li>
-                <li><strong>Outcome:</strong> A refined, normalized schema that is less prone to data integrity problems.</li>
-            </ul>
-        </div>
-    </div>
 
-    <div class="topic-section">
-        <h2 class="topic-title">5. Physical Design</h2>
-        <div class="topic-description">
-            <p>
-                The final phase involves deciding how the logical schema will be physically stored on storage devices. This stage is dependent on the specific DBMS being used and deals with performance and storage optimization.
-            </p>
-            <ul>
-                <li><strong>Objective:</strong> To optimize performance while ensuring data integrity.</li>
-                <li><strong>Activities:</strong>
+        <div class="topic-section">
+            <h2 class="topic-title">2. සංකල්පීය සැලසුම</h2>
+            <div class="topic-description">
+                <p>
+                    මෙම අවධියේදී, එකතු කරන ලද අවශ්‍යතා උසස් මට්ටමේ සංකල්පීය දත්ත ආකෘතියක් නිර්මාණය කිරීමට භාවිතා කරනු ලබයි. මෙම ආකෘතිය ඕනෑම නිශ්චිත Database Management System (DBMS) එකකින් ස්වාධීන වන අතර දත්ත සහ එහි සම්බන්ධතා පහසුවෙන් තේරුම් ගත හැකි ආකාරයෙන් නිරූපණය කිරීම කෙරෙහි අවධානය යොමු කරයි.
+                </p>
+                <ul>
+                    <li><strong>අරමුණ:</strong> අවශ්‍යතා සපුරාලන ස්ථායී, උසස් මට්ටමේ දත්ත ආකෘතියක් නිර්මාණය කිරීම.</li>
+                    <li><strong>මෙවලම:</strong> වඩාත් පොදු මෙවලම වන්නේ <strong>Entity-Relationship (ER) ආකෘතිය</strong>, එය ආයතන, ඒවායේ ගුණාංග සහ ඒවා අතර සම්බන්ධතා නිරූපණය කිරීමට රූප සටහන් භාවිතා කරයි.</li>
+                    <li><strong>ප්‍රතිඵලය:</strong> දත්ත සමුදා ව්‍යුහය පිළිබඳ පැහැදිලි දෘශ්‍ය සැලැස්මක් සපයන ER රූප සටහනක්.</li>
+                </ul>
+                
+                <div class="example-box">
+                    <div class="example-title">උදාහරණය: පාසල් පද්ධතියේ ER ආකෘතිය</div>
+                    <p><strong>ආයතන (Entities):</strong></p>
                     <ul>
-                        <li>Choosing appropriate file organizations for tables.</li>
-                        <li>Creating indexes on certain columns to speed up data retrieval.</li>
-                        <li>Handling data distribution and partitioning for very large databases.</li>
+                        <li>සිසුවා (Student) - ගුණාංග: සිසුවාID, නම, ලිපිනය, උපන්දිනය</li>
+                        <li>ගුරුවරයා (Teacher) - ගුණාංග: ගුරුID, නම, විෂයය, දුරකථනය</li>
+                        <li>පන්තිය (Class) - ගුණාංග: පන්තිID, නම, කාලය</li>
+                        <li>විෂයයය (Subject) - ගුණාංග: විෂයයID, නම, ඇගයීමේ ක්‍රමය</li>
                     </ul>
-                </li>
-                <li><strong>Outcome:</strong> A physical database design that specifies all the necessary storage details, ready for implementation using DDL commands.</li>
-            </ul>
+                    <p><strong>සම්බන්ධතා (Relationships):</strong></p>
+                    <ul>
+                        <li>සිසුවෙක් බොහෝ පන්ති වලට සම්බන්ධ වේ (Many-to-Many)</li>
+                        <li>ගුරුවරයෙක් විෂයයන් කිහිපයක් උගන්වයි (One-to-Many)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="topic-section">
+            <h2 class="topic-title">3. තාර්කික සැලසුම</h2>
+            <div class="topic-description">
+                <p>
+                    තාර්කික සැලසුම් අවධිය සඳහා සංකල්පීය ආකෘතිය (ER රූප සටහන) නිශ්චිත වර්ගයේ DBMS එකකින් ක්‍රියාත්මක කළ හැකි schema එකකට පරිවර්තනය කිරීම ඇතුළත් වේ. වඩාත් පොදු ඉලක්කය වන්නේ සම්බන්ධතා ආකෘතියයි.
+                </p>
+                <ul>
+                    <li><strong>අරමුණ:</strong> සංකල්පීය schema නිශ්චිත දත්ත ආකෘතියක් සඳහා ආකෘතියකට පරිවර්තනය කිරීම (උදා: සම්බන්ධතා, ජාල).</li>
+                    <li><strong>ක්‍රියාකාරකම්:</strong>
+                        <ul>
+                            <li>ER රූප සටහනේ ආයතන වගු බවට සිතියම්ගත කිරීම.</li>
+                            <li>ගුණාංග නිශ්චිත දත්ත වර්ග සහිත තීරු බවට සිතියම්ගත කිරීම.</li>
+                            <li>වගු සම්බන්ධ කිරීමට විදේශීය යතුරු බවට සම්බන්ධතා සිතියම්ගත කිරීම.</li>
+                        </ul>
+                    </li>
+                    <li><strong>ප්‍රතිඵලය:</strong> තීරු, ප්‍රාථමික යතුරු සහ විදේශීය යතුරු අර්ථ දක්වා ඇති වගු අර්ථ දැක්වීම් කට්ටලයක් (තාර්කික schema).</li>
+                </ul>
+                
+                <div class="example-box">
+                    <div class="example-title">උදාහරණය: වගු නිර්මාණය</div>
+                    <p><strong>Student වගුව:</strong></p>
+                    <ul>
+                        <li>StudentID (Primary Key) - INT</li>
+                        <li>Name - VARCHAR(100)</li>
+                        <li>Address - VARCHAR(200)</li>
+                        <li>DateOfBirth - DATE</li>
+                    </ul>
+                    <p><strong>Enrollment වගුව (සම්බන්ධතා වගුව):</strong></p>
+                    <ul>
+                        <li>EnrollmentID (Primary Key) - INT</li>
+                        <li>StudentID (Foreign Key) - INT</li>
+                        <li>ClassID (Foreign Key) - INT</li>
+                        <li>EnrollmentDate - DATE</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="topic-section">
+            <h2 class="topic-title">4. Schema පිරිපහදු කිරීම (සාමාන්‍යකරණය)</h2>
+            <div class="topic-description">
+                <p>
+                    මෙම පියවර දත්ත විෂමතා සහ අනවශ්‍යතා වැළැක්වීම සඳහා තාර්කික schema වැඩිදියුණු කිරීම කෙරෙහි අවධානය යොමු කරයි. <strong>සාමාන්‍යකරණය</strong> යනු දත්ත යැපීම් නිවැරදිව ව්‍යුහගත කර ඇති බව සහතික කිරීම සඳහා වගු විශ්ලේෂණය කිරීමේ විධිමත් ක්‍රියාවලියකි.
+                </p>
+                <ul>
+                    <li><strong>අරමුණ:</strong> දත්ත අනවශ්‍යතාව අවම කිරීම සහ ඇතුළත් කිරීම, යාවත්කාලීන කිරීම සහ මකා දැමීමේ විෂමතා වැළැක්වීම සඳහා තීරු සහ වගු සංවිධානය කිරීම.</li>
+                    <li><strong>ක්‍රියාකාරකම්:</strong> ගැටළු ඇති වගු විසුරුවා හැරීම සඳහා සාමාන්‍යකරණ නීති (පළමු සාමාන්‍ය ආකෘතිය, දෙවන සාමාන්‍ය ආකෘතිය යනාදිය) යෙදීම.</li>
+                    <li><strong>ප්‍රතිඵලය:</strong> දත්ත අඛණ්ඩතා ගැටළු වලට අඩු නැඹුරු වන පිරිපහදු කළ, සාමාන්‍යකරණය කළ schema එකක්.</li>
+                </ul>
+                
+                <div class="example-box">
+                    <div class="example-title">උදාහරණය: සාමාන්‍යකරණයට පෙර සහ පසු</div>
+                    <p><strong>සාමාන්‍යකරණයට පෙර (ගැටළු සහිත):</strong></p>
+                    <ul>
+                        <li>Order වගුව: OrderID, CustomerName, CustomerPhone, CustomerAddress, ProductName, ProductPrice, Quantity</li>
+                        <li>ගැටළුව: Customer විස්තර එක් එක් ඇණවුමේ නැවත නැවත සටහන් වේ</li>
+                    </ul>
+                    <p><strong>සාමාන්‍යකරණයට පසු:</strong></p>
+                    <ul>
+                        <li>Customer වගුව: CustomerID, Name, Phone, Address</li>
+                        <li>Product වගුව: ProductID, Name, Price</li>
+                        <li>Order වගුව: OrderID, CustomerID, OrderDate</li>
+                        <li>OrderDetails වගුව: OrderDetailID, OrderID, ProductID, Quantity</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="topic-section">
+            <h2 class="topic-title">5. භෞතික සැලසුම</h2>
+            <div class="topic-description">
+                <p>
+                    අවසාන අවධිය සඳහා තාර්කික schema ගබඩා උපාංගවල භෞතිකව ගබඩා කරන ආකාරය තීරණය කිරීම ඇතුළත් වේ. මෙම අදියර භාවිතා කරන නිශ්චිත DBMS මත රඳා පවතින අතර කාර්ය සාධන සහ ගබඩා ප්‍රශස්තකරණය සමඟ කටයුතු කරයි.
+                </p>
+                <ul>
+                    <li><strong>අරමුණ:</strong> දත්ත අඛණ්ඩතාව සහතික කරන අතරම කාර්ය සාධනය ප්‍රශස්ත කිරීම.</li>
+                    <li><strong>ක්‍රියාකාරකම්:</strong>
+                        <ul>
+                            <li>වගු සඳහා සුදුසු ගොනු සංවිධාන තෝරා ගැනීම.</li>
+                            <li>දත්ත ලබා ගැනීම වේගවත් කිරීම සඳහා ඇතැම් තීරු මත දර්ශක නිර්මාණය කිරීම.</li>
+                            <li>ඉතා විශාල දත්ත සමුදා සඳහා දත්ත බෙදා හැරීම සහ කොටස් කිරීම හැසිරවීම.</li>
+                        </ul>
+                    </li>
+                    <li><strong>ප්‍රතිඵලය:</strong> DDL විධාන භාවිතයෙන් ක්‍රියාත්මක කිරීම සඳහා සූදානම්, අවශ්‍ය සියලුම ගබඩා විස්තර සඳහන් කරන භෞතික දත්ත සමුදා සැලසුමක්.</li>
+                </ul>
+                
+                <div class="example-box">
+                    <div class="example-title">උදාහරණය: භෞතික ප්‍රශස්තකරණ තීරණ</div>
+                    <p><strong>දර්ශක (Indexes) නිර්මාණය කිරීම:</strong></p>
+                    <ul>
+                        <li>Student වගුවේ Name තීරුව මත දර්ශකයක් - නම අනුව සෙවීම වේගවත් කිරීමට</li>
+                        <li>Order වගුවේ OrderDate මත දර්ශකයක් - දිනයට අනුව වාර්තා වේගවත් කිරීමට</li>
+                    </ul>
+                    <p><strong>කොටස් කිරීම (Partitioning):</strong></p>
+                    <ul>
+                        <li>විශාල Order වගුව වසර අනුව කොටස් කිරීම (2023 orders, 2024 orders, 2025 orders)</li>
+                        <li>මෙමඟින් පැරණි දත්ත වලින් වෙන්ව අලුත් දත්ත වඩාත් වේගයෙන් ප්‍රවේශ කළ හැක</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="topic-section">
+            <h2 class="topic-title">සම්පූර්ණ උදාහරණය: පුස්තකාල කළමනාකරණ පද්ධතිය</h2>
+            <div class="topic-description">
+                <div class="example-box">
+                    <div class="example-title">1. අවශ්‍යතා විශ්ලේෂණය</div>
+                    <ul>
+                        <li>පොත්, කතුවරුන්, සාමාජිකයින් සහ ණය තොරතුරු ගබඩා කළ යුතුය</li>
+                        <li>පොත් ණයට දීම සහ ආපසු ලබා ගැනීම සටහන් කළ යුතුය</li>
+                        <li>ප්‍රමාද ගාස්තු ගණනය කළ යුතුය</li>
+                    </ul>
+                </div>
+                
+                <div class="example-box">
+                    <div class="example-title">2. සංකල්පීය සැලසුම (ER ආකෘතිය)</div>
+                    <ul>
+                        <li>ආයතන: Book, Author, Member, Loan</li>
+                        <li>සම්බන්ධතා: Author "writes" Book (Many-to-Many), Member "borrows" Book (Many-to-Many through Loan)</li>
+                    </ul>
+                </div>
+                
+                <div class="example-box">
+                    <div class="example-title">3. තාර්කික සැලසුම (වගු)</div>
+                    <ul>
+                        <li>Books(BookID, Title, ISBN, PublishYear)</li>
+                        <li>Authors(AuthorID, Name, Country)</li>
+                        <li>BookAuthors(BookID, AuthorID)</li>
+                        <li>Members(MemberID, Name, Email, JoinDate)</li>
+                        <li>Loans(LoanID, BookID, MemberID, LoanDate, DueDate, ReturnDate)</li>
+                    </ul>
+                </div>
+                
+                <div class="example-box">
+                    <div class="example-title">4. සාමාන්‍යකරණය</div>
+                    <p>සියලුම වගු දැනටමත් 3NF (තුන්වන සාමාන්‍ය ආකෘතිය) තුළ ඇති බව සහතික කරන්න</p>
+                </div>
+                
+                <div class="example-box">
+                    <div class="example-title">5. භෞතික සැලසුම</div>
+                    <ul>
+                        <li>Books.Title මත දර්ශකයක්</li>
+                        <li>Members.Email මත අද්විතීය දර්ශකයක්</li>
+                        <li>Loans.DueDate මත දර්ශකයක් (ප්‍රමාද ගාස්තු වාර්තා සඳහා)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="back-link">
+            <a href="../index.html" class="btn">← මුල් පිටුවට ආපසු යන්න</a>
         </div>
     </div>
-
-    <div class="back-link">
-        <a href="../index.html" class="btn">← Back to Home</a>
-    </div>
-</div>
 </body>
 </html>
