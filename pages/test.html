@@ -1,0 +1,1388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DBMS Practice Exam</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 10px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 26px;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            font-size: 14px;
+            opacity: 0.95;
+        }
+        
+        .exam-info {
+            background: rgba(255,255,255,0.1);
+            padding: 15px;
+            margin-top: 15px;
+            border-radius: 10px;
+            text-align: left;
+        }
+        
+        .exam-info p {
+            margin: 5px 0;
+            font-size: 13px;
+        }
+        
+        .toggle-section {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-bottom: 2px solid #667eea;
+        }
+        
+        .toggle-btn {
+            padding: 12px 30px;
+            border: none;
+            background: #667eea;
+            color: white;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+            font-size: 14px;
+        }
+        
+        .toggle-btn:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .toggle-btn.active {
+            background: #764ba2;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .content {
+            padding: 25px;
+            display: none;
+        }
+        
+        .content.active {
+            display: block;
+        }
+        
+        .question {
+            margin-bottom: 35px;
+            border-left: 4px solid #667eea;
+            padding-left: 20px;
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        
+        .question-number {
+            font-size: 20px;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .marks {
+            background: #764ba2;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+        }
+        
+        .sub-question {
+            margin: 20px 0;
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        
+        .sub-question-title {
+            font-weight: bold;
+            color: #764ba2;
+            margin-bottom: 10px;
+            font-size: 15px;
+        }
+        
+        .answer {
+            margin-top: 15px;
+            padding: 15px;
+            background: #f0f7ff;
+            border-left: 4px solid #667eea;
+            border-radius: 5px;
+        }
+        
+        .definition {
+            margin: 10px 0;
+            padding: 10px;
+            background: white;
+            border-radius: 5px;
+        }
+        
+        .definition strong {
+            color: #667eea;
+            display: block;
+            margin-bottom: 5px;
+        }
+        
+        ul, ol {
+            margin-left: 25px;
+            margin-top: 10px;
+        }
+        
+        li {
+            margin: 8px 0;
+            line-height: 1.7;
+        }
+        
+        .code-block {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            margin: 15px 0;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+        
+        .code-comment {
+            color: #6272a4;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 14px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        
+        th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            font-weight: bold;
+        }
+        
+        tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        
+        .note {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+        
+        .note strong {
+            color: #856404;
+        }
+        
+        .info-box {
+            background: #d1ecf1;
+            border-left: 4px solid #17a2b8;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+        
+        .er-diagram-container {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 30px;
+            border-radius: 15px;
+            margin: 25px 0;
+            overflow-x: auto;
+        }
+        
+        .diagram-title {
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .entity-box {
+            background: white;
+            border: 3px solid #667eea;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 350px;
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.3);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .entity-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+        
+        .entity-header {
+            font-size: 20px;
+            font-weight: bold;
+            color: #667eea;
+            text-align: center;
+            padding: 12px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .attribute-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .attribute-item {
+            padding: 10px;
+            margin: 6px 0;
+            background: #f8f9fa;
+            border-radius: 6px;
+            border-left: 3px solid #667eea;
+            font-size: 14px;
+            transition: background 0.2s;
+        }
+        
+        .attribute-item:hover {
+            background: #e8f4ff;
+        }
+        
+        .attribute-item.primary-key {
+            background: #fff3cd;
+            border-left-color: #ffc107;
+            font-weight: bold;
+            color: #856404;
+        }
+        
+        .attribute-item.primary-key::before {
+            content: "🔑 ";
+            margin-right: 5px;
+        }
+        
+        .attribute-item.foreign-key {
+            background: #d1ecf1;
+            border-left-color: #17a2b8;
+            font-weight: 600;
+            color: #0c5460;
+        }
+        
+        .attribute-item.foreign-key::before {
+            content: "🔗 ";
+            margin-right: 5px;
+        }
+        
+        .relationship-connector {
+            text-align: center;
+            margin: 25px 0;
+            position: relative;
+        }
+        
+        .connector-line {
+            width: 4px;
+            height: 30px;
+            background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);
+            margin: 0 auto;
+            border-radius: 2px;
+        }
+        
+        .relationship-label {
+            display: inline-block;
+            background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 15px;
+            margin: 8px 0;
+            box-shadow: 0 4px 15px rgba(118, 75, 162, 0.4);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .cardinality-box {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 350px;
+            margin: 15px auto;
+            padding: 0 20px;
+        }
+        
+        .cardinality-value {
+            background: white;
+            border: 3px solid #764ba2;
+            padding: 8px 16px;
+            border-radius: 50%;
+            font-weight: bold;
+            color: #764ba2;
+            font-size: 18px;
+            min-width: 45px;
+            text-align: center;
+            box-shadow: 0 3px 10px rgba(118, 75, 162, 0.3);
+        }
+        
+        .cardinality-label {
+            font-size: 13px;
+            color: #666;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        
+        .diagram-legend {
+            background: white;
+            border: 2px solid #667eea;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 30px auto;
+            max-width: 600px;
+        }
+        
+        .legend-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+            padding: 8px;
+            background: #f8f9fa;
+            border-radius: 6px;
+        }
+        
+        .legend-symbol {
+            font-size: 20px;
+            margin-right: 12px;
+            min-width: 30px;
+        }
+        
+        .legend-description {
+            font-size: 14px;
+            color: #333;
+        }
+        
+        @media (max-width: 600px) {
+            .header h1 {
+                font-size: 22px;
+            }
+            
+            .content {
+                padding: 15px;
+            }
+            
+            .toggle-btn {
+                padding: 10px 20px;
+                font-size: 13px;
+            }
+            
+            .code-block {
+                font-size: 11px;
+                padding: 10px;
+            }
+            
+            table {
+                font-size: 12px;
+            }
+            
+            th, td {
+                padding: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📚 Database Management Systems</h1>
+            <p>Practice Examination Paper with Complete Solutions</p>
+            <div class="exam-info">
+                <p>⏱️ <strong>Time:</strong> Three (03) hours</p>
+                <p>📝 <strong>Total Questions:</strong> Six (06)</p>
+                <p>✅ <strong>Instructions:</strong> Answer ALL questions</p>
+            </div>
+        </div>
+        
+        <div class="toggle-section">
+            <button class="toggle-btn active" onclick="showSection('questions')">📄 Question Paper</button>
+            <button class="toggle-btn" onclick="showSection('answers')">✍️ Answer Script</button>
+        </div>
+        
+        <!-- QUESTIONS SECTION -->
+        <div id="questions" class="content active">
+            
+            <!-- Question 1 -->
+            <div class="question">
+                <div class="question-number">
+                    Question 1 
+                    <span class="marks">20 Marks</span>
+                </div>
+                
+                <div class="sub-question">
+                    <div class="sub-question-title">a) Define the following database concepts: (08 marks)</div>
+                    <div style="margin-left: 20px;">
+                        <p>i. Schema Evolution</p>
+                        <p>ii. Data Dictionary</p>
+                        <p>iii. Metadata</p>
+                        <p>iv. Transaction</p>
+                    </div>
+                </div>
+                
+                <div class="sub-question">
+                    <div class="sub-question-title">b) A university library system manages books, members, and borrowing transactions. Consider the following scenario:</div>
+                    <p>The library has thousands of books across multiple branches. Members can borrow books, and the system tracks which member borrowed which book and when. The library also maintains information about book authors, publishers, and categories. Staff members manage the daily operations including book cataloging and member registration.</p>
+                    <div style="margin-left: 20px; margin-top: 10px;">
+                        <p>i. Identify and explain THREE (03) advantages of using a DBMS for this library system compared to a file-based system. (06 marks)</p>
+                        <p>ii. Describe TWO (02) situations where a file-based system might be more appropriate than a DBMS. (06 marks)</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Question 2 -->
+            <div class="question">
+                <div class="question-number">
+                    Question 2 
+                    <span class="marks">20 Marks</span>
+                </div>
+                
+                <div class="sub-question">
+                    <div class="sub-question-title">a) Explain the three-schema architecture of a DBMS and discuss how it provides data independence. (08 marks)</div>
+                </div>
+                
+                <div class="sub-question">
+                    <div class="sub-question-title">b) Consider the following relations for a hospital management system:</div>
+                    <div class="code-block">
+DOCTOR(Doctor_ID, Name, Specialization, Phone, Department_ID)
+PATIENT(Patient_ID, Name, Age, Gender, Address, Phone)
+APPOINTMENT(Appointment_ID, Patient_ID, Doctor_ID, Date, Time, Status)
+DEPARTMENT(Department_ID, Dept_Name, Location, Head_Doctor_ID)
+PRESCRIPTION(Prescription_ID, Appointment_ID, Medication, Dosage, Instructions)
+                    </div>
+                    <div style="margin-left: 20px;">
+                        <p>i. Identify all foreign keys in this schema. (04 marks)</p>
+                        <p>ii. Write a specific example that demonstrates entity integrity constraint. (02 marks)</p>
+                        <p>iii. Write a specific example that demonstrates referential integrity constraint. (03 marks)</p>
+                        <p>iv. What would happen if we try to delete a DOCTOR record that has existing appointments? Explain with respect to referential integrity. (03 marks)</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Question 3 -->
+            <div class="question">
+                <div class="question-number">
+                    Question 3 
+                    <span class="marks">20 Marks</span>
+                </div>
+                
+                <div class="sub-question">
+                    <div class="sub-question-title">a) Describe the complete database design lifecycle for an e-commerce system that manages customer accounts, product catalog, orders, payments, shipping, and product reviews. (08 marks)</div>
+                </div>
+                
+                <div class="sub-question">
+                    <div class="sub-question-title">b) Design an ER diagram for the following Smart City Traffic Management System:</div>
+                    <p>A city implements a smart traffic system tracking vehicles through intersections with sensors. Each vehicle has registration number, owner info, and type. The system records passage timestamp and direction. Each intersection has sensors with ID, coordinates, and installation date. Traffic signals can be red/yellow/green with adjustable timing. The system tracks violations (red light running, speeding) with type, timestamp, and fine amount. Traffic officers (ID, name, badge, zone) issue tickets and track payment status.</p>
+                    <div style="margin-left: 20px; margin-top: 10px;">
+                        <p>i. Identify all entities with their attributes and draw a complete ER diagram. (08 marks)</p>
+                        <p>ii. Map the ER diagram to a relational schema with all keys identified. (04 marks)</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Question 4 -->
+            <div class="question">
+                <div class="question-number">
+                    Question 4 
+                    <span class="marks">20 Marks</span>
+                </div>
+                
+                <div class="sub-question">
+                    <div class="sub-question-title">a) Explain the difference between DDL, DML, DCL, and TCL with TWO (02) examples for each. (08 marks)</div>
+                </div>
+                
+                <div class="sub-question">
+                    <div class="sub-question-title">b) Consider the following database schema for an online course platform:</div>
+                    
+                    <div class="code-block">
+INSTRUCTOR(Instructor_ID, Name, Email, Department, Salary)
+COURSE(Course_ID, Title, Credits, Category, Instructor_ID)
+STUDENT(Student_ID, Name, Email, Enrollment_Date, Major)
+ENROLLMENT(Student_ID, Course_ID, Enrollment_Date, Grade, Status)
+ASSIGNMENT(Assignment_ID, Course_ID, Title, Due_Date, Max_Score)
+SUBMISSION(Submission_ID, Assignment_ID, Student_ID, Submit_Date, Score)
+                    </div>
+                    
+                    <p style="margin-top: 15px;">Write SQL queries for the following:</p>
+                    <div style="margin-left: 20px;">
+                        <p>i. Retrieve all courses from 'Computer Science' department with instructor names. (02 marks)</p>
+                        <p>ii. Find students enrolled in more than 3 courses. (03 marks)</p>
+                        <p>iii. List assignments for 'Database Management' due in next 7 days. (03 marks)</p>
+                        <p>iv. Calculate average score for each student. (02 marks)</p>
+                        <p>v. Find top 5 students with highest average grades. (02 marks)</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Question 5 -->
+            <div class="question">
+                <div class="question-number">
+                    Question 5 
+                    <span class="marks">20 Marks</span>
+                </div>
+                
+                <div class="sub-question">
+                    <div class="sub-question-title">a) Consider the following un-normalized relation STUDENT_COURSE:</div>
+                    
+                    <table>
+                        <tr>
+                            <th>Student_ID</th>
+                            <th>Student_Name</th>
+                            <th>Courses</th>
+                            <th>Instructors</th>
+                            <th>Grades</th>
+                            <th>Advisor</th>
+                            <th>Advisor_Phone</th>
+                        </tr>
+                        <tr>
+                            <td>S001</td>
+                            <td>John Smith</td>
+                            <td>DBMS, Java, Networks</td>
+                            <td>Dr. Brown, Dr. Lee, Dr. Kim</td>
+                            <td>A, B+, A-</td>
+                            <td>Dr. Wilson</td>
+                            <td>555-1234</td>
+                        </tr>
+                    </table>
+                    
+                    <div style="margin-left: 20px; margin-top: 10px;">
+                        <p>i. Identify the update anomalies present in this relation with specific examples. (06 marks)</p>
+                        <p>ii. Normalize this relation to 3NF showing all intermediate steps. (08 marks)</p>
+                    </div>
+                </div>
+                
+                <div class="sub-question">
+                    <div class="sub-question-title">b) Consider the relation ORDER_DETAILS with functional dependencies:</div>
+                    
+                    <div class="code-block">
+ORDER_DETAILS(Order_ID, Customer_ID, Customer_Name, Customer_City, 
+              Product_ID, Product_Name, Quantity, Unit_Price, Total_Amount)
+
+Functional Dependencies:
+• Order_ID, Product_ID → Quantity, Unit_Price, Total_Amount
+• Customer_ID → Customer_Name, Customer_City
+• Product_ID → Product_Name, Unit_Price
+• Order_ID → Customer_ID
+                    </div>
+                    
+                    <div style="margin-left: 20px; margin-top: 10px;">
+                        <p>i. Determine the highest normal form this relation is currently in. (03 marks)</p>
+                        <p>ii. Decompose the relation into 3NF if needed. (03 marks)</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Question 6 -->
+            <div class="question">
+                <div class="question-number">
+                    Question 6 
+                    <span class="marks">20 Marks</span>
+                </div>
+                
+                <div class="sub-question">
+                    <div class="sub-question-title">a) Explain the ACID properties of transactions with real-world examples. (08 marks)</div>
+                </div>
+                
+                <div class="sub-question">
+                    <div class="sub-question-title">b) Consider a banking database with the following schema:</div>
+                    
+                    <div class="code-block">
+ACCOUNT(Account_No, Customer_ID, Branch_ID, Balance, Account_Type, Opening_Date)
+CUSTOMER(Customer_ID, Name, Address, Phone, Email, Date_Of_Birth)
+BRANCH(Branch_ID, Branch_Name, City, Manager_Name, Phone)
+TRANSACTION(Trans_ID, Account_No, Trans_Date, Trans_Type, Amount, Description)
+LOAN(Loan_ID, Customer_ID, Branch_ID, Amount, Interest_Rate, Start_Date, Status)
+                    </div>
+                    
+                    <p style="margin-top: 15px;">Write SQL queries for the following:</p>
+                    <div style="margin-left: 20px;">
+                        <p>i. Find all customers with total balance exceeding $50,000 across all accounts. (03 marks)</p>
+                        <p>ii. List branches with more than 100 active accounts. (03 marks)</p>
+                        <p>iii. Calculate total loan amount disbursed by each branch in 2024. (03 marks)</p>
+                        <p>iv. Find customers who have both savings and checking accounts. (03 marks)</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="note">
+                <strong>END OF QUESTION PAPER</strong>
+            </div>
+        </div>
+        
+        <!-- ANSWERS SECTION -->
+        <div id="answers" class="content">
+            
+            <!-- Answer 1 -->
+            <div class="question">
+                <div class="question-number">
+                    Answer 1 
+                    <span class="marks">20 Marks</span>
+                </div>
+                
+                <div class="sub-question">
+                    <div class="sub-question-title">a) Definitions:</div>
+                    <div class="answer">
+                        <div class="definition">
+                            <strong>i. Schema Evolution:</strong>
+                            Schema evolution refers to the ability of a database system to accommodate changes to the database schema over time without losing existing data. This includes adding new tables, modifying existing tables, adding or removing columns, and changing data types. It's crucial for adapting to changing business requirements while maintaining data integrity and system functionality.
+                        </div>
+                        
+                        <div class="definition">
+                            <strong>ii. Data Dictionary:</strong>
+                            A data dictionary (also called system catalog) is a repository that stores metadata about the database structure. It contains information about tables, columns, data types, constraints, relationships, indexes, views, and user privileges. The DBMS uses the data dictionary to validate operations and maintain the database schema.
+                        </div>
+                        
+                        <div class="definition">
+                            <strong>iii. Metadata:</strong>
+                            Metadata is "data about data" - information that describes the structure, constraints, and characteristics of data stored in the database. This includes table names, column names, data types, lengths, constraints, relationships between tables, indexes, and access permissions. Metadata is stored in the system catalog and used by the DBMS to manage and interpret actual data.
+                        </div>
+                        
+                        <div class="definition">
+                            <strong>iv. Transaction:</strong>
+                            A transaction is a logical unit of work consisting of one or more database operations that must be executed as a single, indivisible unit. Transactions follow ACID properties (Atomicity, Consistency, Isolation, Durability) to ensure data integrity. Either all operations complete successfully (commit) or none do (rollback).
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="sub-question">
+                    <div class="sub-question-title">b) Library System Analysis:</div>
+                    <div class="answer">
+                        <p><strong>i. Three Advantages of DBMS:</strong></p>
+                        
+                        <div class="definition">
+                            <strong>1. Data Redundancy Control and Consistency:</strong>
+                            In file-based systems, member details might be stored in multiple files (borrowing records, membership files, fine records), leading to redundancy and inconsistency. A DBMS stores data centrally, eliminating redundancy. When member information is updated once, it reflects everywhere across all library branches, maintaining consistency.
+                        </div>
+                        
+                        <div class="definition">
+                            <strong>2. Concurrent Access and Multi-user Support:</strong>
+                            Multiple library branches need simultaneous access by staff and self-service kiosks. File-based systems struggle with concurrent access, causing data corruption or locking issues. A DBMS provides sophisticated concurrency control allowing multiple users to search books, process borrowings, and update records simultaneously without conflicts, improving operational efficiency.
+                        </div>
+                        
+                        <div class="definition">
+                            <strong>3. Complex Query Support and Data Retrieval:</strong>
+                            Libraries need various reports like overdue books by member, most borrowed books by category, and borrowing patterns across branches. File-based systems require separate programs for each query. A DBMS provides SQL for complex queries, allowing staff to easily retrieve information like "find all members who borrowed more than 10 books in the Science category last month" without custom programming.
+                        </div>
+                        
+                        <p><strong>ii. Situations for File-Based Systems:</strong></p>
+                        
+                        <div class="definition">
+                            <strong>1. Simple Single-User Applications:</strong>
+                            A small home library or personal book collection for a single user doesn't require DBMS complexity and overhead. A simple file-based system using spreadsheets or text files is more cost-effective, easier to set up, and sufficient for basic operations like tracking owned books and locations. The absence of concurrent users eliminates needs for transaction management and locking mechanisms.
+                        </div>
+                        
+                        <div class="definition">
+                            <strong>2. Temporary or Specialized Data Processing:</strong>
+                            When processing one-time bulk data imports from external sources (like receiving CSV files of new book acquisitions from publishers), a file-based approach is more efficient. Data can be processed, validated, and transformed using simple scripts before importing into the main DBMS. This is useful when temporary data doesn't need immediate main database integration and requires specialized processing cumbersome within the DBMS environment.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Answer 2 -->
+            <div class="question">
+                <div class="question-number">
+                    Answer 2 
+                    <span class="marks">20 Marks</span>
+                </div>
+                
+                <div class="sub-question">
+                    <div class="sub-question-title">a) Three-Schema Architecture:</div>
+                    <div class="answer">
+                        <p>The three-schema architecture separates user view from physical database through three levels:</p>
+                        
+                        <div class="definition">
+                            <strong>1. External Level (View Level):</strong>
+                            This is the user view of the database. Different users see different views based on needs and access rights. For example, in a hospital system, doctors see patient medical records while billing staff see only payment information. Each external schema describes a database portion for a particular user group.
+                        </div>
+                        
+                        <div class="definition">
+                            <strong>2. Conceptual Level (Logical Level):</strong>
+                            This describes the complete logical structure of the entire database for all users. It defines what data is stored, relationships between data, constraints, and security. It hides physical storage details while providing a community view of the database. This level is independent of both how users view data and how data is physically stored.
+                        </div>
+                        
+                        <div class="definition">
+                            <strong>3. Internal Level (Physical Level):</strong>
+                            This describes how data is physically stored on storage devices. It defines data structures, file organization, indexes, access paths, and storage allocation. It deals with physical storage details like record formats, block sizes, and index implementations.
+                        </div>
+                        
+                        <p><strong>Data Independence Provided:</strong></p>
+                        
+                        <ul>
+                            <li><strong>Logical Data Independence:</strong> Capacity to change conceptual schema without changing external schemas or application programs. For example, adding new entities or relationships doesn't affect existing user views.</li>
+                            <li><strong>Physical Data Independence:</strong> Capacity to change internal schema without changing conceptual schema. For example, changing file organization or adding indexes for performance doesn't require changes to logical schema or applications.</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="sub-question">
+                    <div class="sub-question-title">b) Hospital Management System Analysis:</div>
+                    <div class="answer">
+                        <p><strong>i. Foreign Keys:</strong></p>
+                        <ul>
+                            <li>DOCTOR.Department_ID references DEPARTMENT.Department_ID</li>
+                            <li>APPOINTMENT.Patient_ID references PATIENT.Patient_ID</li>
+                            <li>APPOINTMENT.Doctor_ID references DOCTOR.Doctor_ID</li>
+                            <li>DEPARTMENT.Head_Doctor_ID references DOCTOR.Doctor_ID</li>
+                            <li>PRESCRIPTION.Appointment_ID references APPOINTMENT.Appointment_ID</li>
+                        </ul>
+                        
+                        <p><strong>ii. Entity Integrity Constraint Example:</strong></p>
+                        <div class="code-block">
+<span class="code-comment">-- This INSERT will FAIL due to entity integrity violation</span>
+INSERT INTO DOCTOR (Doctor_ID, Name, Specialization)
+VALUES (NULL, 'Dr. Sarah Johnson', 'Cardiology');
+
+<span class="code-comment">-- Reason: Doctor_ID is primary key and cannot be NULL</span>
+<span class="code-comment">-- Entity integrity ensures every tuple is uniquely identifiable</span>
+                        </div>
+                        
+                        <p><strong>iii. Referential Integrity Constraint Example:</strong></p>
+                        <div class="code-block">
+<span class="code-comment">-- This INSERT will FAIL due to referential integrity violation</span>
+INSERT INTO APPOINTMENT (Appointment_ID, Patient_ID, Doctor_ID, Date, Time)
+VALUES (101, 'P999', 'D001', '2024-11-15', '10:00 AM');
+
+<span class="code-comment">-- Reason: If Patient_ID 'P999' doesn't exist in PATIENT table,</span>
+<span class="code-comment">-- this violates referential integrity. The foreign key must</span>
+<span class="code-comment">-- reference an existing primary key value or be NULL</span>
+                        </div>
+                        
+                        <p><strong>iv. Deleting DOCTOR with Existing Appointments:</strong></p>
+                        <p>When attempting to delete a DOCTOR record with existing appointments, the system faces referential integrity challenges. Possible actions:</p>
+                        
+                        <ul>
+                            <li><strong>RESTRICT:</strong> Deletion is rejected with error. This prevents orphaned appointment records. The doctor cannot be deleted until appointments are handled first.</li>
+                            <li><strong>CASCADE:</strong> All related appointments are automatically deleted with the doctor. This maintains referential integrity but loses appointment history.</li>
+                            <li><strong>SET NULL:</strong> Doctor_ID in related appointments is set to NULL, preserving appointment records but losing doctor reference.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Answer 3 -->
+            <div class="question">
+                <div class="question-number">
+                    Answer 3 
+                    <span class="marks">20 Marks</span>
+                </div>
+                
+                <div class="sub-question">
+                    <div class="sub-question-title">a) Database Design Lifecycle for E-commerce:</div>
+                    <div class="answer">
+                        <ol>
+                            <li><strong>Requirements Gathering:</strong> Interview stakeholders (customers, sales, warehouse staff), document functional requirements (product search, cart management, payment processing) and non-functional requirements (performance, security, scalability), identify needed data elements.</li>
+                            
+                            <li><strong>Conceptual Design:</strong> Create high-level ER diagrams identifying entities (Customer, Product, Order, Payment, Review), attributes, and relationships. Define business rules and constraints without considering implementation details.</li>
+                            
+                            <li><strong>Logical Design:</strong> Map ER diagram to relational schema, define primary and foreign keys, specify data types, apply normalization to eliminate redundancy, ensure data integrity constraints.</li>
+                            
+                            <li><strong>Physical Design:</strong> Choose DBMS platform, design file organization and storage structures, create indexes for frequently accessed data, partition large tables for better performance, plan backup and recovery.</li>
+                            
+                            <li><strong>Implementation:</strong> Write DDL statements to create database objects, implement stored procedures and triggers for business logic, set up security and access controls, populate initial data.</li>
+                            
+                            <li><strong>Testing and Optimization:</strong> Test with sample data, validate business rules, perform load testing for concurrent users, optimize queries and indexes based on performance metrics, ensure security measures work correctly.</li>
+                            
+                            <li><strong>Deployment and Maintenance:</strong> Deploy to production environment, train users, monitor performance, handle schema changes as requirements evolve, maintain regular backups.</li>
+                        </ol>
+                    </div>
+                </div>
+                
+                <div class="sub-question">
+                    <div class="sub-question-title">b) Smart City Traffic Management System:</div>
+                    <div class="answer">
+                        <p><strong>i. Entities and ER Diagram:</strong></p>
+                        
+                        <table>
+                            <tr>
+                                <th>Entity</th>
+                                <th>Attributes</th>
+                            </tr>
+                            <tr>
+                                <td>VEHICLE</td>
+                                <td>Registration_No (PK), Owner_Name, Owner_Contact, Vehicle_Type</td>
+                            </tr>
+                            <tr>
+                                <td>INTERSECTION</td>
+                                <td>Sensor_ID (PK), Latitude, Longitude, Installation_Date, Location_Name</td>
+                            </tr>
+                            <tr>
+                                <td>TRAFFIC_SIGNAL</td>
+                                <td>Signal_ID (PK), Sensor_ID (FK), Current_State, Red_Duration, Yellow_Duration, Green_Duration</td>
+                            </tr>
+                            <tr>
+                                <td>PASSAGE_RECORD</td>
+                                <td>Record_ID (PK), Registration_No (FK), Sensor_ID (FK), Timestamp, Direction</td>
+                            </tr>
+                            <tr>
+                                <td>VIOLATION</td>
+                                <td>Violation_ID (PK), Record_ID (FK), Violation_Type, Timestamp, Fine_Amount, Payment_Status</td>
+                            </tr>
+                            <tr>
+                                <td>TRAFFIC_OFFICER</td>
+                                <td>Officer_ID (PK), Name, Badge_Number, Assigned_Zone</td>
+                            </tr>
+                            <tr>
+                                <td>TICKET</td>
+                                <td>Ticket_ID (PK), Violation_ID (FK), Officer_ID (FK), Issue_Date, Payment_Status</td>
+                            </tr>
+                        </table>
+                        
+                        <div class="info-box">
+                            <strong>Key Relationships:</strong>
+                            <ul>
+                                <li>VEHICLE passes through INTERSECTION (M:N) - creates PASSAGE_RECORD</li>
+                                <li>INTERSECTION has TRAFFIC_SIGNAL (1:1)</li>
+                                <li>PASSAGE_RECORD generates VIOLATION (1:N)</li>
+                                <li>TRAFFIC_OFFICER issues TICKET for VIOLATION (M:N)</li>
+                            </ul>
+                        </div>
+                        
+                        <p><strong>ii. Relational Schema Mapping:</strong></p>
+                        <div class="code-block">
+VEHICLE(Registration_No, Owner_Name, Owner_Contact, Vehicle_Type)
+  PK: Registration_No
+
+INTERSECTION(Sensor_ID, Latitude, Longitude, Installation_Date, Location_Name)
+  PK: Sensor_ID
+
+TRAFFIC_SIGNAL(Signal_ID, Sensor_ID, Current_State, Red_Duration, 
+               Yellow_Duration, Green_Duration)
+  PK: Signal_ID
+  FK: Sensor_ID REFERENCES INTERSECTION(Sensor_ID)
+
+PASSAGE_RECORD(Record_ID, Registration_No, Sensor_ID, Timestamp, Direction)
+  PK: Record_ID
+  FK: Registration_No REFERENCES VEHICLE(Registration_No)
+  FK: Sensor_ID REFERENCES INTERSECTION(Sensor_ID)
+
+VIOLATION(Violation_ID, Record_ID, Violation_Type, Timestamp, 
+          Fine_Amount, Payment_Status)
+  PK: Violation_ID
+  FK: Record_ID REFERENCES PASSAGE_RECORD(Record_ID)
+
+TRAFFIC_OFFICER(Officer_ID, Name, Badge_Number, Assigned_Zone)
+  PK: Officer_ID
+  UNIQUE: Badge_Number
+
+TICKET(Ticket_ID, Violation_ID, Officer_ID, Issue_Date, Payment_Status)
+  PK: Ticket_ID
+  FK: Violation_ID REFERENCES VIOLATION(Violation_ID)
+  FK: Officer_ID REFERENCES TRAFFIC_OFFICER(Officer_ID)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Answer 4 -->
+            <div class="question">
+                <div class="question-number">
+                    Answer 4 
+                    <span class="marks">20 Marks</span>
+                </div>
+                
+                <div class="sub-question">
+                    <div class="sub-question-title">a) DBMS Language Components:</div>
+                    <div class="answer">
+                        <div class="definition">
+                            <strong>1. DDL (Data Definition Language):</strong>
+                            Used to define and modify database structure and schema.
+                            <div class="code-block">
+<span class="code-comment">-- Example 1: Create a table</span>
+CREATE TABLE Student (
+    Student_ID INT PRIMARY KEY,
+    Name VARCHAR(100),
+    Email VARCHAR(100) UNIQUE
+);
+
+<span class="code-comment">-- Example 2: Modify table structure</span>
+ALTER TABLE Student ADD COLUMN Phone VARCHAR(15);
+                            </div>
+                        </div>
+                        
+                        <div class="definition">
+                            <strong>2. DML (Data Manipulation Language):</strong>
+                            Used to retrieve, insert, update, and delete data.
+                            <div class="code-block">
+<span class="code-comment">-- Example 1: Insert data</span>
+INSERT INTO Student (Student_ID, Name, Email)
+VALUES (101, 'Alice Johnson', 'alice@email.com');
+
+<span class="code-comment">-- Example 2: Update data</span>
+UPDATE Student 
+SET Email = 'alice.j@email.com' 
+WHERE Student_ID = 101;
+                            </div>
+                        </div>
+                        
+                        <div class="definition">
+                            <strong>3. DCL (Data Control Language):</strong>
+                            Used to control access rights and permissions.
+                            <div class="code-block">
+<span class="code-comment">-- Example 1: Grant permissions</span>
+GRANT SELECT, INSERT ON Student TO user_john;
+
+<span class="code-comment">-- Example 2: Revoke permissions</span>
+REVOKE DELETE ON Student FROM user_john;
+                            </div>
+                        </div>
+                        
+                        <div class="definition">
+                            <strong>4. TCL (Transaction Control Language):</strong>
+                            Used to manage transactions and maintain data consistency.
+                            <div class="code-block">
+<span class="code-comment">-- Example 1: Commit transaction</span>
+BEGIN TRANSACTION;
+UPDATE Account SET Balance = Balance - 100 WHERE Account_ID = 1;
+UPDATE Account SET Balance = Balance + 100 WHERE Account_ID = 2;
+COMMIT;
+
+<span class="code-comment">-- Example 2: Rollback transaction</span>
+BEGIN TRANSACTION;
+DELETE FROM Student WHERE Student_ID = 101;
+ROLLBACK; <span class="code-comment">-- Undoes the deletion</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="sub-question">
+                    <div class="sub-question-title">b) SQL Queries for Online Course Platform:</div>
+                    <div class="answer">
+                        <p><strong>i. Courses from Computer Science department with instructor names:</strong></p>
+                        <div class="code-block">
+SELECT C.Course_ID, C.Title, C.Credits, I.Name AS Instructor_Name
+FROM COURSE C
+JOIN INSTRUCTOR I ON C.Instructor_ID = I.Instructor_ID
+WHERE I.Department = 'Computer Science';
+                        </div>
+                        
+                        <p><strong>ii. Students enrolled in more than 3 courses:</strong></p>
+                        <div class="code-block">
+SELECT S.Student_ID, S.Name, COUNT(E.Course_ID) AS Course_Count
+FROM STUDENT S
+JOIN ENROLLMENT E ON S.Student_ID = E.Student_ID
+GROUP BY S.Student_ID, S.Name
+HAVING COUNT(E.Course_ID) > 3;
+                        </div>
+                        
+                        <p><strong>iii. Assignments for 'Database Management' due in next 7 days:</strong></p>
+                        <div class="code-block">
+SELECT A.Assignment_ID, A.Title, A.Due_Date, A.Max_Score
+FROM ASSIGNMENT A
+JOIN COURSE C ON A.Course_ID = C.Course_ID
+WHERE C.Title = 'Database Management'
+  AND A.Due_Date BETWEEN CURRENT_DATE 
+  AND CURRENT_DATE + INTERVAL '7 days'
+ORDER BY A.Due_Date;
+                        </div>
+                        
+                        <p><strong>iv. Average score for each student:</strong></p>
+                        <div class="code-block">
+SELECT S.Student_ID, S.Name, 
+       ROUND(AVG(SUB.Score), 2) AS Average_Score
+FROM STUDENT S
+JOIN SUBMISSION SUB ON S.Student_ID = SUB.Student_ID
+GROUP BY S.Student_ID, S.Name;
+                        </div>
+                        
+                        <p><strong>v. Top 5 students with highest average grades:</strong></p>
+                        <div class="code-block">
+SELECT S.Student_ID, S.Name, 
+       ROUND(AVG(CASE 
+           WHEN E.Grade = 'A' THEN 4.0
+           WHEN E.Grade = 'A-' THEN 3.7
+           WHEN E.Grade = 'B+' THEN 3.3
+           WHEN E.Grade = 'B' THEN 3.0
+           WHEN E.Grade = 'B-' THEN 2.7
+           WHEN E.Grade = 'C+' THEN 2.3
+           WHEN E.Grade = 'C' THEN 2.0
+           ELSE 0.0
+       END), 2) AS GPA
+FROM STUDENT S
+JOIN ENROLLMENT E ON S.Student_ID = E.Student_ID
+WHERE E.Grade IS NOT NULL
+GROUP BY S.Student_ID, S.Name
+ORDER BY GPA DESC
+LIMIT 5;
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Answer 5 -->
+            <div class="question">
+                <div class="question-number">
+                    Answer 5 
+                    <span class="marks">20 Marks</span>
+                </div>
+                
+                <div class="sub-question">
+                    <div class="sub-question-title">a) Normalization of STUDENT_COURSE:</div>
+                    <div class="answer">
+                        <p><strong>i. Update Anomalies Present:</strong></p>
+                        
+                        <div class="definition">
+                            <strong>1. Insertion Anomaly:</strong>
+                            We cannot add information about a new advisor (e.g., Dr. Taylor with phone 555-5678) unless there is at least one student assigned to that advisor. Advisor information depends on student record existence, preventing independent storage of advisor data.
+                        </div>
+                        
+                        <div class="definition">
+                            <strong>2. Deletion Anomaly:</strong>
+                            If student S001 (John Smith) graduates and we delete this record, we lose all information about courses he took, which instructors taught those courses, and grades received. More critically, if this is the only student with advisor Dr. Wilson, we also lose Dr. Wilson's contact information, which should be preserved independently.
+                        </div>
+                        
+                        <div class="definition">
+                            <strong>3. Update Anomaly:</strong>
+                            The relation contains repeating groups (multiple courses, instructors, and grades in single attributes). If we need to update Dr. Wilson's phone number, and multiple students have Dr. Wilson as advisor, we must update the phone number in multiple rows. Missing even one update causes data inconsistency where the same advisor has different phone numbers.
+                        </div>
+                        
+                        <p><strong>ii. Normalization to 3NF:</strong></p>
+                        
+                        <div class="info-box">
+                            <strong>Step 1: Convert to 1NF (Remove Repeating Groups)</strong>
+                            <p>Eliminate multi-valued attributes by creating separate rows for each course enrollment:</p>
+                        </div>
+                        
+                        <table>
+                            <tr>
+                                <th>Student_ID</th>
+                                <th>Student_Name</th>
+                                <th>Course</th>
+                                <th>Instructor</th>
+                                <th>Grade</th>
+                                <th>Advisor</th>
+                                <th>Advisor_Phone</th>
+                            </tr>
+                            <tr>
+                                <td>S001</td>
+                                <td>John Smith</td>
+                                <td>DBMS</td>
+                                <td>Dr. Brown</td>
+                                <td>A</td>
+                                <td>Dr. Wilson</td>
+                                <td>555-1234</td>
+                            </tr>
+                            <tr>
+                                <td>S001</td>
+                                <td>John Smith</td>
+                                <td>Java</td>
+                                <td>Dr. Lee</td>
+                                <td>B+</td>
+                                <td>Dr. Wilson</td>
+                                <td>555-1234</td>
+                            </tr>
+                            <tr>
+                                <td>S001</td>
+                                <td>John Smith</td>
+                                <td>Networks</td>
+                                <td>Dr. Kim</td>
+                                <td>A-</td>
+                                <td>Dr. Wilson</td>
+                                <td>555-1234</td>
+                            </tr>
+                        </table>
+                        
+                        <div class="info-box">
+                            <strong>Step 2: Convert to 2NF (Remove Partial Dependencies)</strong>
+                            <p>Primary key is (Student_ID, Course). Remove attributes depending on only part of the key:</p>
+                        </div>
+                        
+                        <div class="code-block">
+<span class="code-comment">-- Relation 1: STUDENT</span>
+STUDENT(Student_ID, Student_Name, Advisor, Advisor_Phone)
+  PK: Student_ID
+
+<span class="code-comment">-- Relation 2: COURSE_INFO</span>
+COURSE_INFO(Course, Instructor)
+  PK: Course
+
+<span class="code-comment">-- Relation 3: ENROLLMENT</span>
+ENROLLMENT(Student_ID, Course, Grade)
+  PK: (Student_ID, Course)
+  FK: Student_ID REFERENCES STUDENT
+  FK: Course REFERENCES COURSE_INFO
+                        </div>
+                        
+                        <div class="info-box">
+                            <strong>Step 3: Convert to 3NF (Remove Transitive Dependencies)</strong>
+                            <p>In STUDENT relation, Advisor_Phone depends on Advisor (not directly on Student_ID). This is transitive dependency: Student_ID → Advisor → Advisor_Phone</p>
+                        </div>
+                        
+                        <p><strong>Final 3NF Relations:</strong></p>
+                        
+                        <div class="code-block">
+<span class="code-comment">-- Relation 1</span>
+STUDENT(Student_ID, Student_Name, Advisor_ID)
+  PK: Student_ID
+  FK: Advisor_ID REFERENCES ADVISOR
+
+<span class="code-comment">-- Relation 2</span>
+ADVISOR(Advisor_ID, Advisor_Name, Advisor_Phone)
+  PK: Advisor_ID
+
+<span class="code-comment">-- Relation 3</span>
+COURSE_INFO(Course_ID, Course_Name, Instructor_Name)
+  PK: Course_ID
+
+<span class="code-comment">-- Relation 4</span>
+ENROLLMENT(Student_ID, Course_ID, Grade)
+  PK: (Student_ID, Course_ID)
+  FK: Student_ID REFERENCES STUDENT
+  FK: Course_ID REFERENCES COURSE_INFO
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="sub-question">
+                    <div class="sub-question-title">b) ORDER_DETAILS Normalization:</div>
+                    <div class="answer">
+                        <p><strong>i. Determining Current Normal Form:</strong></p>
+                        
+                        <div class="definition">
+                            <strong>Analysis:</strong>
+                            <ul>
+                                <li>Primary Key: (Order_ID, Product_ID)</li>
+                                <li>The relation is in <strong>1NF</strong> because all attributes contain atomic values</li>
+                                <li>Checking for 2NF: Product_Name and Unit_Price depend only on Product_ID (part of composite key), and Customer_Name and Customer_City depend only on Customer_ID (which depends on Order_ID)</li>
+                                <li>These are <strong>partial dependencies</strong>, so the relation is <strong>NOT in 2NF</strong></li>
+                            </ul>
+                            
+                            <p><strong>Conclusion:</strong> The relation is in <strong>1NF only</strong>, not in 2NF or 3NF.</p>
+                        </div>
+                        
+                        <p><strong>ii. Decomposition to 3NF:</strong></p>
+                        
+                        <div class="code-block">
+<span class="code-comment">-- Final 3NF Relations:</span>
+
+<span class="code-comment">-- Relation 1: Order information</span>
+ORDER(Order_ID, Customer_ID)
+  PK: Order_ID
+  FK: Customer_ID REFERENCES CUSTOMER
+
+<span class="code-comment">-- Relation 2: Customer information</span>
+CUSTOMER(Customer_ID, Customer_Name, Customer_City)
+  PK: Customer_ID
+
+<span class="code-comment">-- Relation 3: Product information</span>
+PRODUCT(Product_ID, Product_Name, Unit_Price)
+  PK: Product_ID
+
+<span class="code-comment">-- Relation 4: Order line items</span>
+ORDER_ITEM(Order_ID, Product_ID, Quantity, Total_Amount)
+  PK: (Order_ID, Product_ID)
+  FK: Order_ID REFERENCES ORDER
+  FK: Product_ID REFERENCES PRODUCT
+                        </div>
+                        
+                        <div class="note">
+                            <strong>Summary:</strong> This decomposition eliminates all insertion, deletion, and update anomalies while preserving all original information and functional dependencies. Each non-prime attribute now depends directly on the primary key with no transitive dependencies.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Answer 6 -->
+            <div class="question">
+                <div class="question-number">
+                    Answer 6 
+                    <span class="marks">20 Marks</span>
+                </div>
+                
+                <div class="sub-question">
+                    <div class="sub-question-title">a) ACID Properties of Transactions:</div>
+                    <div class="answer">
+                        <div class="definition">
+                            <strong>1. Atomicity (All or Nothing):</strong>
+                            A transaction must be treated as a single, indivisible unit. Either all operations within the transaction are completed successfully, or none are applied.
+                            <p><strong>Example:</strong> When transferring $500 from Account A to Account B, the transaction includes: (1) Deduct $500 from Account A, (2) Add $500 to Account B. If the system crashes after step 1 but before step 2, atomicity ensures the entire transaction is rolled back, and the $500 deduction is reversed. This prevents money from disappearing.</p>
+                        </div>
+                        
+                        <div class="definition">
+                            <strong>2. Consistency:</strong>
+                            A transaction must take the database from one consistent state to another consistent state, preserving all database rules, constraints, and integrity.
+                            <p><strong>Example:</strong> A bank database has a rule that account balance cannot be negative. If a transaction attempts to withdraw $1000 from an account with only $500, the consistency property ensures this transaction is rejected, maintaining the database rule. The database remains in a consistent state before and after the transaction.</p>
+                        </div>
+                        
+                        <div class="definition">
+                            <strong>3. Isolation:</strong>
+                            Multiple transactions executing concurrently should not interfere with each other. Each transaction should execute as if it's the only transaction in the system.
+                            <p><strong>Example:</strong> Two customers try to book the last available airline seat simultaneously. Transaction T1 checks availability (1 seat available) and Transaction T2 also checks availability (1 seat available). Without proper isolation, both could book the same seat. Isolation ensures one transaction completes before the other can proceed, so only one customer successfully books the seat.</p>
+                        </div>
+                        
+                        <div class="definition">
+                            <strong>4. Durability (Permanence):</strong>
+                            Once a transaction is committed, its changes are permanent and survive system failures, crashes, or power loss.
+                            <p><strong>Example:</strong> After successfully transferring $1000 and receiving confirmation that the transaction is committed, even if the bank's server crashes immediately afterward, the $1000 transfer is permanently recorded. When the system restarts, the transaction effects remain in the database. The changes are written to non-volatile storage before commit.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="sub-question">
+                    <div class="sub-question-title">b) SQL Queries for Banking Database:</div>
+                    <div class="answer">
+                        <p><strong>i. Customers with total balance exceeding $50,000:</strong></p>
+                        <div class="code-block">
+SELECT C.Customer_ID, C.Name, C.Phone, SUM(A.Balance) AS Total_Balance
+FROM CUSTOMER C
+JOIN ACCOUNT A ON C.Customer_ID = A.Customer_ID
+GROUP BY C.Customer_ID, C.Name, C.Phone
+HAVING SUM(A.Balance) > 50000
+ORDER BY Total_Balance DESC;
+                        </div>
+                        
+                        <p><strong>ii. Branches with more than 100 active accounts:</strong></p>
+                        <div class="code-block">
+SELECT B.Branch_ID, B.Branch_Name, B.City, COUNT(A.Account_No) AS Account_Count
+FROM BRANCH B
+JOIN ACCOUNT A ON B.Branch_ID = A.Branch_ID
+GROUP BY B.Branch_ID, B.Branch_Name, B.City
+HAVING COUNT(A.Account_No) > 100
+ORDER BY Account_Count DESC;
+                        </div>
+                        
+                        <p><strong>iii. Total loan amount disbursed by each branch in 2024:</strong></p>
+                        <div class="code-block">
+SELECT B.Branch_ID, B.Branch_Name, B.City, 
+       SUM(L.Amount) AS Total_Loan_Amount,
+       COUNT(L.Loan_ID) AS Total_Loans
+FROM BRANCH B
+JOIN LOAN L ON B.Branch_ID = L.Branch_ID
+WHERE YEAR(L.Start_Date) = 2024
+GROUP BY B.Branch_ID, B.Branch_Name, B.City
+ORDER BY Total_Loan_Amount DESC;
+                        </div>
+                        
+                        <p><strong>iv. Customers with both savings and checking accounts:</strong></p>
+                        <div class="code-block">
+SELECT C.Customer_ID, C.Name, C.Email, C.Phone
+FROM CUSTOMER C
+WHERE EXISTS (
+    SELECT 1 FROM ACCOUNT A1 
+    WHERE A1.Customer_ID = C.Customer_ID 
+    AND A1.Account_Type = 'Savings'
+)
+AND EXISTS (
+    SELECT 1 FROM ACCOUNT A2 
+    WHERE A2.Customer_ID = C.Customer_ID 
+    AND A2.Account_Type = 'Checking'
+)
+ORDER BY C.Name;
+
+<span class="code-comment">-- Alternative using JOIN and GROUP BY:</span>
+SELECT C.Customer_ID, C.Name, C.Email, C.Phone
+FROM CUSTOMER C
+JOIN ACCOUNT A ON C.Customer_ID = A.Customer_ID
+WHERE A.Account_Type IN ('Savings', 'Checking')
+GROUP BY C.Customer_ID, C.Name, C.Email, C.Phone
+HAVING COUNT(DISTINCT A.Account_Type) = 2;
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="note">
+                <strong>📚 Study Tips:</strong>
+                <ul>
+                    <li>Practice drawing ER diagrams for different scenarios</li>
+                    <li>Understand the difference between each normal form and practice normalization</li>
+                    <li>Master SQL joins, aggregate functions, and subqueries</li>
+                    <li>Review integrity constraints and their importance in maintaining data quality</li>
+                    <li>Practice converting ER diagrams to relational schemas with proper keys</li>
+                    <li>Understand ACID properties with real-world transaction examples</li>
+                    <li>Learn the difference between DDL, DML, DCL, and TCL commands</li>
+                </ul>
+            </div>
+            
+            <div class="info-box" style="text-align: center; margin-top: 30px;">
+                <strong>✅ END OF ANSWER SCRIPT</strong>
+                <p style="margin-top: 10px;">Good luck with your exam preparation!</p>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function showSection(section) {
+            document.querySelectorAll('.content').forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            document.querySelectorAll('.toggle-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            document.getElementById(section).classList.add('active');
+            
+            event.target.classList.add('active');
+            
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
