@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Database Design Tutorial</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+</div>
+
+                <h3 style="color: #667eea; margin-top: 30px;">Sample Data Insertion</h3>
+                <div class="sql-code">
+<span class="comment">-- Insert sample students</span>
+<span class="keyword">INSERT INTO</span> <span class="table-name">STUDENT</span> <span class="keyword">VALUES</span> 
+    (<span class="string">'S001'</span>, <span class="string">'John'</span>, <span class="string">'A'</span>, <span class="string">'Smith'</span>, <span class="string">'2003-05-15'</span>, <span class="string">3.75</span>),
+    (<span class="string">'S002'</span>, <span class="string">'Emma'</span>, <span class="string">'L'</span>, <span class="string">'Johnson'</span>, <span class="string">'2002-08-22'</span>, <span class="string">3.90</span>),
+    (<span class="string">'S003'</span>, <span class="string">'Michael'</span>, <span class="keyword">NULL</span>, <span class="string">'Brown'</span>, <span class="string">'2003-01-10'</span>, <span class="string">3.50</span>);
+
+<span class="comment">-- Insert student emails (multivalued attribute)</span>
+<span class="keyword">INSERT INTO</span> <span class="table-name">STUDENT_EMAIL</span> <span class="keyword">VALUES</span> 
+    (<span class="string">'S001'</span>, <span class="string">'john.smith@university.edu'</span>),
+    (<span class="string">'S001'</span>, <span class="string">'johnsmith@gmail.com'</span>),
+    (<span class="string">'S002'</span>, <span class="string">'emma.johnson@university.edu'</span>),
+    (<span class="string">'S003'</span>, <span class="string">'michael.brown@university.edu'</span>),
+    (<span class="string">'S003'</span>, <span class="string">'mbrown@yahoo.com'</span>);
+
+<span class="comment">-- Insert courses</span>
+<span class="keyword">INSERT INTO</span> <span class="table-name">COURSE</span> <span class="keyword">VALUES</span> 
+    (<span class="string">'CS101'</span>, <span class="string">'Introduction to Programming'</span>, <span class="string">3</span>, <span class="string">'Basic programming concepts'</span>),
+    (<span class="string">'CS201'</span>, <span class="string">'Data Structures'</span>, <span class="string">3</span>, <span class="string">'Advanced data structures and algorithms'</span>),
+    (<span class="string">'CS301'</span>, <span class="string">'Database Systems'</span>, <span class="string">3</span>, <span class="string">'Database design and implementation'</span>),
+    (<span class="string">'CS401'</span>, <span class="string">'Advanced Database Management'</span>, <span class="string">3</span>, <span class="string">'Advanced database topics'</span>);
+
+<span class="comment">-- Insert prerequisites (recursive relationship)</span>
+<span class="keyword">INSERT INTO</span> <span class="table-name">PREREQUISITE</span> <span class="keyword">VALUES</span> 
+    (<span class="string">'CS201'</span>, <span class="string">'CS101'</span>),
+    (<span class="string">'CS301'</span>, <span class="string">'CS201'</span>),
+    (<span class="string">'CS401'</span>, <span class="string">'CS301'</span>);
+
+<span class="comment">-- Insert instructors</span>
+<span class="keyword">INSERT INTO</span> <span class="table-name">INSTRUCTOR</span> <span class="keyword">VALUES</span> 
+    (<span class="string">'E001'</span>, <span class="string">'Robert'</span>, <span class="string">'J'</span>, <span class="string">'Williams'</span>, <span class="string">'1975-03-20'</span>),
+    (<span class="string">'E002'</span>, <span class="string">'Sarah'</span>, <span class="string">'M'</span>, <span class="string">'Davis'</span>, <span class="string">'1980-11-08'</span>);
+
+<span class="comment">-- Insert instructor phones (multivalued attribute)</span>
+<span class="keyword">INSERT INTO</span> <span class="table-name">INSTRUCTOR_PHONE</span> <span class="keyword">VALUES</span> 
+    (<span class="string">'E001'</span>, <span class="string">'555-0101'</span>, <span class="string">'Office'</span>),
+    (<span class="string">'E001'</span>, <span class="string">'555-0102'</span>, <span class="string">'Mobile'</span>),
+    (<span class="string">'E002'</span>, <span class="string">'555-0201'</span>, <span class="string">'Office'</span>),
+    (<span class="string">'E002'</span>, <span class="string">'555-0202'</span>, <span class="string">'Mobile'</span>),
+    (<span class="string">'E002'</span>, <span class="string">'555-0203'</span>, <span class="string">'Home'</span>);
+
+<span class="comment">-- Insert instructor offices (composite attribute)</span>
+<span class="keyword">INSERT INTO</span> <span class="table-name">INSTRUCTOR_OFFICE</span> <span class="keyword">VALUES</span> 
+    (<span class="string">'E001'</span>, <span class="string">'Science Building'</span>, <span class="string">'305'</span>, <span class="string">3</span>),
+    (<span class="string">'E002'</span>, <span class="string">'Engineering Hall'</span>, <span class="string">'210'</span>, <span class="string">2</span>);
+
+<span class="comment">-- Insert teaching assignments</span>
+<span class="keyword">INSERT INTO</span> <span class="table-name">TEACHES</span> <span class="keyword">VALUES</span> 
+    (<span class="string">'E001'</span>, <span class="string">'CS101'</span>, <span class="string">1</span>, <span class="string">'Fall'</span>, <span class="string">2024</span>),
+    (<span class="string">'E001'</span>, <span class="string">'CS201'</span>, <span class="string">1</span>, <span class="string">'Fall'</span>, <span class="string">2024</span>),
+    (<span class="string">'E002'</span>, <span class="string">'CS301'</span>, <span class="string">1</span>, <span class="string">'Fall'</span>, <span class="string">2024</span>);
+
+<span class="comment">-- Insert classrooms (weak entity)</span>
+<span class="keyword">INSERT INTO</span> <span class="table-name">CLASSROOM</span> <span class="keyword">VALUES</span> 
+    (<span class="string">'CS101'</span>, <span class="string">1</span>, <span class="string">'Fall'</span>, <span class="string">2024</span>, <span class="string">'Science Building'</span>, <span class="string">'101'</span>, <span class="string">40</span>, <span class="string">'Projector, Whiteboard'</span>),
+    (<span class="string">'CS201'</span>, <span class="string">1</span>, <span class="string">'Fall'</span>, <span class="string">2024</span>, <span class="string">'Science Building'</span>, <span class="string">'205'</span>, <span class="string">30</span>, <span class="string">'Projector, Lab Computers'</span>),
+    (<span class="string">'CS301'</span>, <span class="string">1</span>, <span class="string">'Fall'</span>, <span class="string">2024</span>, <span class="string">'Engineering Hall'</span>, <span class="string">'150'</span>, <span class="string">35</span>, <span class="string">'Smart Board, Projector'</span>);
+
+<span class="comment">-- Insert enrollments</span>
+<span class="keyword">INSERT INTO</span> <span class="table-name">ENROLLMENT</span> <span class="keyword">VALUES</span> 
+    (<span class="string">'S001'</span>, <span class="string">'CS101'</span>, <span class="string">'Fall'</span>, <span class="string">2024</span>, <span class="string">1</span>, <span class="string">'A'</span>),
+    (<span class="string">'S002'</span>, <span class="string">'CS201'</span>, <span class="string">'Fall'</span>, <span class="string">2024</span>, <span class="string">1</span>, <span class="string">'A'</span>),
+    (<span class="string">'S003'</span>, <span class="string">'CS101'</span>, <span class="string">'Fall'</span>, <span class="string">2024</span>, <span class="string">1</span>, <span class="string">'B+'</span>),
+    (<span class="string">'S003'</span>, <span class="string">'CS301'</span>, <span class="string">'Fall'</span>, <span class="string">2024</span>, <span class="string">1</span>, <span class="keyword">NULL</span>);
+</div>
+
+                <h3 style="color: #667eea; margin-top: 30px;">Useful Query Examples</h3>
+                <div class="sql-code">
+<span class="comment">-- 1. Get all students with their emails</span>
+<span class="keyword">SELECT</span> s.StudentID, s.FirstName, s.LastName, se.Email
+<span class="keyword">FROM</span> STUDENT s
+<span class="keyword">LEFT JOIN</span> STUDENT_EMAIL se <span class="keyword">ON</span> s.StudentID = se.StudentID
+<span class="keyword">ORDER BY</span> s.StudentID, se.Email;
+
+<span class="comment">-- 2. Find courses and their prerequisites</span>
+<span class="keyword">SELECT</span> c1.CourseCode, c1.Title <span class="keyword">AS</span> CourseName,
+       c2.CourseCode <span class="keyword">AS</span> PrereqCode, c2.Title <span class="keyword">AS</span> PrerequisiteName
+<span class="keyword">FROM</span> COURSE c1
+<span class="keyword">JOIN</span> PREREQUISITE p <span class="keyword">ON</span> c1.CourseCode = p.CourseCode
+<span class="keyword">JOIN</span> COURSE c2 <span class="keyword">ON</span> p.PrerequisiteCourseCode = c2.CourseCode;
+
+<span class="comment">-- 3. Get instructor details with all contact information</span>
+<span class="keyword">SELECT</span> i.EmployeeID, 
+       <span class="keyword">CONCAT</span>(i.FirstName, <span class="string">' '</span>, i.LastName) <span class="keyword">AS</span> InstructorName,
+       ip.PhoneNumber, ip.PhoneType,
+       io.BuildingName, io.RoomNumber, io.Floor
+<span class="keyword">FROM</span> INSTRUCTOR i
+<span class="keyword">LEFT JOIN</span> INSTRUCTOR_PHONE ip <span class="keyword">ON</span> i.EmployeeID = ip.EmployeeID
+<span class="keyword">LEFT JOIN</span> INSTRUCTOR_OFFICE io <span class="keyword">ON</span> i.EmployeeID = io.EmployeeID;
+
+<span class="comment">-- 4. List all course sections with instructor and classroom details</span>
+<span class="keyword">SELECT</span> c.CourseCode, c.Title, t.SectionNumber, t.Semester, t.Year,
+       <span class="keyword">CONCAT</span>(i.FirstName, <span class="string">' '</span>, i.LastName) <span class="keyword">AS</span> Instructor,
+       cl.Building, cl.RoomNumber, cl.Capacity
+<span class="keyword">FROM</span> COURSE c
+<span class="keyword">JOIN</span> TEACHES t <span class="keyword">ON</span> c.CourseCode = t.CourseCode
+<span class="keyword">JOIN</span> INSTRUCTOR i <span class="keyword">ON</span> t.EmployeeID = i.EmployeeID
+<span class="keyword">LEFT JOIN</span> CLASSROOM cl <span class="keyword">ON</span> t.CourseCode = cl.CourseCode 
+    <span class="keyword">AND</span> t.SectionNumber = cl.SectionNumber
+    <span class="keyword">AND</span> t.Semester = cl.Semester 
+    <span class="keyword">AND</span> t.Year = cl.Year;
+
+<span class="comment">-- 5. Find students enrolled in courses with their grades</span>
+<span class="keyword">SELECT</span> <span class="keyword">CONCAT</span>(s.FirstName, <span class="string">' '</span>, s.LastName) <span class="keyword">AS</span> StudentName,
+       c.Title <span class="keyword">AS</span> CourseName, e.Semester, e.Year, e.Grade
+<span class="keyword">FROM</span> STUDENT s
+<span class="keyword">JOIN</span> ENROLLMENT e <span class="keyword">ON</span> s.StudentID = e.StudentID
+<span class="keyword">JOIN</span> COURSE c <span class="keyword">ON</span> e.CourseCode = c.CourseCode
+<span class="keyword">WHERE</span> e.Grade <span class="keyword">IS NOT NULL</span>
+<span class="keyword">ORDER BY</span> s.LastName, c.CourseCode;
+
+<span class="comment">-- 6. Count students per course section</span>
+<span class="keyword">SELECT</span> c.Title, e.SectionNumber, e.Semester, e.Year,
+       <span class="keyword">COUNT</span>(e.StudentID) <span class="keyword">AS</span> EnrolledStudents
+<span class="keyword">FROM</span> COURSE c
+<span class="keyword">JOIN</span> ENROLLMENT e <span class="keyword">ON</span> c.CourseCode = e.CourseCode
+<span class="keyword">GROUP BY</span> c.Title, e.SectionNumber, e.Semester, e.Year;
+
+<span class="comment">-- 7. Find all courses a student can take (prerequisites met)</span>
+<span class="keyword">SELECT DISTINCT</span> c.CourseCode, c.Title
+<span class="keyword">FROM</span> COURSE c
+<span class="keyword">WHERE NOT EXISTS</span> (
+    <span class="keyword">SELECT</span> <span class="string">1</span> <span class="keyword">FROM</span> PREREQUISITE p
+    <span class="keyword">WHERE</span> p.CourseCode = c.CourseCode
+    <span class="keyword">AND</span> p.PrerequisiteCourseCode <span class="keyword">NOT IN</span> (
+        <span class="keyword">SELECT</span> e.CourseCode <span class="keyword">FROM</span> ENROLLMENT e
+        <span class="keyword">WHERE</span> e.StudentID = <span class="string">'S001'</span> 
+        <span class="keyword">AND</span> e.Grade <span class="keyword">IN</span> (<span class="string">'A'</span>, <span class="string">'B+'</span>, <span class="string">'B'</span>, <span class="string">'C+'</span>, <span class="string">'C'</span>)
+    )
+);
+</div>
+
+                <div class="note" style="margin-top: 30px;">
+                    <strong>🎯 Key Takeaways:</strong><br>
+                    • <strong>Multivalued attributes</strong> (emails, phones) are handled with separate tables<br>
+                    • <strong>Composite attributes</strong> (name, office) are broken into atomic components<br>
+                    • <strong>Recursive relationships</strong> (prerequisites) use self-referencing foreign keys<br>
+                    • <strong>Weak entities</strong> (classroom) depend on strong entities for identification<br>
+                    • Proper normalization eliminates redundancy and ensures data integrity<br>
+                    • Foreign keys with CASCADE options maintain referential integrity
+                </div>
+
+                <div style="text-align: center; margin-top: 40px;">
+                    <button class="btn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">↑ Back to Top</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Add smooth scroll behavior
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Animate sections on scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        });
+
+        document.querySelectorAll('.section').forEach(section => {
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .section {
+            margin-bottom: 50px;
+            animation: fadeIn 0.8s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section h2 {
+            color: #667eea;
+            font-size: 2em;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .scenario {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 30px;
+            border-radius: 15px;
+            border-left: 5px solid #667eea;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            font-size: 1.1em;
+            line-height: 1.8;
+        }
+
+        .diagram-container {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 20px 0;
+            text-align: center;
+            border: 2px dashed #667eea;
+        }
+
+        .er-diagram {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .schema-box {
+            background: #2d3748;
+            color: #68d391;
+            padding: 20px;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            margin: 15px 0;
+            overflow-x: auto;
+            box-shadow: inset 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        .schema-box h3 {
+            color: #fbbf24;
+            margin-bottom: 10px;
+        }
+
+        .normalization-step {
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .normalization-step:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .normalization-step h3 {
+            color: #764ba2;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+
+        .sql-code {
+            background: #1a202c;
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            margin: 15px 0;
+            overflow-x: auto;
+            font-size: 0.95em;
+            line-height: 1.6;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        }
+
+        .keyword { color: #f687b3; font-weight: bold; }
+        .string { color: #68d391; }
+        .comment { color: #a0aec0; font-style: italic; }
+        .table-name { color: #fbbf24; }
+
+        .highlight {
+            background: #fef3c7;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-weight: bold;
+        }
+
+        .note {
+            background: #e0f2fe;
+            border-left: 4px solid #0ea5e9;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1.1em;
+            transition: transform 0.2s;
+            margin: 10px 5px;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎓 Complete Database Design Tutorial</h1>
+            <p>From Scenario to SQL Implementation</p>
+        </div>
+
+        <div class="content">
+            <div class="section">
+                <h2>📖 Scenario: University Course Management System</h2>
+                <div class="scenario">
+                    <p><strong>Greenfield University</strong> needs a comprehensive system to manage its academic operations. The university offers various courses, each identified by a unique course code and having a title, credit hours, and description.</p>
+                    
+                    <p>Each course can have multiple instructors teaching different sections, and instructors can teach multiple courses. Instructors have an employee ID, name (which includes first name, middle initial, and last name), date of birth, and can have multiple phone numbers (office, mobile, home). Instructors also have an office location that consists of building name, room number, and floor.</p>
+                    
+                    <p>The university maintains information about course prerequisites. Some courses require students to complete one or more other courses before enrollment. For example, "Data Structures" might be a prerequisite for "Database Systems", and "Database Systems" might be a prerequisite for "Advanced Database Management".</p>
+                    
+                    <p>Students enroll in courses, and each enrollment is tracked with a specific section number and semester. The system needs to record each student's ID, name (first, middle, last), date of birth, email addresses (they can have multiple emails - personal and university), and their current GPA. When a student enrolls in a course, the system records the semester, year, and the grade received (once the course is completed).</p>
+                    
+                    <p>Each course section is assigned to a specific classroom, identified by a building and room number combination. However, the classroom assignment depends on the section's existence - a classroom reference is meaningless without the associated course section. The classroom has a capacity and equipment details.</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>🎨 Entity-Relationship Diagram</h2>
+                <div class="diagram-container">
+                    <div style="padding: 40px; background: white; border-radius: 10px;">
+                        <img 
+                                src="../images/ER1.png" 
+                                alt="ER Diagram"
+                                style="
+                                    width: 100%;
+                                    height: auto;
+                                    max-width: 1048px;
+                                    display: block;
+                                    margin: 0 auto;
+                                    padding: 0 10px;
+                                ">
+
+                        
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>📋 Initial Relational Schema</h2>
+                <div class="schema-box">
+                    <h3>STUDENT</h3>
+                    <p>StudentID, FirstName, MiddleInitial, LastName, DateOfBirth, Email1, Email2, GPA</p>
+                </div>
+                <div class="schema-box">
+                    <h3>COURSE</h3>
+                    <p>CourseCode, Title, CreditHours, Description</p>
+                </div>
+                <div class="schema-box">
+                    <h3>INSTRUCTOR</h3>
+                    <p>EmployeeID, FirstName, MiddleInitial, LastName, DateOfBirth, Phone1, Phone2, Phone3, BuildingName, RoomNumber, Floor</p>
+                </div>
+                <div class="schema-box">
+                    <h3>ENROLLMENT</h3>
+                    <p>StudentID, CourseCode, Semester, Year, SectionNumber, Grade</p>
+                </div>
+                <div class="schema-box">
+                    <h3>TEACHES</h3>
+                    <p>EmployeeID, CourseCode, SectionNumber, Semester, Year</p>
+                </div>
+                <div class="schema-box">
+                    <h3>PREREQUISITE</h3>
+                    <p>CourseCode, PrerequisiteCourseCode</p>
+                </div>
+                <div class="schema-box">
+                    <h3>CLASSROOM</h3>
+                    <p>CourseCode, SectionNumber, Building, RoomNumber, Capacity, Equipment</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>🔄 Normalization Process</h2>
+                
+                <div class="normalization-step">
+                    <h3>Step 1: First Normal Form (1NF)</h3>
+                    <p><strong>Problem:</strong> Multiple phone numbers and emails stored in single rows (repeating groups)</p>
+                    <p><strong>Solution:</strong> Create separate tables for multivalued attributes</p>
+                    <div class="note">
+                        <strong>Create new tables:</strong><br>
+                        • STUDENT_EMAIL (StudentID, Email)<br>
+                        • INSTRUCTOR_PHONE (EmployeeID, PhoneNumber, PhoneType)
+                    </div>
+                </div>
+
+                <div class="normalization-step">
+                    <h3>Step 2: Second Normal Form (2NF)</h3>
+                    <p><strong>Problem:</strong> Composite attributes (Name, Office) and partial dependencies</p>
+                    <p><strong>Solution:</strong> Break down composite attributes; ensure all non-key attributes depend on the entire primary key</p>
+                    <div class="note">
+                        <strong>Actions taken:</strong><br>
+                        • Split Name into FirstName, MiddleInitial, LastName (already done)<br>
+                        • Create OFFICE table for office location composite attribute<br>
+                        • In ENROLLMENT and TEACHES, all attributes depend on composite keys
+                    </div>
+                </div>
+
+                <div class="normalization-step">
+                    <h3>Step 3: Third Normal Form (3NF)</h3>
+                    <p><strong>Problem:</strong> Transitive dependencies where non-key attributes depend on other non-key attributes</p>
+                    <p><strong>Solution:</strong> Remove transitive dependencies by creating separate tables</p>
+                    <div class="note">
+                        <strong>Example:</strong><br>
+                        In INSTRUCTOR: Office details depend on EmployeeID<br>
+                        Create OFFICE table: (EmployeeID, BuildingName, RoomNumber, Floor)
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>✅ Final Normalized Schema</h2>
+                <div class="schema-box">
+                    <h3>STUDENT</h3>
+                    <p><span class="highlight">StudentID</span>, FirstName, MiddleInitial, LastName, DateOfBirth, GPA</p>
+                </div>
+                <div class="schema-box">
+                    <h3>STUDENT_EMAIL</h3>
+                    <p><span class="highlight">StudentID, Email</span></p>
+                    <p style="color: #a0aec0;">Foreign Key: StudentID references STUDENT</p>
+                </div>
+                <div class="schema-box">
+                    <h3>COURSE</h3>
+                    <p><span class="highlight">CourseCode</span>, Title, CreditHours, Description</p>
+                </div>
+                <div class="schema-box">
+                    <h3>INSTRUCTOR</h3>
+                    <p><span class="highlight">EmployeeID</span>, FirstName, MiddleInitial, LastName, DateOfBirth</p>
+                </div>
+                <div class="schema-box">
+                    <h3>INSTRUCTOR_PHONE</h3>
+                    <p><span class="highlight">EmployeeID, PhoneNumber</span>, PhoneType</p>
+                    <p style="color: #a0aec0;">Foreign Key: EmployeeID references INSTRUCTOR</p>
+                </div>
+                <div class="schema-box">
+                    <h3>INSTRUCTOR_OFFICE</h3>
+                    <p><span class="highlight">EmployeeID</span>, BuildingName, RoomNumber, Floor</p>
+                    <p style="color: #a0aec0;">Foreign Key: EmployeeID references INSTRUCTOR</p>
+                </div>
+                <div class="schema-box">
+                    <h3>ENROLLMENT</h3>
+                    <p><span class="highlight">StudentID, CourseCode, Semester, Year, SectionNumber</span>, Grade</p>
+                    <p style="color: #a0aec0;">Foreign Keys: StudentID → STUDENT, CourseCode → COURSE</p>
+                </div>
+                <div class="schema-box">
+                    <h3>TEACHES</h3>
+                    <p><span class="highlight">EmployeeID, CourseCode, SectionNumber, Semester, Year</span></p>
+                    <p style="color: #a0aec0;">Foreign Keys: EmployeeID → INSTRUCTOR, CourseCode → COURSE</p>
+                </div>
+                <div class="schema-box">
+                    <h3>PREREQUISITE</h3>
+                    <p><span class="highlight">CourseCode, PrerequisiteCourseCode</span></p>
+                    <p style="color: #a0aec0;">Foreign Keys: Both reference COURSE</p>
+                </div>
+                <div class="schema-box">
+                    <h3>CLASSROOM</h3>
+                    <p><span class="highlight">CourseCode, SectionNumber, Semester, Year</span>, Building, RoomNumber, Capacity, Equipment</p>
+                    <p style="color: #a0aec0;">Foreign Key: (CourseCode, SectionNumber) references TEACHES</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>💻 SQL Implementation</h2>
+                
+                <h3 style="color: #667eea; margin-top: 30px;">Create Tables</h3>
+                <div class="sql-code">
+                        <span class="comment">-- Create STUDENT table</span><br>
+                        <span class="keyword">CREATE TABLE</span> <span class="table-name">STUDENT</span> (
+                            StudentID <span class="keyword">VARCHAR</span>(<span class="string">10</span>) <span class="keyword">PRIMARY KEY</span>,
+                            FirstName <span class="keyword">VARCHAR</span>(<span class="string">50</span>) <span class="keyword">NOT NULL</span>,
+                            MiddleInitial <span class="keyword">CHAR</span>(<span class="string">1</span>),
+                            LastName <span class="keyword">VARCHAR</span>(<span class="string">50</span>) <span class="keyword">NOT NULL</span>,
+                            DateOfBirth <span class="keyword">DATE</span>,
+                            GPA <span class="keyword">DECIMAL</span>(<span class="string">3,2</span>) <span class="keyword">CHECK</span> (GPA >= <span class="string">0.0</span> <span class="keyword">AND</span> GPA <= <span class="string">4.0</span>)
+                        );
+                        <br>
+                        <span class="comment">-- Create STUDENT_EMAIL table (handles multivalued attribute)</span><br>
+                        <span class="keyword">CREATE TABLE</span> <span class="table-name">STUDENT_EMAIL</span> (
+                            StudentID <span class="keyword">VARCHAR</span>(<span class="string">10</span>),
+                            Email <span class="keyword">VARCHAR</span>(<span class="string">100</span>),
+                            <span class="keyword">PRIMARY KEY</span> (StudentID, Email),
+                            <span class="keyword">FOREIGN KEY</span> (StudentID) <span class="keyword">REFERENCES</span> STUDENT(StudentID) 
+                                <span class="keyword">ON DELETE CASCADE</span>
+                        );<br>
+
+                        <span class="comment">-- Create COURSE table</span><br>
+                        <span class="keyword">CREATE TABLE</span> <span class="table-name">COURSE</span> (
+                            CourseCode <span class="keyword">VARCHAR</span>(<span class="string">10</span>) <span class="keyword">PRIMARY KEY</span>,
+                            Title <span class="keyword">VARCHAR</span>(<span class="string">100</span>) <span class="keyword">NOT NULL</span>,
+                            CreditHours <span class="keyword">INT</span> <span class="keyword">CHECK</span> (CreditHours > <span class="string">0</span>),
+                            Description <span class="keyword">TEXT</span>
+                        );<br>
+
+                        <span class="comment">-- Create INSTRUCTOR table</span><br>
+                        <span class="keyword">CREATE TABLE</span> <span class="table-name">INSTRUCTOR</span> (
+                            EmployeeID <span class="keyword">VARCHAR</span>(<span class="string">10</span>) <span class="keyword">PRIMARY KEY</span>,
+                            FirstName <span class="keyword">VARCHAR</span>(<span class="string">50</span>) <span class="keyword">NOT NULL</span>,
+                            MiddleInitial <span class="keyword">CHAR</span>(<span class="string">1</span>),
+                            LastName <span class="keyword">VARCHAR</span>(<span class="string">50</span>) <span class="keyword">NOT NULL</span>,
+                            DateOfBirth <span class="keyword">DATE</span>
+                        );<br>
+
+                        <span class="comment">-- Create INSTRUCTOR_PHONE table (handles multivalued attribute)</span><br>
+                        <span class="keyword">CREATE TABLE</span> <span class="table-name">INSTRUCTOR_PHONE</span> (
+                            EmployeeID <span class="keyword">VARCHAR</span>(<span class="string">10</span>),
+                            PhoneNumber <span class="keyword">VARCHAR</span>(<span class="string">15</span>),
+                            PhoneType <span class="keyword">VARCHAR</span>(<span class="string">20</span>), <span class="comment">-- 'Office', 'Mobile', 'Home'</span>
+                            <span class="keyword">PRIMARY KEY</span> (EmployeeID, PhoneNumber),
+                            <span class="keyword">FOREIGN KEY</span> (EmployeeID) <span class="keyword">REFERENCES</span> INSTRUCTOR(EmployeeID) 
+                                <span class="keyword">ON DELETE CASCADE</span>
+                        );<br>
+
+                        <span class="comment">-- Create INSTRUCTOR_OFFICE table (handles composite attribute)</span><br>
+                        <span class="keyword">CREATE TABLE</span> <span class="table-name">INSTRUCTOR_OFFICE</span> (
+                            EmployeeID <span class="keyword">VARCHAR</span>(<span class="string">10</span>) <span class="keyword">PRIMARY KEY</span>,
+                            BuildingName <span class="keyword">VARCHAR</span>(<span class="string">50</span>),
+                            RoomNumber <span class="keyword">VARCHAR</span>(<span class="string">10</span>),
+                            Floor <span class="keyword">INT</span>,
+                            <span class="keyword">FOREIGN KEY</span> (EmployeeID) <span class="keyword">REFERENCES</span> INSTRUCTOR(EmployeeID) 
+                                <span class="keyword">ON DELETE CASCADE</span>
+                        );<br>
+
+                        <span class="comment">-- Create ENROLLMENT table (many-to-many relationship)</span><br>
+                        <span class="keyword">CREATE TABLE</span> <span class="table-name">ENROLLMENT</span> (
+                            StudentID <span class="keyword">VARCHAR</span>(<span class="string">10</span>),
+                            CourseCode <span class="keyword">VARCHAR</span>(<span class="string">10</span>),
+                            Semester <span class="keyword">VARCHAR</span>(<span class="string">10</span>), <span class="comment">-- 'Fall', 'Spring', 'Summer'</span>
+                            Year <span class="keyword">INT</span>,
+                            SectionNumber <span class="keyword">INT</span>,
+                            Grade <span class="keyword">CHAR</span>(<span class="string">2</span>), <span class="comment">-- 'A', 'B+', 'C', etc.</span>
+                            <span class="keyword">PRIMARY KEY</span> (StudentID, CourseCode, Semester, Year, SectionNumber),
+                            <span class="keyword">FOREIGN KEY</span> (StudentID) <span class="keyword">REFERENCES</span> STUDENT(StudentID) 
+                                <span class="keyword">ON DELETE CASCADE</span>,
+                            <span class="keyword">FOREIGN KEY</span> (CourseCode) <span class="keyword">REFERENCES</span> COURSE(CourseCode) 
+                                <span class="keyword">ON DELETE CASCADE</span>
+                        );<br>
+
+                        <span class="comment">-- Create TEACHES table (many-to-many relationship)</span><br>
+                        <span class="keyword">CREATE TABLE</span> <span class="table-name">TEACHES</span> (
+                            EmployeeID <span class="keyword">VARCHAR</span>(<span class="string">10</span>),
+                            CourseCode <span class="keyword">VARCHAR</span>(<span class="string">10</span>),
+                            SectionNumber <span class="keyword">INT</span>,
+                            Semester <span class="keyword">VARCHAR</span>(<span class="string">10</span>),
+                            Year <span class="keyword">INT</span>,
+                            <span class="keyword">PRIMARY KEY</span> (EmployeeID, CourseCode, SectionNumber, Semester, Year),
+                            <span class="keyword">FOREIGN KEY</span> (EmployeeID) <span class="keyword">REFERENCES</span> INSTRUCTOR(EmployeeID) 
+                                <span class="keyword">ON DELETE CASCADE</span>,
+                            <span class="keyword">FOREIGN KEY</span> (CourseCode) <span class="keyword">REFERENCES</span> COURSE(CourseCode) 
+                                <span class="keyword">ON DELETE CASCADE</span>
+                        );<br>
+
+                        <span class="comment">-- Create PREREQUISITE table (recursive relationship)</span><br>
+                        <span class="keyword">CREATE TABLE</span> <span class="table-name">PREREQUISITE</span> (
+                            CourseCode <span class="keyword">VARCHAR</span>(<span class="string">10</span>),
+                            PrerequisiteCourseCode <span class="keyword">VARCHAR</span>(<span class="string">10</span>),
+                            <span class="keyword">PRIMARY KEY</span> (CourseCode, PrerequisiteCourseCode),
+                            <span class="keyword">FOREIGN KEY</span> (CourseCode) <span class="keyword">REFERENCES</span> COURSE(CourseCode) 
+                                <span class="keyword">ON DELETE CASCADE</span>,
+                            <span class="keyword">FOREIGN KEY</span> (PrerequisiteCourseCode) <span class="keyword">REFERENCES</span> COURSE(CourseCode) 
+                                <span class="keyword">ON DELETE CASCADE</span>,
+                            <span class="keyword">CHECK</span> (CourseCode != PrerequisiteCourseCode)
+                        );<br>
+
+                        <span class="comment">-- Create CLASSROOM table (weak entity - depends on course section)</span><br>
+                        <span class="keyword">CREATE TABLE</span> <span class="table-name">CLASSROOM</span> (
+                            CourseCode <span class="keyword">VARCHAR</span>(<span class="string">10</span>),
+                            SectionNumber <span class="keyword">INT</span>,
+                            Semester <span class="keyword">VARCHAR</span>(<span class="string">10</span>),
+                            Year <span class="keyword">INT</span>,
+                            Building <span class="keyword">VARCHAR</span>(<span class="string">50</span>),
+                            RoomNumber <span class="keyword">VARCHAR</span>(<span class="string">10</span>),
+                            Capacity <span class="keyword">INT</span>,
+                            Equipment <span class="keyword">TEXT</span>,
+                            <span class="keyword">PRIMARY KEY</span> (CourseCode, SectionNumber, Semester, Year),
+                            <span class="keyword">FOREIGN KEY</span> (CourseCode, SectionNumber, Semester, Year) 
+                                <span class="keyword">REFERENCES</span> TEACHES(CourseCode, SectionNumber, Semester, Year) 
+                                <span class="keyword">ON DELETE CASCADE</span>
+                        );<br>
+                    </div>
+                </div>
+            </div>
+         </div>           
+</body>
+</html>
