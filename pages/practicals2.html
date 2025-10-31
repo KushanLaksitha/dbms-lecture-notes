@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DBMS Practicals - Rajarata University</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        h1 {
+            color: #667eea;
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .university {
+            color: #764ba2;
+            font-size: 0.9em;
+            margin-bottom: 5px;
+        }
+
+        .nav-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .tab-btn {
+            padding: 12px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 0.9em;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .tab-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+            transform: scale(1.05);
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border-left: 5px solid #667eea;
+        }
+
+        h2 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+
+        h3 {
+            color: #764ba2;
+            margin: 20px 0 10px 0;
+            font-size: 1.2em;
+        }
+
+        .question {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            border-left: 4px solid #764ba2;
+        }
+
+        .question-num {
+            color: #667eea;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .code-block {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 20px;
+            border-radius: 10px;
+            overflow-x: auto;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            line-height: 1.5;
+            box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+
+        .code-block::before {
+            content: 'SQL';
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            background: #667eea;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 5px;
+            font-size: 0.7em;
+            font-weight: bold;
+        }
+
+        .code-block code {
+            display: block;
+            white-space: pre;
+        }
+
+        .keyword {
+            color: #569cd6;
+            font-weight: bold;
+        }
+
+        .string {
+            color: #ce9178;
+        }
+
+        .comment {
+            color: #6a9955;
+            font-style: italic;
+        }
+
+        .table-container {
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        tr:hover {
+            background: #f8f9fa;
+        }
+
+        .schema-box {
+            background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            border: 2px dashed #667eea;
+        }
+
+        .schema-box code {
+            color: #764ba2;
+            font-weight: bold;
+        }
+
+        .note {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+
+            h1 {
+                font-size: 1.5em;
+            }
+
+            .tab-btn {
+                padding: 10px 15px;
+                font-size: 0.85em;
+            }
+
+            .section {
+                padding: 15px;
+            }
+
+            .code-block {
+                padding: 15px;
+                font-size: 0.8em;
+            }
+
+            table {
+                font-size: 0.85em;
+            }
+
+            th, td {
+                padding: 8px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+
+            h1 {
+                font-size: 1.3em;
+            }
+
+            .tab-btn {
+                padding: 8px 12px;
+                font-size: 0.8em;
+            }
+
+            .code-block {
+                font-size: 0.75em;
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="university">Rajarata University of Sri Lanka</div>
+            <div class="university">Faculty of Applied Sciences - Department of Computing</div>
+            <h1>🗄️ DBMS Practical Sheets</h1>
+            <div class="university">COM 1302 - Database Management System</div>
+        </header>
+
+        <div class="nav-tabs">
+            <button class="tab-btn active" onclick="showTab('practical04')">Practical 04</button>
+            <button class="tab-btn" onclick="showTab('practical05')">Practical 05</button>
+            <button class="tab-btn" onclick="showTab('practical06')">Practical 06</button>
+            <button class="tab-btn" onclick="showTab('practical07')">Practical 07</button>
+            <button class="tab-btn" onclick="showTab('practical09')">Practical 09</button>
+        </div>
+
+        <!-- Practical 04 -->
+        <div id="practical04" class="tab-content active">
+            <div class="section">
+                <h2>📋 Practical 04 Part 2 - Data Loading & Queries</h2>
+                
+                <div class="schema-box">
+                    <h3>Relational Schema:</h3>
+                    <p><code>Supplier (Sno, Sname, status, city)</code></p>
+                    <p><code>Parts (Pno, Pname, color, weight, city)</code></p>
+                    <p><code>Supply (Sno, Pno, quantity)</code></p>
+                </div>
+
+                <h3>Step 1: Create Tables</h3>
+                <div class="code-block"><code><span class="keyword">CREATE TABLE</span> Supplier (
+    Sno <span class="keyword">VARCHAR</span>(10) <span class="keyword">PRIMARY KEY</span>,
+    Sname <span class="keyword">VARCHAR</span>(50),
+    status <span class="keyword">INT</span>,
+    city <span class="keyword">VARCHAR</span>(50)
+);
+
+<span class="keyword">CREATE TABLE</span> Parts (
+    Pno <span class="keyword">VARCHAR</span>(10) <span class="keyword">PRIMARY KEY</span>,
+    Pname <span class="keyword">VARCHAR</span>(50),
+    color <span class="keyword">VARCHAR</span>(20),
+    weight <span class="keyword">INT</span>,
+    city <span class="keyword">VARCHAR</span>(50)
+);
+
+<span class="keyword">CREATE TABLE</span> Supply (
+    Sno <span class="keyword">VARCHAR</span>(10),
+    Pno <span class="keyword">VARCHAR</span>(10),
+    quantity <span class="keyword">INT</span>,
+    <span class="keyword">PRIMARY KEY</span> (Sno, Pno),
+    <span class="keyword">FOREIGN KEY</span> (Sno) <span class="keyword">REFERENCES</span> Supplier(Sno),
+    <span class="keyword">FOREIGN KEY</span> (Pno) <span class="keyword">REFERENCES</span> Parts(Pno)
+);</code></div>
+
+                <h3>Step 2: Load Data from Text Files</h3>
+                <div class="code-block"><code><span class="keyword">LOAD DATA LOCAL INFILE</span> <span class="string">"C:/data/supplier.txt"</span>
+<span class="keyword">INTO TABLE</span> Supplier
+<span class="keyword">FIELDS TERMINATED BY</span> <span class="string">','</span>
+<span class="keyword">OPTIONALLY ENCLOSED BY</span> <span class="string">'"'</span>
+<span class="keyword">LINES TERMINATED BY</span> <span class="string">'\r\n'</span>;</code></div>
+
+                <h3>📊 Sample Data Tables</h3>
+                
+                <h4>Supplier Table:</h4>
+                <div class="table-container">
+                    <table>
+                        <tr><th>Sno</th><th>Sname</th><th>Status</th><th>City</th></tr>
+                        <tr><td>S1</td><td>Smith</td><td>20</td><td>London</td></tr>
+                        <tr><td>S2</td><td>Jones</td><td>10</td><td>Paris</td></tr>
+                        <tr><td>S3</td><td>Black</td><td>30</td><td>Paris</td></tr>
+                        <tr><td>S4</td><td>Clark</td><td>20</td><td>London</td></tr>
+                        <tr><td>S5</td><td>Adams</td><td>30</td><td>Athens</td></tr>
+                    </table>
+                </div>
+
+                <h4>Parts Table:</h4>
+                <div class="table-container">
+                    <table>
+                        <tr><th>Pno</th><th>Pname</th><th>Color</th><th>Weight</th><th>City</th></tr>
+                        <tr><td>P1</td><td>Nut</td><td>Red</td><td>12</td><td>London</td></tr>
+                        <tr><td>P2</td><td>Bolt</td><td>Green</td><td>17</td><td>Paris</td></tr>
+                        <tr><td>P3</td><td>Screw</td><td>Blue</td><td>17</td><td>Rome</td></tr>
+                        <tr><td>P4</td><td>Screw</td><td>Red</td><td>14</td><td>London</td></tr>
+                        <tr><td>P5</td><td>Cam</td><td>Blue</td><td>12</td><td>Paris</td></tr>
+                        <tr><td>P6</td><td>Cog</td><td>Red</td><td>19</td><td>London</td></tr>
+                    </table>
+                </div>
+
+                <h3>📝 SQL Queries with Answers</h3>
+
+                <div class="question">
+                    <div class="question-num">a) List Sno and Sname of suppliers whose status above 15</div>
+                    <div class="code-block"><code><span class="keyword">SELECT</span> Sno, Sname 
+<span class="keyword">FROM</span> Supplier 
+<span class="keyword">WHERE</span> status > 15;</code></div>
+                </div>
+
+                <div class="question">
+                    <div class="question-num">b) List all cities where parts are manufactured (no duplicates)</div>
+                    <div class="code-block"><code><span class="keyword">SELECT DISTINCT</span> city 
+<span class="keyword">FROM</span> Parts;</code></div>
+                </div>
+
+                <div class="question">
+                    <div class="question-num">d) Deduct the status value by 2 for all suppliers</div>
+                    <div class="code-block"><code><span class="keyword">UPDATE</span> Supplier 
+<span class="keyword">SET</span> status = status - 2;</code></div>
+                </div>
+
+                <div class="question">
+                    <div class="question-num">e) List all suppliers in descending order by status</div>
+                    <div class="code-block"><code><span class="keyword">SELECT</span> * 
+<span class="keyword">FROM</span> Supplier 
+<span class="keyword">ORDER BY</span> status <span class="keyword">DESC</span>;</code></div>
+                </div>
+
+                <div class="question">
+                    <div class="question-num">f) Display parts numbers and quantity where quantity > 300</div>
+                    <div class="code-block"><code><span class="keyword">SELECT</span> Pno, quantity 
+<span class="keyword">FROM</span> Supply 
+<span class="keyword">WHERE</span> quantity > 300;</code></div>
+                </div>
+
+                <div class="question">
+                    <div class="question-num">g) List all parts with color 'Red' or 'Blue'</div>
+                    <div class="code-block"><code><span class="keyword">SELECT</span> * 
+<span class="keyword">FROM</span> Parts 
+<span class="keyword">WHERE</span> color <span class="keyword">IN</span> (<span class="string">'Red'</span>, <span class="string">'Blue'</span>);</code></div>
+                </div>
+
+                <div class="question">
+                    <div class="question-num">h) List all parts with color 'Blue' and city 'Rome'</div>
+                    <div class="code-block"><code><span class="keyword">SELECT</span> * 
+<span class="keyword">FROM</span> Parts 
+<span class="keyword">WHERE</span> color = <span class="string">'Blue'</span> <span class="keyword">AND</span> city = <span class="string">'Rome'</span>;</code></div>
+                </div>
+
+                <div class="question">
+                    <div class="question-num">i) List all parts except Blue</div>
+                    <div class="code-block"><code><span class="keyword">SELECT</span> * 
+<span class="keyword">FROM</span> Parts 
+<span class="keyword">WHERE</span> color != <span class="string">'Blue'</span>;</code></div>
+                </div>
+
+                <div class="question">
+                    <div class="question-num">j) List suppliers whose names have 'I' as the second letter</div>
+                    <div class="code-block"><code><span class="keyword">SELECT</span> * 
+<span class="keyword">FROM</span> Supplier 
+<span class="keyword">WHERE</span> Sname <span class="keyword">LIKE</span> <span class="string">'_i%'</span>;</code></div>
+                </div>
+
+                <div class="question">
+                    <div class="question-num">k) Display name, city, and weight of parts with weight between 12-17</div>
+                    <div class="code-block"><code><span class="keyword">SELECT</span> Pname, city, weight 
+<span class="keyword">FROM</span> Parts 
+<span class="keyword">WHERE</span> weight <span class="keyword">BETWEEN</span> 12 <span class="keyword">AND</span> 17;</code></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Practical 05 -->
+        <div id="practical05" class="tab-content">
+            <div class="section">
+                <h2>🏦 Practical 05 - Bank Database System</h2>
+                
+                <div class="schema-box">
+                    <h3>Database Schema:</h3>
+                    <p><code>bank (BankCode, name, registration)</code></p>
+                    <p><code>branch (BranchNumber, BankCode, name, address)</code></p>
+                    <p><code>account_type (AccTypeCode, name, interest_rate, description)</code></p>
+                    <p><code>account (AccountNo, balance, BankCode, BranchNumber, AccType)</code></p>
+                    <p><code>customer (CusID, NIC, name, address, phone)</code></p>
+                    <p><code>belongs (CustomerID, Anumber)</code></p>
+                </div>
+
+                <h3>Step 1: Create Database and Tables</h3>
+                <div class="code-block"><code><span class="keyword">CREATE DATABASE</span> Bank;
+<span class="keyword">USE</span> Bank;
+
+<span class="keyword">CREATE TABLE</span> bank (
+    BankCode <span class="keyword">VARCHAR</span>(10) <span class="keyword">PRIMARY KEY</span>,
+    name <span class="keyword">VARCHAR</span>(100),
+    registration <span class="keyword">VARCHAR</span>(20)
+);
+
+<span class="keyword">CREATE TABLE</span> branch (
+    BranchNumber <span class="keyword">INT</span> <span class="keyword">PRIMARY KEY</span>,
+    BankCode <span class="keyword">VARCHAR</span>(10),
+    name <span class="keyword">VARCHAR</span>(50),
+    address <span class="keyword">VARCHAR</span>(200),
+    <span class="keyword">FOREIGN KEY</span> (BankCode) <span class="keyword">REFERENCES</span> bank(BankCode)
+);
+
+<span class="keyword">CREATE TABLE</span> account_type (
+    AccTypeCode <span class="keyword">VARCHAR</span>(20) <span class="keyword">PRIMARY KEY</span>,
+    name <span class="keyword">VARCHAR</span>(50),
+    interest_rate <span class="keyword">DECIMAL</span>(5,2),
+    description <span class="keyword">VARCHAR</span>(200)
+);
+
+<span class="keyword">CREATE TABLE</span> account (
+    AccountNo <span class="keyword">VARCHAR</span>(20) <span class="keyword">PRIMARY KEY</span>,
+    balance <span class="keyword">DECIMAL</span>(15,2),
+    BankCode <span class="keyword">VARCHAR</span>(10),
+    BranchNumber <span class="keyword">INT</span>,
+    AccType <span class="keyword">VARCHAR</span>(20),
+    <span class="keyword">FOREIGN KEY</span> (BankCode) <span class="keyword">REFERENCES</span> bank(BankCode),
+    <span class="keyword">FOREIGN KEY</span> (BranchNumber) <span class="keyword">REFERENCES</span> branch(BranchNumber),
+    <span class="keyword">FOREIGN KEY</span> (AccType) <span class="keyword">REFERENCES</span> account_type(AccTypeCode)
+);
+
+<span class="keyword">CREATE TABLE</span> customer (
+    CusID <span class="keyword">VARCHAR</span>(10) <span class="keyword">PRIMARY KEY</span>,
+    NIC <span class="keyword">VARCHAR</span>(15),
+    name <span class="keyword">VARCHAR</span>(100),
+    address <span class="keyword">VARCHAR</span>(200),
+    phone <span class="keyword">VARCHAR</span>(15)
+);
+
+<span class="keyword">CREATE TABLE</span> belongs (
+    CustomerID <span class="keyword">VARCHAR</span>(10),
+    Anumber <span class="keyword">VARCHAR</span>(20),
+    <span class="keyword">PRIMARY KEY</span> (CustomerID, Anumber),
+    <span class="keyword">FOREIGN KEY</span> (CustomerID) <span class="keyword">REFERENCES</span> customer(CusID),
+    <span class="keyword">FOREIGN KEY</span> (Anumber) <span class="keyword">REFERENCES</span> account(AccountNo)
+);</code></div>
+
+                <h3>📝 Query Solutions</h3>
+
+                <div class="question">
+                    <div class="question-num">3) Update interest rate of CHECK account to 7.5%</div>
+                    <div class="code-block"><code><span class="keyword">UPDATE</span> account_type 
+<span class="keyword">SET</span> interest_rate = 7.5 
+<span class="keyword">WHERE</span> AccTypeCode = <span class="string">'CHECK'</span>;</code></div>
+                </div>
+
+                <div class="question">
+                    <div class="question-num">4) Delete "Test" bank from Bank table</div>
+                    <div class="code-block"><code><span class="keyword">DELETE FROM</span> bank 
+<span class="keyword">WHERE</span> name = <span class="string">'Test'</span>;</code></div>
+                </div>
+
+                <div class="question">
+                    <div class="question-num">5) Retrieve customers name and contact information</div>
+                    <div class="code-block"><code><span class="keyword">SELECT</span> name, phone 
+<span class="keyword">FROM</span> customer;</code></div>
+                </div>
+
+                <div class="question">
+                    <div class="question-num">6) Retrieve account number with customer name for Sampath Wijesinghe</div>
+                    <div class="code-block"><code><span class="keyword">SELECT</span> c.name, b.Anumber 
+<span class="keyword">FROM</span> customer c 
+<span class="keyword">JOIN</span> belongs b <span class="keyword">ON</span> c.CusID = b.CustomerID 
+<span class="keyword">WHERE</span> c.name = <span class="string">'Sampath Wijesinghe'</span>;</code></div>
+                </div>
+
+                <div class="question">
+                    <div class="question-num">7) Retrieve all branch numbers, bank code and balance > 10,000</div>
+                    <div class="code-block"><code><span class="keyword">SELECT</span> BranchNumber, BankCode, balance 
+<span class="keyword">FROM</span> account 
+<span class="keyword">WHERE</span> balance > 10000;</code></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Practical 06 -->
+        <div id="practical06" class="tab-content">
+            <div class="section">
+                <h2>👥 Practical 06 - Employee Operations & Concatenation</h2>
+
+                <h3>Step 1: Create Employee Table</h3>
+                <div class="code-block"><code><span class="keyword">CREATE TABLE</span> Employee (
+    Emp_ID <span class="keyword">INT</span> <span class="keyword">PRIMARY KEY</span>,
+    Emp_Name <span class="keyword">VARCHAR</span>(50),
+    Job_Role <span class="keyword">VARCHAR</span>(50)
+);</code></div>
+
+                <h3>Step 2: Add Salary Column</h3>
+                <div class="code-block"><code><span class="keyword">ALTER TABLE</span> Employee 
+<span class="keyword">ADD</span> Salary <span class="keyword">DECIMAL</span>(10,2);</code></div>
+
+                <h3>Step 3: Update Salaries</h3>
+                <div class="code-block"><code><span class="keyword">UPDATE</span> Employee 
+<span class="keyword">SET</span> Salary = 150000 
+<span class="keyword">WHERE</span> Job_Role = <span class="string">'Manager'</span>;
+
+<span class="keyword">UPDATE</span> Employee 
+<span class="keyword">SET</span> Salary = 30000 
+<span class="keyword">WHERE</span> Job_Role = <span class="string">'Salesman'</span>;
+
+<span class="keyword">UPDATE</span> Employee 
+<span class="keyword">SET</span> Salary = 20000 
+<span class="keyword">WHERE</span> Job_Role = <span class="string">'Clark'</span>;</code></div>
+
+                <h3>📝 Query Solutions</h3>
+
+                <div class="question">
+                    <div class="question-num">4) Select all columns sorted by Employee name</div>
+                    <div class="code-block"><code><span class="keyword">SELECT</span> * 
+<span class="keyword">FROM</span> Employee 
+<span class="keyword">ORDER BY</span> Emp_Name;</code></div>
+                </div>
+
+                <div class="question">
+                    <div class="question-num">5) Select Employee name and Salary</div>
+                    <div class="code-block"><code><span class="keyword">SELECT</span> Emp_Name, Salary 
+<span class="keyword">FROM</span> Employee;</code></div>
+                </div>
+
+                <div class="question">
+                    <div class="question-num">6) Select name, salary, and salary + 10000</div>
+                    <div class="code-block"><code><span class="keyword">SELECT</span> Emp_Name, Salary, Salary + 10000 
+<span class="keyword">FROM</span> Employee;</code></div>
+                </div>
+
+                <div class="question">
+                    <div class="question-num">7) Annual salary with 10000 allowance</div>
+                    <div class="code-block"><code><span class="keyword">SELECT</span> Emp_Name, Salary, 12 * Salary + 10000 <span class="keyword">AS</span> Annual_Salary 
+<span class="keyword">FROM</span> Employee;</code></div>
+                </div>
+
+                <div class="question">
+                    <div class="question-num">8) Add 10000 to monthly salary then calculate annual</div>
+                    <div class="code-block"><code><span class="keyword">SELECT</span> Emp_Name, Salary, 12 * (Salary + 10000) <span class="keyword">AS</span> Annual_Salary 
+<span class="keyword">FROM</span> Employee;</code></div>
+                </div>
+
+                <div class="question">
+                    <div class="question-num">9) Use column aliases</div>
+                    <div class="code-block"><code><span class="keyword">SELECT</span> Emp_Name <span class="keyword">AS</span> <span class="string">'Name'</span>, 
+       12 * Salary <span class="keyword">AS</span> <span class="string">'Annual Salary'</span> 
+<span class="keyword">FROM</span> Employee;</code></div>
+                </div>
+
+                <div class="question">
+                    <div class="question-num">10) Concatenate Employee name with job role</div>
+                    <div class="code-block"><code><span class="keyword">SELECT</span> <span class="keyword">CONCAT</span>(Emp_Name, <span class="string">' '</span>, Job_Role) <span class="keyword">AS</span> Employee_Info 
+<span class="keyword">FROM</span> Employee;</code></div>
+                </div>
+
+                <div class="question">
+                    <div class="question-num">11) Concatenate with "is a"</div>
+                    <div class="code-block"><code><span class="keyword">SELECT</span> <span class="keyword">CONCAT</span>(Emp_Name, <span class="string">' is a '</span>, Job_Role) <span class="keyword">AS</span> Employee_Info 
+<span class="keyword">FROM</span> Employee;</code></div>
+                </div>
+
+                <div class="question">
+                    <div class="question-num">12) List distinct job roles</div>
+                    <div class="code-block"><code><span class="keyword">SELECT DISTINCT</span> Job_Role 
+<span class="keyword">FROM</span> Employee;</code></div>
+                </div>
+
+                <div class="question">
+                    <div class="question-num">13) Salary between 10000 and 25000</div>
+                    <div class="code-block"><code><span class="keyword">SELECT</span> * 
+<span class="keyword">FROM</span> Employee 
+<span class="keyword">WHERE</span> Salary <span class="keyword">BETWEEN</span> 10000 <span class="keyword">AND</span> 25000;</code></div>
+                </div>
+
+                <div class="question">
+                    <div class="question-num">14) Employee IDs 1001, 1003, 1004</div>
+                    <div class="code-block"><code><span class="keyword">SELECT</span> * 
+<span class="keyword">FROM</span> Employee 
+<span class="keyword">WHERE</span> Emp_ID <span class="keyword">IN</span> (1001, 1003, 1004);</code></div>
+                </div>
+
+                <div class="question">
+                    <div class="question-num">15) Names starting with letter "S"</div>
+                    <div class="code-block"><code><span class="keyword">SELECT</span> * 
+<span class="keyword">FROM</span> Employee 
+<span class="keyword">WHERE</span> Emp_Name <span class="keyword">LIKE</span> <span class="string">'S%'</span>;</code></div>
+                </div>
+
+                <div class="question">
+                    <div class="question-num">16) Second letter of name is "A"</div>
+                    <div class="code-block"><code><span class="keyword">SELECT</span> * 
+<span class="keyword">FROM</span> Employee 
+<span class="keyword">WHERE</span> Emp_Name <span class="keyword">LIKE</span> <span class="string">'_A%'</span>;</code></div>
+                </div>
+
+                <div class="question">
+                    <div class="question-num">17) Find null values in Job Role</div>
+                    <div class="code-block"><code><span class="keyword">SELECT</span> * 
+<span class="keyword">FROM</span> Employee 
+<span class="keyword">WHERE</span> Job_Role <span class="keyword">IS NULL</span>;</code></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Practical 07 -->
+        <div id="practical07" class="tab-content">
+            <div class="section">
+                <h2>📊 Practical 07 - Aggregate Functions & GROUP BY</h2>
+
+                <h3>Employee Table Data</h3>
+                <div class="table-container">
+                    <table>
+                        <tr><th>EMPLOYEE_ID</th><th>FIRST_NAME</th><th>LAST_NAME</th><th>HIRE_DATE</th><th>JOB_ID</th><th>SALARY</th><th>Dept_ID</th></tr>
+                        <tr><td>100</td><td>Steven</td><td>King</td><td>1993-06-07</td><td>Programmer</td><td>40000</td><td>10</td></tr>
+                        <tr><td>101</td><td>Neena</td><td>Kochchar</td><td>1994-06-20</td><td>Salesman</td><td>60000</td><td>20</td></tr>
+                        <tr><td>102</td><td>Lex</td><td>Hunold</td><td>1993-06-10</td><td>Manager</td><td>60000</td><td>10</td></tr>
+                        <tr><td>103</td><td>Alexander</td><td>Ernst</td><td>2000-08-20</td><td>Salesman</td><td>NULL</td><td>20</td></tr>
+                        <tr><td>104</td><td>Bruce</td><td>Austin</td><td>2000-10-07</td><td>Salesman</td><td>45000</td><td>10</td></tr>
+                        <tr><td>105</td><td>David</td><td>Patal</td><td>2000-10-08</td><td>Programmer</td><td>40000</td><td>10</td></tr>
+                        <tr><td>106</td><td>Valli</td><td>Chen</td><td>1993-10-08</td><td>Manager</td><td>65000</td><td>40</td></tr>
+                        <tr><td>107</td><td>Diana</td><td>Chiera</td><td>1993-10-09</td><td>Programmer</td><td>40000</td><td>40</td></tr>
+                        <tr><td>108</td><td>Nancy</td><td>Berg</td><td>1993-10-10</td><td>Manager</td><td>55000</td><td>40</td></tr>
+                        <tr><td>109</td><td>John</td><td>Greenberg</td><td>1990-06-07</td><td>Clerk</td><td>24000</td><td>30</td></tr>
+                        <tr><td>110</td><td>Daniel</td><td>urman</td><td>1991-08-10</td><td>Manager</td><td>50000</td><td>30</td></tr>
+                    </table>
+                </div>
+
+                <h3>Create & Load Data</h3>
+                <div class="code-block"><code><span class="keyword">CREATE TABLE</span> employees (
+    EMPLOYEE_ID <span class="keyword">INT</span> <span class="keyword">PRIMARY KEY</span>,
+    FIRST_NAME <span class="keyword">VARCHAR</span>(50),
+    LAST_NAME <span class="keyword">VARCHAR</span>(50),
+    HIRE_DATE <span class="keyword">DATE</span>,
+    JOB_ID <span class="keyword">VARCHAR</span>(50),
+    SALARY <span class="keyword">DECIMAL</span>(10,2),
+    Dept_ID <span class="keyword">INT</span>
+);
+
+<span class="comment">-- Load data from text file</span>
+<span class="keyword">LOAD DATA LOCAL INFILE</span> <span class="string">"D:/data/employees.txt"</span>
+<span class="keyword">INTO TABLE</span> employees
+<span class="keyword">FIELDS TERMINATED BY</span> <span class="string">','</span>
+<span class="keyword">OPTIONALLY ENCLOSED BY</span> <span class="string">'"'</span>
+<span class="keyword">LINES TERMINATED BY</span> <span class="string">'\r\n'</span>;</code></div>
+
+                <h3>📝 Query Solutions</h3>
+
+                <div class="question">
+                    <div class="question-num">7) Find and update null values in salary</div>
+                    <div class="code-block"><code><span class="keyword">SELECT</span> Salary
+<span class="keyword">FROM</span> employees
+<span class="keyword">WHERE</span> Salary <span class="keyword">IS NULL</span>;
+
+<span class="keyword">UPDATE</span> employees
+<span class="keyword">SET</span> Salary = 30000
+<span class="keyword">WHERE</span> Salary <span class="keyword">IS NULL</span>;</code></div>
+                </div>
+
+                <div class="question">
+                    <div class="question-num">8) Count number of distinct jobs</div>
+                    <div class="code-block"><code><span class="keyword">SELECT COUNT</span>(<span class="keyword">DISTINCT</span> job_id) <span class="keyword">AS</span> <span class="string">'Number of Jobs'</span>
+<span class="keyword">FROM</span> employees;</code></div>
+                </div>
+
+                <div class="question">
+                    <div class="question-num">9) Get total salaries payable to employees</div>
+                    <div class="code-block"><code><span class="keyword">SELECT SUM</span>(salary) <span class="keyword">AS</span> <span class="string">'Total Salaries'</span>
+<span class="keyword">FROM</span> employees;</code></div>
+                </div>
+
+                <div class="question">
+                    <div class="question-num">10) Get minimum salary</div>
+                    <div class="code-block"><code><span class="keyword">SELECT MIN</span>(salary) <span class="keyword">AS</span> <span class="string">'Minimum Salary'</span>
+<span class="keyword">FROM</span> employees;</code></div>
+                </div>
+
+                <div class="question">
+                    <div class="question-num">11) Get maximum salary of Programmer</div>
+                    <div class="code-block"><code><span class="keyword">SELECT MAX</span>(salary) <span class="keyword">AS</span> <span class="string">'Max Programmer Salary'</span>
+<span class="keyword">FROM</span> employees
+<span class="keyword">WHERE</span> job_id = <span class="string">'Programmer'</span>;</code></div>
+                </div>
+
+                <div class="question">
+                    <div class="question-num">12) Number of employees with same job</div>
+                    <div class="code-block"><code><span class="keyword">SELECT</span> job_id, <span class="keyword">COUNT</span>(*) <span class="keyword">AS</span> <span class="string">'Employee Count'</span>
+<span class="keyword">FROM</span> employees
+<span class="keyword">GROUP BY</span> job_id;</code></div>
+                </div>
+
+                <div class="question">
+                    <div class="question-num">13) Department ID and total salary per department</div>
+                    <div class="code-block"><code><span class="keyword">SELECT</span> department_id, <span class="keyword">SUM</span>(salary) <span class="keyword">AS</span> <span class="string">'Total Salary'</span>
+<span class="keyword">FROM</span> employees
+<span class="keyword">GROUP BY</span> department_id;</code></div>
+                </div>
+
+                <div class="question">
+                    <div class="question-num">14) Total, max, min, avg salary by job for department 40</div>
+                    <div class="code-block"><code><span class="keyword">SELECT</span> job_id, 
+       <span class="keyword">SUM</span>(salary) <span class="keyword">AS</span> <span class="string">'Total'</span>,
+       <span class="keyword">AVG</span>(salary) <span class="keyword">AS</span> <span class="string">'Average'</span>,
+       <span class="keyword">MAX</span>(salary) <span class="keyword">AS</span> <span class="string">'Maximum'</span>,
+       <span class="keyword">MIN</span>(salary) <span class="keyword">AS</span> <span class="string">'Minimum'</span>
+<span class="keyword">FROM</span> employees
+<span class="keyword">WHERE</span> department_id = 40
+<span class="keyword">GROUP BY</span> job_id;</code></div>
+                </div>
+
+                <div class="question">
+                    <div class="question-num">15) Department and max salary where max > 30000</div>
+                    <div class="code-block"><code><span class="keyword">SELECT</span> Dept_ID, <span class="keyword">MAX</span>(salary) <span class="keyword">AS</span> <span class="string">'Max Salary'</span>
+<span class="keyword">FROM</span> employees
+<span class="keyword">GROUP BY</span> Dept_ID
+<span class="keyword">HAVING MAX</span>(salary) > 30000;</code></div>
+                </div>
+
+                <div class="question">
+                    <div class="question-num">16) Job ID and sum of salaries > 50000, not starting with 'sales'</div>
+                    <div class="code-block"><code><span class="keyword">SELECT</span> job_id, <span class="keyword">SUM</span>(salary) <span class="keyword">AS</span> <span class="string">'Total Salary'</span>
+<span class="keyword">FROM</span> employees
+<span class="keyword">WHERE</span> job_id <span class="keyword">NOT LIKE</span> <span class="string">'sales%'</span>
+<span class="keyword">GROUP BY</span> job_id
+<span class="keyword">HAVING SUM</span>(salary) > 50000
+<span class="keyword">ORDER BY SUM</span>(salary);</code></div>
+                </div>
+
+                <div class="note">
+                    <strong>💡 Key Concepts:</strong><br>
+                    • <span class="highlight">GROUP BY</span> - Groups rows with same values<br>
+                    • <span class="highlight">HAVING</span> - Filter groups (use after GROUP BY)<br>
+                    • <span class="highlight">WHERE</span> - Filter rows (use before GROUP BY)<br>
+                    • Aggregate functions: COUNT(), SUM(), AVG(), MAX(), MIN()
+                </div>
+            </div>
+        </div>
+
+        <!-- Practical 09 -->
+        <div id="practical09" class="tab-content">
+            <div class="section">
+                <h2>🔗 Practical 09 - SQL Joins</h2>
+
+                <h3>Understanding Joins</h3>
+                <div class="note">
+                    <strong>What is a Join?</strong><br>
+                    A join is used to query data from more than one table based on a relationship between columns.
+                </div>
+
+                <h3>Join Syntax Reference</h3>
+                <div class="code-block"><code><span class="comment">-- INNER JOIN: Returns matching records from both tables</span>
+<span class="keyword">SELECT</span> columns
+<span class="keyword">FROM</span> table1
+<span class="keyword">INNER JOIN</span> table2
+<span class="keyword">ON</span> table1.column = table2.column;
+
+<span class="comment">-- LEFT JOIN: Returns all records from left table, matching from right</span>
+<span class="keyword">SELECT</span> columns
+<span class="keyword">FROM</span> table1
+<span class="keyword">LEFT JOIN</span> table2
+<span class="keyword">ON</span> table1.column = table2.column;
+
+<span class="comment">-- RIGHT JOIN: Returns all records from right table, matching from left</span>
+<span class="keyword">SELECT</span> columns
+<span class="keyword">FROM</span> table1
+<span class="keyword">RIGHT JOIN</span> table2
+<span class="keyword">ON</span> table1.column = table2.column;</code></div>
+
+                <h3>Step 1: Create Tables</h3>
+                <div class="code-block"><code><span class="keyword">DROP DATABASE IF EXISTS</span> XYZ_Company;
+<span class="keyword">CREATE DATABASE</span> XYZ_Company;
+<span class="keyword">USE</span> XYZ_Company;
+
+<span class="keyword">CREATE TABLE</span> Department(
+    DeptCode <span class="keyword">INT</span> <span class="keyword">NOT NULL</span>,
+    DeptName <span class="keyword">VARCHAR</span>(15) <span class="keyword">NOT NULL</span>,
+    DeptHead <span class="keyword">VARCHAR</span>(15),
+    RegDate <span class="keyword">DATE</span>,
+    <span class="keyword">PRIMARY KEY</span> (DeptCode)
+);
+
+<span class="keyword">CREATE TABLE</span> employees(
+    EMPLOYEE_ID <span class="keyword">CHAR</span>(3),
+    FIRST_NAME <span class="keyword">VARCHAR</span>(10),
+    LAST_NAME <span class="keyword">VARCHAR</span>(10),
+    HIRE_DATE <span class="keyword">DATE</span>,
+    JOB_ID <span class="keyword">VARCHAR</span>(10),
+    SALARY <span class="keyword">DECIMAL</span>(10,2),
+    Dept_ID <span class="keyword">INT</span>,
+    <span class="keyword">PRIMARY KEY</span> (EMPLOYEE_ID),
+    <span class="keyword">FOREIGN KEY</span> (Dept_ID) <span class="keyword">REFERENCES</span> Department(DeptCode)
+);</code></div>
+
+                <h3>Sample Data Tables</h3>
+                
+                <h4>Department Table:</h4>
+                <div class="table-container">
+                    <table>
+                        <tr><th>DeptCode</th><th>DeptName</th><th>DeptHead</th><th>RegDate</th></tr>
+                        <tr><td>10</td><td>Accounting</td><td>King</td><td>1993-06-07</td></tr>
+                        <tr><td>20</td><td>Marketing</td><td>Kochchar</td><td>1994-06-20</td></tr>
+                        <tr><td>30</td><td>Production</td><td>Hunold</td><td>1993-06-10</td></tr>
+                        <tr><td>40</td><td>Sales</td><td>Ernst</td><td>2000-08-20</td></tr>
+                    </table>
+                </div>
+
+                <h4>Employees Table:</h4>
+                <div class="table-container">
+                    <table>
+                        <tr><th>EMPLOYEE_ID</th><th>FIRST_NAME</th><th>LAST_NAME</th><th>HIRE_DATE</th><th>JOB_ID</th><th>SALARY</th><th>Dept_ID</th></tr>
+                        <tr><td>100</td><td>Steven</td><td>King</td><td>1993-06-07</td><td>Programmer</td><td>40000</td><td>10</td></tr>
+                        <tr><td>101</td><td>Neena</td><td>Kochchar</td><td>1994-06-20</td><td>Salesman</td><td>60000</td><td>20</td></tr>
+                        <tr><td>102</td><td>Lex</td><td>Hunold</td><td>1993-06-10</td><td>Manager</td><td>60000</td><td>NULL</td></tr>
+                        <tr><td>103</td><td>Alexander</td><td>Ernst</td><td>2000-08-20</td><td>Salesman</td><td>35000</td><td>20</td></tr>
+                        <tr><td>104</td><td>Bruce</td><td>Austin</td><td>2000-10-07</td><td>Salesman</td><td>45000</td><td>NULL</td></tr>
+                        <tr><td>105</td><td>David</td><td>Patal</td><td>2000-10-08</td><td>Programmer</td><td>40000</td><td>30</td></tr>
+                        <tr><td>106</td><td>Valli</td><td>Chen</td><td>1993-10-08</td><td>Manager</td><td>65000</td><td>40</td></tr>
+                    </table>
+                </div>
+
+                <h3>📝 Query Solutions</h3>
+
+                <div class="question">
+                    <div class="question-num">2) INNER JOIN - Show only matching records</div>
+                    <div class="code-block"><code><span class="keyword">SELECT</span> e.EMPLOYEE_ID, e.FIRST_NAME, e.LAST_NAME, 
+       e.JOB_ID, e.SALARY, d.DeptName
+<span class="keyword">FROM</span> employees e
+<span class="keyword">INNER JOIN</span> Department d
+<span class="keyword">ON</span> e.Dept_ID = d.DeptCode;</code></div>
+                    <div class="note">
+                        <strong>Result:</strong> Returns only employees who have a matching department (excludes employees with NULL Dept_ID)
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-num">3) LEFT JOIN - Show all employees</div>
+                    <div class="code-block"><code><span class="keyword">SELECT</span> e.EMPLOYEE_ID, e.FIRST_NAME, e.LAST_NAME, 
+       e.JOB_ID, e.SALARY, d.DeptName
+<span class="keyword">FROM</span> employees e
+<span class="keyword">LEFT JOIN</span> Department d
+<span class="keyword">ON</span> e.Dept_ID = d.DeptCode;</code></div>
+                    <div class="note">
+                        <strong>Result:</strong> Returns ALL employees, even those without a department (shows NULL for department info)
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-num">4) RIGHT JOIN - Show all departments</div>
+                    <div class="code-block"><code><span class="keyword">SELECT</span> e.EMPLOYEE_ID, e.FIRST_NAME, e.LAST_NAME, 
+       e.JOB_ID, e.SALARY, d.DeptName
+<span class="keyword">FROM</span> employees e
+<span class="keyword">RIGHT JOIN</span> Department d
+<span class="keyword">ON</span> e.Dept_ID = d.DeptCode;</code></div>
+                    <div class="note">
+                        <strong>Result:</strong> Returns ALL departments, even those without employees (shows NULL for employee info)
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-num">5) Find employees with salary between 30000 and 50000</div>
+                    <div class="code-block"><code><span class="keyword">SELECT</span> e.EMPLOYEE_ID, e.FIRST_NAME, d.DeptName, e.JOB_ID
+<span class="keyword">FROM</span> employees e
+<span class="keyword">INNER JOIN</span> Department d
+<span class="keyword">ON</span> e.Dept_ID = d.DeptCode
+<span class="keyword">WHERE</span> e.SALARY <span class="keyword">BETWEEN</span> 30000 <span class="keyword">AND</span> 50000;</code></div>
+                </div>
+
+                <div class="note">
+                    <strong>💡 Join Comparison:</strong><br>
+                    • <span class="highlight">INNER JOIN</span> - Only matching records<br>
+                    • <span class="highlight">LEFT JOIN</span> - All from left table + matches from right<br>
+                    • <span class="highlight">RIGHT JOIN</span> - All from right table + matches from left<br>
+                    • <span class="highlight">FULL OUTER JOIN</span> - All records from both tables (not in MySQL, use UNION)
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showTab(tabId) {
+            // Hide all tabs
+            const tabs = document.querySelectorAll('.tab-content');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            
+            // Remove active class from all buttons
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            
+            // Show selected tab
+            document.getElementById(tabId).classList.add('active');
+            
+            // Add active class to clicked button
+            event.target.classList.add('active');
+        }
+    </script>
+</body>
+</html>
